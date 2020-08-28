@@ -1,0 +1,185 @@
+<resources>
+    <string name="app_name">Kallakuri Group</string>
+
+    <string name="mobile_number">Mobile Number</string>
+    <string name="pin">Password</string>
+    <string name="forgot_pin">Forgot Password</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="error">Error</string>
+    <string name="ok">Ok</string>
+    <string name="no_internet_connection">You don\'t have internet connection.</string>
+    <string name="enter_mobile_number">Please enter Phone number</string>
+    <string name="enter_valid_ten_digit_mobile_number">Please enter valid Phone number</string>
+    <string name="pin_change">Are You Sure,Want to set a New Password? </string>
+    <string name="enter_Valid_pin">Please Enter Valid PinCode</string>
+    <string name="enter_password">Please Enter Password</string>
+    <string name="enter_confirm_pass">Please Enter Confirm Password</string>
+    <string name="pass_does_not_matched">Password does not matched with Confirm Password</string>
+    <string name="enter_yourname">Please Enter  Name</string>
+    <string name="networkalert2">We are unable to reach our server, Please Contact Our Customer Care</string>
+    <string name="networkalert">We are unable to reach our server, Please try again later</string>
+    <string name="invalidlogin">Invalid Username or Password!</string>
+    <string name="failed">Failed</string>
+    <string name="please_check_internet">Please check your Internet connection</string>
+    <string name="contact_cust">Please contact customer care</string>
+    <string name="unabletologin">Unable to login</string>
+    <string name="unabletoRegister">Unable to register</string>
+    <string name="sendotp">SEND OTP</string>
+    <string name="PleaseTryAgain">Something went wrong! please try again</string>
+    <string name="no_data_found">No data found</string>
+    <string name="mb_verify">MOBILE NUMBER VERIFICATION</string>
+    <string name="forgot_text">ENTER YOUR MOBILE NUMBER AND WILL SEND YOU A OTP(ONE TIME PASSWORD)TO RESET YOUR PASSWORD</string>
+    <string name="verify_text">Could not automatically verify your number. Please manually enter the OTP(One Time Password) you received as an SMS</string>
+    <string name="title_activity_sms_receiver">SmsReceiver</string>
+    <string name="verify">Enter OTP</string>
+    <string name="resend_otp">Resend OTP</string>
+    <string name="not_getting_otp">Not getting OTP? no problem.</string>
+    <string name="confirm_call">Confirm through missed call</string>
+    <string name="from1">From</string>
+    <string name="otp">VERIFY OTP</string>
+    <string name="reset_text">Enter your new password to reset your old password</string>
+    <string name="verify_otp">VERIFY OTP</string>
+    <string name="otp_not_match">OTP does not matched</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="logout_confirm1">Do you want to Signout?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="Successful">Successful</string>
+    <string name="call_are_you_sure">Are you sure do you want to call now ?</string>
+    <string name="Verification">Verification</string>
+    <string name="verifyCall">Verify call</string>
+    <string name="signupTitle">Signup with your mobile number</string>
+    <string name="register_text">Tapping signup, you agree to our Terms and Conditions and Privacy policy.</string>
+    <string name="register">SIGNUP</string>
+    <string name="signupSpace">SIGN UP</string>
+
+    <string name="max_bus_types">Maximum 1 Business Type Allowed</string>
+    <string name="enter_surname">Please Enter your surname</string>
+    <string name="Please_enter_your_name">Please enter your name</string>
+    <string name="Please_enter_your_shop_name">Please enter your Shop Name</string>
+    <string name="Please_enter_your_shop_address">Please enter your Shop Address</string>
+    <string name="Please_enter_valid_six_digit_pin_code">Please enter valid six-digit password code</string>
+    <string name="Please_enter_your_city_name">Please enter your city name</string>
+    <string name="Please_enter_your_mobile_number">Please enter your mobile number</string>
+    <string name="Please_enter_your_landmark">Please enter your landmark</string>
+    <string name="Please_select_your_state">Please select your State</string>
+    <string name="Please_select_your_role">Please select your Role</string>
+    <string name="businessDetails">YOUR ACCOUNT DETAILS</string>
+    <string name="selectBusinessType">Select Business type</string>
+    <string name="enter_businessName">Please give us business name</string>
+    <string name="enter_email">Please Enter Valid Email ID</string>
+    <string name="enter_gender">Please Select your Gender</string>
+    <string name="dob_pop_error">Select Valid DATE OF BIRTH</string>
+    <string name="bus_type">Please Enter Your Business Type</string>
+    <string name="enter_village">Please Enter your Town/Village</string>
+    <string name="enter_city">Please Enter your City</string>
+    <string name="enter_district">Please Enter your District</string>
+    <string name="enter_age_less">Age cannot be less than 18</string>
+    <string name="last_name_enter">Please Enter your Last Name</string>
+    <string name="enter_mother">Please Enter your Mother Maiden Name</string>
+    <string name="pin_account_set">Password</string>
+    <string name="confirm_pin_account_set">Confirm Password</string>
+    <string name="select_role">Select Role</string>
+    <string name="status_pending_list_mt">Status: OTP Confirmation Pending</string>
+    <string name="firstname">First Name</string>
+    <string name="lastname">Last Name</string>
+    <string name="fullName">Name</string>
+    <string name="Surname">Sur name</string>
+
+    <string name="Male_tgle">Male</string>
+    <string name="Female_tgle">Female</string>
+    <string name="confirm_pass">Confirm Password</string>
+    <string name="Mobilenumber">Mobile Number</string>
+    <string name="address">Address</string>
+    <string name="ShopName">Shop Name</string>
+    <string name="Business_type">Business Type</string>
+    <string name="Type">Mobile Type</string>
+    <string name="choose_operator">Choose Operator</string>
+    <string name="email_tv">WE WILL BE SENDING VERIFICATION LINK TO THE ABOVE EMAIL FOR VERIFICATION</string>
+    <string name="email_pending">Email Verification Pending</string>
+    <string name="email_resend">Resend Verification Email</string>
+    <string name="email">Email ID</string>
+    <string name="gender">Gender</string>
+    <string name="dob">Date of Birth</string>
+    <string name="DOB_in_year">Date of Birth(yyyy/mm/dd)</string>
+    <string name="male_caps">MALE</string>
+    <string name="female_caps">FEMALE</string>
+    <string name="yrs">yrs</string>
+    <string name="age_caps">AGE</string>
+    <string name="to">To</string>
+    <string name="City_tv">City</string>
+    <string name="village_tv">Town/Village</string>
+    <string name="Locality">Locality</string>
+    <string name="district">District</string>
+    <string name="state">State</string>
+    <string name="Pin_code">Pin code</string>
+    <string name="area">Area</string>
+    <string name="state_prompt">Choose a State</string>
+    <string name="role_prompt">Choose a Role</string>
+    <string name="ReferralID">Referral code</string>
+    <string name="apply">Apply</string>
+    <string name="SubmitCaps">SUBMIT</string>
+    <string name="loginwith">Login with mobile number</string>
+    <string name="newUser">I am new user</string>
+
+    <!--    OPTION MENU     -->
+    <string name="home">Home</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="feedback">FeedBack</string>
+    <string name="about_us">About Us</string>
+    <string name="kk_groups">Kk Groups</string>
+    <string name="close">CloseNav</string>
+    <string name="open">OpenNav</string>
+    <string name="logout">Logout</string>
+    <string name="kk">Kk</string>
+    <string name="username">Username</string>
+    <string name="cart">cart</string>
+    <string name="try_again">Try Again!</string>
+    <string name="otp_request_Sent">OTP Request Sent</string>
+    <string name="registration_successful">Registration Successful</string>
+    <string name="role">Role</string>
+    <string name="chooseRole">Choose Your Role</string>
+
+    <string-array name="state_arrays">
+        <item>State</item>
+        <item>Andhra Pradesh</item>
+        <item>Arunanchal Pradesh</item>
+        <item>Assam</item>
+        <item>Bihar</item>
+        <item>Chattisgarh</item>
+        <item>Goa</item>
+        <item>Gujarat</item>
+        <item>Haryana</item>
+        <item>Himachal Pradesh</item>
+        <item>Jammu and kashmir</item>
+        <item>Jharkand</item>
+        <item>Karnataka</item>
+        <item>Kerala</item>
+        <item>Madhya Pradesh</item>
+        <item>Maharashtra</item>
+        <item>Manipur</item>
+        <item>Meghalaya</item>
+        <item>Mizoram</item>
+        <item>Nagaland</item>
+        <item>NewDelhi</item>
+        <item>Orissa</item>
+        <item>Punjab</item>
+        <item>Rajasthan</item>
+        <item>Sikkim</item>
+        <item>Tamil Nadu</item>
+        <item>Telangana</item>
+        <item>Tripura</item>
+        <item>Uttar Pradesh</item>
+        <item>Uttaranchal</item>
+        <item>West Bengal</item>
+
+
+    </string-array>
+
+    <string-array name="role_array">
+        <item>Role</item>
+        <item>Andhra Pradesh</item>
+    </string-array>
+
+</resources>

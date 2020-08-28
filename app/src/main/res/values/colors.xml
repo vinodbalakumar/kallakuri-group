@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#4aa322</color>
+    <color name="colorPrimaryDark">#143404</color>
+    <color name="colorAccent">#5c135c</color>
+    <color name="transparent">#00000000</color>
+    <color name="black">#000000</color>
+    <color name="blue">#0099ff</color>
+    <color name="white">#ffffff</color>
+    <color name="text_color_grey">#898989</color>
+    <color name="green">#4aa322</color>
+    <color name="purple">#5c135c</color>
+    <color name="border_color">#e5e5e5</color>
+    <color name="grey">#808080</color>
+    <color name="gender_color">#aaaaaa</color>
+    <color name="email_text_color">#f98ff1f5</color>
+    <color name="e5e5e5">#e5e5e5</color>
+    <color name="line_color">#e2e1e1</color>
+    <color name="viewline">#D9DADA</color>
+    <color name="view_all_button">#0099ff</color>
+    <color name="placeHolder">#dddddd</color>
+
+</resources>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/header"
+        android:id="@+id/titleHead"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_50sdp"
+        android:layout_below="@+id/titleHead"
+        android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/grey"
+        android:gravity="center"
+        android:text="@string/signupTitle"
+        android:textSize="@dimen/_18sdp"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:theme="@style/TextLabell"
+            android:layout_marginTop="@dimen/_40sdp">
+
+            <EditText
+                android:id="@+id/edit_username"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:hint="@string/mobile_number"
+                android:inputType="number"
+                android:maxLength="10"
+                android:textSize="@dimen/_12sdp"
+                android:text=""
+                android:textColor="@color/black"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/llTerms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="@string/register_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:clickable="true"
+                android:id="@+id/register_partclick"
+                android:layout_gravity="center_horizontal"
+                android:textAlignment="center"
+                android:textIsSelectable="false"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_weight="0.18"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/butRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:text="@string/signupSpace"
+            android:padding="@dimen/_10sdp"
+            android:layout_margin="@dimen/_50sdp"
+            android:background="@drawable/button_background"
+            android:textSize="@dimen/_14sdp"/>
+    </LinearLayout>
+</RelativeLayout>

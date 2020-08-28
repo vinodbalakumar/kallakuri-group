@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <include
+        layout="@layout/header"
+        android:id="@+id/title_header">
+    </include>
+
+    <ScrollView
+        android:animateLayoutChanges="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_below="@+id/title_header">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/relative_acc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+           <!-- <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_weight="1">
+                <Spinner
+                    android:id="@+id/role_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:prompt="@string/role_prompt"
+                    android:entries="@array/role_array"
+                    android:background="@null"
+                    android:spinnerMode="dropdown"
+                    android:text=""/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:src="@drawable/try_angle"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/viewline" />
+            </RelativeLayout>-->
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/TextLabell"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_10sdp">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:id="@+id/roleName"
+                    android:hint="@string/role"
+                    android:gravity="start"
+                    android:focusable="false"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColorHint="@color/grey"
+                    android:nextFocusDown="@+id/account_first_name"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/TextLabell"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_10sdp">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:id="@+id/account_first_name"
+                    android:hint="@string/fullName"
+                    android:gravity="start"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColorHint="@color/grey"
+                    android:nextFocusDown="@+id/account_last_name"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/TextLabell"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_10sdp">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:id="@+id/account_last_name"
+                    android:nextFocusDown="@+id/account_pass"
+                    android:hint="@string/Surname"
+                    android:gravity="start"
+                    android:textColorHint="@color/grey"
+                    android:textSize="@dimen/_12sdp"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/TextLabell"
+                android:visibility="visible"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:maxLength="10"
+                    android:id="@+id/account_pass"
+                    android:hint="@string/pin_account_set"
+                    android:gravity="start"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColorHint="@color/grey"
+                    android:nextFocusDown="@id/account_confirm_pass"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/TextLabell"
+                android:orientation="vertical"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_10sdp">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:maxLength="10"
+                    android:textSize="@dimen/_12sdp"
+                    android:nextFocusDown="@id/email_tv"
+                    android:id="@+id/account_confirm_pass"
+                    android:hint="@string/confirm_pin_account_set"
+                    android:textColorHint="@color/grey"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/TextLabell"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_10sdp">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:textColorHint="@color/grey"
+                    android:textSize="@dimen/_12sdp"
+                    android:nextFocusDown="@+id/dob_et"
+                    android:id="@+id/email"
+                    android:hint="@string/email" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:text="@string/email_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_9sdp"
+                android:layout_gravity="start"
+                android:id="@+id/email_tv"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:textColor="@color/grey">
+            </TextView>
+
+            <LinearLayout
+                android:id="@+id/ll_Gender_DOB_titles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:text="@string/gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_12sdp"
+                    android:layout_gravity="start"
+                    android:id="@+id/gender_tv"
+                    android:layout_weight="1"
+                    android:padding="0.6dp"
+                    android:textColor="@color/grey"
+                    android:layout_marginLeft="5dp">
+                </TextView>
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/DOB_tv"
+                    android:text="@string/dob"
+                    android:lines="1"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:textSize="@dimen/_12sdp"
+                    android:layout_gravity="center"
+                    android:textColor="@color/grey"
+                    android:layout_marginLeft="@dimen/_25sdp"
+                    android:layout_toRightOf="@+id/ll_gender"
+                    android:layout_toEndOf="@+id/ll_gender" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginRight="5dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:weightSum="1"
+                    android:layout_weight="1"
+                    android:nextFocusDown="@+id/dob_et"
+                    >
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:text="@string/male_caps"
+                        android:id="@+id/toggleButton1"
+                        android:checked="true"
+                        android:visibility="visible"
+                        android:textSize="@dimen/_10sdp"
+                        android:theme="@style/RadioButtonStyle"
+                        android:textColor="@color/black"
+                        android:layout_weight="0.5" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:text="@string/female_caps"
+                        android:textSize="@dimen/_10sdp"
+                        android:visibility="visible"
+                        android:id="@+id/toggleButton2"
+                        android:checked="false"
+                        android:theme="@style/RadioButtonStyle"
+                        android:textColor="@color/black"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="0.5" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/DOB_tv_dummy"
+                    android:text="@string/to"
+                    android:textStyle="bold"
+                    android:lines="1"
+                    android:clickable="true"
+                    android:textSize="@dimen/_12sdp"
+                    android:layout_gravity="center"
+                    android:layout_centerHorizontal="true"
+                    android:visibility="invisible" />
+
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="onDobClick"
+                    android:id="@+id/dob_et"
+                    android:nextFocusDown="@+id/shop_address_Et_id"
+                    android:textSize="@dimen/_12sdp"
+                    android:text=""
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:textColorHint="@color/viewline"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/viewline"
+                    android:textIsSelectable="true"
+                    android:layout_alignRight="@+id/email_tv"
+                    android:layout_alignEnd="@+id/email_tv"
+                    android:layout_alignTop="@+id/ll_gender"
+                    android:layout_toEndOf="@+id/view"
+                    android:layout_toRightOf="@+id/view">
+                </EditText>
+
+            </LinearLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/view4"
+                android:padding="0.6dp"
+                android:theme="@style/TextLabell"
+                android:layout_below="@+id/view_shop_name"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_10sdp">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPostalAddress"
+                    android:gravity=""
+                    android:textSize="@dimen/_12sdp"
+                    android:nextFocusDown="@+id/postal_code_et"
+                    android:id="@+id/shop_address_Et_id"
+                    android:textColorHint="@color/grey"
+                    android:hint="@string/address" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_pincode_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="0.6dp"
+                    android:theme="@style/TextLabell"
+                    android:layout_weight="1">
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:maxLength="6"
+                        android:textSize="@dimen/_12sdp"
+                        android:id="@+id/postal_code_et"
+                        android:nextFocusDown="@id/village_et"
+                        android:textColorHint="@color/grey"
+                        android:hint="@string/Pin_code" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/village_tv"
+                    android:theme="@style/TextLabell"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp">
+                    <EditText
+                        android:id="@+id/village_et"
+                        android:hint="@string/village_tv"
+                        android:inputType="textPostalAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nextFocusDown="@+id/city_et"
+                        android:layout_toRightOf="@+id/address2"
+                        android:textColorHint="@color/grey"
+                        android:textSize="@dimen/_12sdp"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/city_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/City_tv"
+                android:theme="@style/TextLabell"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_10sdp">
+                <EditText
+                    android:id="@+id/city_et"
+                    android:hint="@string/City_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPostalAddress"
+                    android:nextFocusDown="@+id/district_et"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColorHint="@color/grey"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_10sdp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/district_view"
+                    android:layout_width="0dp"
+                    android:theme="@style/TextLabell"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/district"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:layout_marginLeft="5dp">
+
+                    <EditText
+                        android:id="@+id/district_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/district_view"
+                        android:hint="@string/district"
+                        android:textColorHint="@color/grey"
+                        android:textSize="@dimen/_12sdp"
+                        android:inputType="textPostalAddress"
+                        android:nextFocusDown="@+id/state_et"
+                        android:text="" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginBottom="@dimen/_6sdp"
+                    android:layout_weight="1">
+                <Spinner
+                    android:id="@+id/state_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:prompt="@string/state_prompt"
+                    android:entries="@array/state_arrays"
+                    android:background="@null"
+                    android:spinnerMode="dropdown"
+                    android:text=""/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:paddingBottom="@dimen/_5sdp"
+                        android:src="@drawable/try_angle"/>
+                 <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/viewline" />
+                </RelativeLayout>
+            </LinearLayout>
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/SubmitCaps"
+                android:textColor="@color/white"
+                android:background="@drawable/button_background"
+                android:id="@+id/submit_btn_accntsetup"
+                android:layout_gravity="center|bottom"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:textSize="@dimen/_18sdp"
+                android:padding="@dimen/_10sdp"
+                android:layout_margin="@dimen/_10sdp"
+               />
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/dummy_TV"
+                android:text=""
+                android:textStyle="bold"
+                android:lines="1"
+                android:clickable="true"
+                android:textSize="12sp"
+                android:textColor="@color/view_all_button"
+                android:gravity="center_horizontal"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:visibility="invisible" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>
+
+

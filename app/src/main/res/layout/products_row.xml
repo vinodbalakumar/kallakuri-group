@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="product"
+            type="com.example.kallakurigroup.models.productsmodels.ProductDetails" />
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/brandsRowCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_7sdp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="@dimen/_7sdp"
+        app:cardElevation="@dimen/_5sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/brandsRowWeight"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center|end"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:text="@{product.productQuantity}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp" />
+
+
+            <ImageView
+                android:id="@+id/brandsRowImage"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_130sdp"
+                android:layout_margin="@dimen/_5sdp"
+                android:productImageUrl="@{product.productImage}"
+                android:scaleType="fitXY" />
+
+            <TextView
+                android:id="@+id/brandsRowTitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingTop="@dimen/_8sdp"
+                android:text="@{product.productName}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14sdp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:paddingVertical="@dimen/_8sdp"
+                    android:text="Rs"
+                    android:layout_marginHorizontal="@dimen/_2sdp"
+                    android:textSize="@dimen/_14sdp" />
+
+                <TextView
+                    android:id="@+id/brandsRowCost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:paddingVertical="@dimen/_8sdp"
+                    android:text="@{product.productCost}"
+                    android:textSize="@dimen/_14sdp" />
+
+                <TextView
+                    android:id="@+id/brandsRowFinalPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:paddingVertical="@dimen/_8sdp"
+                    android:text="@{product.productFinalPrice}"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp"/>
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>
