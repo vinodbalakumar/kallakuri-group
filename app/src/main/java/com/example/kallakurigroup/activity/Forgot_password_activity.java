@@ -122,7 +122,7 @@ public class Forgot_password_activity extends AppCompatActivity implements View.
 
         }else {
 
-            if (Network_info.isNetworkAvailable(context)) {
+            /*if (Network_info.isNetworkAvailable(context)) {
 
                 sendOTP(mMobilenUmber);
 
@@ -130,7 +130,10 @@ public class Forgot_password_activity extends AppCompatActivity implements View.
 
                 Dialogs.show_popUp(getResources().getString(R.string.no_internet_connection), context);
 
-            }
+            }*/
+
+            startActivity(new Intent(Forgot_password_activity.this, Reset_password_Activity.class).putExtra("mobileNum", mMobilenUmber));
+
         }
     }
 

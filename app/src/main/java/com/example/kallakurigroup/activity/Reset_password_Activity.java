@@ -1,22 +1,41 @@
 package com.example.kallakurigroup.activity;
 
+import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.kallakurigroup.R;
+import com.example.kallakurigroup.models.ResetPinResponse;
+import com.example.kallakurigroup.models.localdbmodels.UserTableModel;
+import com.example.kallakurigroup.models.otpmodels.OTPResponceModel;
+import com.example.kallakurigroup.retrofit.ApiClient;
+import com.example.kallakurigroup.retrofit.ApiInterface;
 import com.example.kallakurigroup.utils.Dialogs;
 import com.example.kallakurigroup.utils.Network_info;
+import com.example.kallakurigroup.utils.Storage;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class Reset_password_Activity extends AppCompatActivity implements View.OnClickListener{
@@ -51,7 +70,7 @@ public class Reset_password_Activity extends AppCompatActivity implements View.O
 
         mMobileNum = getIntent().getStringExtra("mobileNum");
 
-        header_text.setText(getString(R.string.register));
+        header_text.setText(getString(R.string.resetPass));
 
         left_lay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,111 +123,81 @@ public class Reset_password_Activity extends AppCompatActivity implements View.O
     }
 
 
+    private void resetPassword(String password) {
 
-    public  void resetPassword(String password){
+        Dialogs.ProgressDialog(context);
 
-     /*   try {
-            ApiInterface apiService =
-                    ApiClient.getClient().create(ApiInterface.class);
+        password_et.clearFocus();
+        confirmPass_et.clearFocus();
 
-            Log.e("OTP=",OTP);
-
-            Call<JsonElement> call = apiService.resetConfirmPin(PropertiesFile.BASEURL, "newPIN", mMobileNumber, mPin, OTP);
-
-            call.enqueue(new Callback<JsonElement>() {
-                @Override
-                public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
-
-                    Log.e("xbj j", response.toString());
-
-                    if (response.code() != 200) {
-
-                        Dialogs.show_popUp(getResources().getString(R.string.networkalert) + "-" + response.code(), context);
+        final JSONObject data  = new JSONObject();
 
 
-                    } else {
+        JsonParser jsonParser = new JsonParser();
 
-                        if (response.body() != null && !response.body().equals("")) {
+        JsonObject jsonObject = null;
 
+        try {
 
-                            try {
-                                //    System.out.println("RESPONSE in POST execute:\n" + result);
-                                JSONObject jsonObject = new JSONObject(response.body().toString());
+            data.put("phoneNo", mMobileNum);
+            data.put("psswd", password);
+            data.put("iemi", "");
 
-                                String status_message = jsonObject.getString("status");
-                                String message = jsonObject.getString("msg");
-                                //     Log.e("Status message", status_message);
+            jsonObject = (JsonObject) jsonParser.parse(data.toString());
 
-                                if (status_message.equals("1"))
-                                {
-                                    clearPin();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-
-
-                                    int[] location = new int[2];
-                                    mEditPin14.getLocationOnScreen(location);
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
 
 
-                                    coins_popup(location[0],location[1]);
-                                   // alertPopup(ll_edit);
+        Call<ResetPinResponse> call = apiService.resetPass("application/json", jsonObject);
 
-                                    //delay in ms
-                                    int DELAY = 2000;
+        call.enqueue(new Callback<ResetPinResponse>() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onResponse(Call<ResetPinResponse> call, Response<ResetPinResponse> response) {
 
-                                    Handler handler = new Handler();
-                                    handler.postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
+                Dialogs.Cancel();
 
-                                            Intent i = new Intent(Reset_pin_Activity.this, LogInActivity.class);
-                                            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                                            i.putExtra("reset", true);
-                                            startActivity(i);
-                                        }
-                                    }, DELAY);
+                if (!response.isSuccessful()) {
 
+                    Dialogs.show_popUp(getResources().getString(R.string.try_again), context);
 
-                                }
-                                else
-                                {
-                                    Dialogs.show_popUp(message, context);
+                    return;
+                }
 
-                                }
+                if (response.code() == 200) {
 
-                            }catch (Exception e) {
-                                e.printStackTrace();
-                            }
+                    ResetPinResponse responceModel = response.body();
 
+                    if(!responceModel.getMessage().equalsIgnoreCase("success")) {
+                        Dialogs.show_popUp(responceModel.getMessage(), context);
+                    }else {
 
-                        } else {
+                        Toast.makeText(context, getResources().getString(R.string.password_changed), Toast.LENGTH_SHORT).show();
 
-                            Dialogs.show_popUp(getResources().getString(R.string.no_data_found), context);
-git config --global user.name "Haritha"
-
-                        }
-
-
+                        Intent i1 = new Intent(Reset_password_Activity.this, Login.class);
+                        i1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(i1);
                     }
 
-                    Dialogs.Cancel();
+                } else {
+                    ResetPinResponse resetResponse = response.body();
+                    Dialogs.show_popUp(resetResponse.getMessage(), context);
                 }
+            }
 
-                @Override
-                public void onFailure(Call<JsonElement> call, Throwable t) {
-                    // Log error here since request failed
-                    Log.e("xbj j", t.toString());
+            @Override
+            public void onFailure(Call<ResetPinResponse> call, Throwable t) {
+                Dialogs.Cancel();
+                Dialogs.show_popUp(getResources().getString(R.string.error) + ": " + t.getMessage(), context);
 
-                    Dialogs.Cancel();
-                }
-            });
-        }catch (Exception e){
-            Dialogs.Cancel();
-            Dialogs.show_popUp(getResources().getString(R.string.PleaseTryAgain), context);
-            e.printStackTrace();
-        }*/
+            }
+        });
     }
-
-
 
     @Override
     public void onClick(View v)
