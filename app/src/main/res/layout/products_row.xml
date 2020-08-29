@@ -10,7 +10,7 @@
 
     </data>
 
-    <androidx.cardview.widget.CardView
+   <!-- <androidx.cardview.widget.CardView
         android:id="@+id/brandsRowCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,82 +21,297 @@
         app:cardCornerRadius="@dimen/_7sdp"
         app:cardElevation="@dimen/_5sdp">
 
-        <LinearLayout
+
+    </androidx.cardview.widget.CardView>-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_line_background_purple">
+
+        <RelativeLayout
+            android:id="@+id/rl_top"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/brandsRowWeight"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center|end"
-                android:paddingHorizontal="@dimen/_10sdp"
-                android:text="@{product.productQuantity}"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_12sdp" />
-
+            android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/brandsRowImage"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_130sdp"
+                android:id="@+id/prodImage"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_100sdp"
                 android:layout_margin="@dimen/_5sdp"
+                android:src="@mipmap/logo"
                 android:productImageUrl="@{product.productImage}"
                 android:scaleType="fitXY" />
-
-            <TextView
-                android:id="@+id/brandsRowTitle"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:paddingTop="@dimen/_8sdp"
-                android:text="@{product.productName}"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_14sdp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
+                android:layout_toRightOf="@+id/prodImage"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:paddingVertical="@dimen/_8sdp"
-                    android:text="Rs"
-                    android:layout_marginHorizontal="@dimen/_2sdp"
-                    android:textSize="@dimen/_14sdp" />
-
-                <TextView
-                    android:id="@+id/brandsRowCost"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:paddingVertical="@dimen/_8sdp"
-                    android:text="@{product.productCost}"
-                    android:textSize="@dimen/_14sdp" />
-
-                <TextView
-                    android:id="@+id/brandsRowFinalPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:paddingVertical="@dimen/_8sdp"
-                    android:text="@{product.productFinalPrice}"
-                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:id="@+id/prodName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Name"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_14sdp"/>
+                    android:textSize="@dimen/_14sdp" />
 
+                <!-- android:text="@{product.productName}"-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp">
+
+                    <TextView
+                        android:id="@+id/rupee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="₹"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_14sdp"/>
+                    <TextView
+                        android:id="@+id/ProductOfferPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="800"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_14sdp"/>
+
+                    <!-- android:text="@{product.productFinalPrice}"-->
+
+                    <TextView
+                        android:id="@+id/prodFinalPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="880"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:textColor="@color/grey"
+                        android:background="@drawable/strike_off"
+                        android:textSize="@dimen/_12sdp"/>
+
+                    <!-- android:text="@{product.productCost}"-->
+
+                    <TextView
+                        android:id="@+id/prodDiscount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="10%"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:textColor="@color/green"
+                        android:textSize="@dimen/_12sdp"/>
+                    <TextView
+                        android:id="@+id/prodprcntSym"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Off"
+                        android:layout_marginLeft="@dimen/_3sdp"
+                        android:textColor="@color/green"
+                        android:textSize="@dimen/_12sdp"/>
+
+                    <!-- android:text="@{product.productDiscount}"-->
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp">
+
+                    <LinearLayout
+                        android:id="@+id/ll_qtyType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/grey_light">
+                        <TextView
+                            android:id="@+id/productQty"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center|end"
+                            android:text="1 kg"
+                            android:padding="@dimen/_2sdp"
+                            android:background="@color/grey_light"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_14sdp" />
+                        <!-- android:text="@{product.productQuantity}"-->
+                        <TextView
+                            android:id="@+id/productType"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center|end"
+                            android:text="packet"
+                            android:padding="@dimen/_2sdp"
+                            android:background="@color/grey_light"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_14sdp" />
+
+                        <!-- android:text="@{product.productType}"-->
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/ll_qtyType"
+                        android:gravity="center"
+                        android:layout_marginLeft="@dimen/_5sdp">
+                        <TextView
+                            android:id="@+id/productAdd"
+                            android:layout_width="@dimen/_60sdp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Add"
+                            android:visibility="gone"
+                            android:paddingVertical="@dimen/_3sdp"
+                            android:background="@drawable/button_background"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_14sdp" />
+
+                        <LinearLayout
+                            android:id="@+id/inner_lt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:visibility="visible"
+                            android:weightSum="3">
+
+                            <ImageView
+                                android:duplicateParentState="true"
+                                android:id="@+id/minus"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_weight="1"
+                                android:clickable="true"
+                                android:src="@drawable/minus" />
+
+                            <TextView
+                                android:id="@+id/quantity_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="@dimen/_15sdp"
+                                android:layout_marginRight="@dimen/_15sdp"
+                                android:layout_toRightOf="@id/minus"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="0"
+                                android:singleLine="true"
+                                android:maxLines="1"
+                                android:textSize="@dimen/_13sdp" />
+
+                            <ImageView
+                                android:duplicateParentState="true"
+                                android:id="@+id/plus"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_toRightOf="@id/quantity_count"
+                                android:layout_weight="1"
+                                android:clickable="true"
+                                android:src="@drawable/plus" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
 
             </LinearLayout>
 
+        </RelativeLayout>
 
+        <LinearLayout
+            android:id="@+id/ll_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_top"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:orientation="vertical"
+            android:padding="@dimen/_5sdp"
+            android:background="@drawable/button_line_background_purple">
+
+            <TextView
+                android:id="@+id/prodDiscription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Discription jkxcknbkjdfnbdjkfbndfjkbnjnjvbxcnb"
+                android:layout_below="@+id/rl_top"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/prodDiscription"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Delivery Charges :"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/_14sdp"/>
+
+                <TextView
+                    android:id="@+id/prodDeliveryChargesRupee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="₹"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12sdp"/>
+
+                <TextView
+                    android:id="@+id/prodDeliveryCharges"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="6"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12sdp"/>
+
+                <!-- android:text="@{product.deliveryCharge}"-->
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/prodDiscription"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Delivery Time :"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/_14sdp"/>
+
+                <TextView
+                    android:id="@+id/prodDeliveryTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="6Am - 7PM"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12sdp"/>
+
+                <!-- android:text="@{product.deliveryTime}"-->
+            </LinearLayout>
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </RelativeLayout>
 
 </layout>

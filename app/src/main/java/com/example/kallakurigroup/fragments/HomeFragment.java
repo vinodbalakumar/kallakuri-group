@@ -1,4 +1,4 @@
-package com.example.kallakurigroup.fragments.homefragment;
+package com.example.kallakurigroup.fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,17 +18,16 @@ import com.bumptech.glide.Glide;
 import com.example.kallakurigroup.R;
 import com.example.kallakurigroup.adapters.BrandsAdapter;
 import com.example.kallakurigroup.databinding.FragmentHomeBinding;
-import com.example.kallakurigroup.models.loginmodel.LoginResponceModel;
+import com.example.kallakurigroup.listeners.BrandsListener;
 import com.example.kallakurigroup.models.productsmodels.BrandsDetails;
 import com.example.kallakurigroup.models.productsmodels.ProductDetails;
 import com.example.kallakurigroup.models.productsmodels.ProductResponceModel;
-import com.example.kallakurigroup.productspage.ProductsActivity;
+import com.example.kallakurigroup.activity.ProductsActivity;
 import com.example.kallakurigroup.retrofit.ApiClient;
 import com.example.kallakurigroup.retrofit.ApiInterface;
 import com.example.kallakurigroup.utils.Dialogs;
 import com.example.kallakurigroup.utils.Storage;
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.google.gson.JsonObject;
 import com.synnapps.carouselview.ImageClickListener;
 import com.synnapps.carouselview.ImageListener;
 
@@ -43,7 +42,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment implements IHomeFragment {
+public class HomeFragment extends Fragment implements BrandsListener {
 
     private ShimmerFrameLayout shimmerFrameLayout;
     private ArrayList<BrandsDetails> brandsList;
@@ -143,7 +142,7 @@ public class HomeFragment extends Fragment implements IHomeFragment {
     }
 
     @Override
-    public void brandSelected(int position) {
+    public void brandSelected(int position, String brandName) {
 
         ArrayList<ProductDetails> selectedProducts = new ArrayList<>();
         for (Map.Entry<String, ArrayList<ProductDetails>> productList : productsObject.entrySet()) {
@@ -156,6 +155,7 @@ public class HomeFragment extends Fragment implements IHomeFragment {
         Bundle bundle = new Bundle();
         bundle.putParcelableArrayList("products", selectedProducts);
         intent.putExtras(bundle);
+        intent.putExtra("brand_name", brandName);
         startActivity(intent);
     }
 }

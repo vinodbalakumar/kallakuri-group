@@ -42,7 +42,7 @@
         <activity android:name=".activity.Reset_password_Activity"/>
         <activity android:name=".activity.Account_setup"/>
         <activity android:name=".activity.Homepage"/>
-        <activity android:name=".productspage.ProductsActivity"/>
+        <activity android:name=".activity.ProductsActivity"/>
         <activity android:name=".activity.Rolespage"/>
 
     </application>

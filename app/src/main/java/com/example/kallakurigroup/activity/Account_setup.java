@@ -557,7 +557,8 @@ public class Account_setup extends Activity {
                 userProfileBody.put("status", "");
                 userProfileBody.put("town", city);
                 userProfileBody.put("updatedAt", JSONObject.NULL);
-                userProfileBody.put("village", currentLocationAddress);
+                userProfileBody.put("village", village);
+                userProfileBody.put("deliveryAddress", currentLocationAddress);
 
                 userProfile.put("userProfile", userProfileBody);
 

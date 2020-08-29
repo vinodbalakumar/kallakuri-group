@@ -12,20 +12,20 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.kallakurigroup.R;
+import com.example.kallakurigroup.activity.ProductsActivity;
 import com.example.kallakurigroup.databinding.ProductsRowBinding;
 import com.example.kallakurigroup.models.productsmodels.ProductDetails;
-import com.example.kallakurigroup.productspage.IProductsActivity;
 
 import java.util.ArrayList;
 
 public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHolder> {
 
     ArrayList<ProductDetails> list;
-    IProductsActivity iProductsActivity;
+    ProductsActivity productsActivity;
 
-    public ProductsAdapter(ArrayList<ProductDetails> list, IProductsActivity iProductsActivity) {
+    public ProductsAdapter(ArrayList<ProductDetails> list, ProductsActivity productsActivity) {
         this.list = list;
-        this.iProductsActivity = iProductsActivity;
+        this.productsActivity = productsActivity;
     }
 
     @NonNull
@@ -41,10 +41,6 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         ProductDetails productDetails = list.get(position);
-        holder.productsRowBinding.brandsRowCost
-                .setPaintFlags(holder.productsRowBinding.brandsRowCost.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        holder.productsRowBinding.brandsRowCost
-                .setText(productDetails.getProductCost(), TextView.BufferType.SPANNABLE);
         holder.productsRowBinding.setProduct(productDetails);
 
     }
@@ -65,7 +61,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
             itemView.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    iProductsActivity.productSelected(getAdapterPosition());
+                    productsActivity.productSelected(getAdapterPosition());
                 }
             });
         }

@@ -24,7 +24,7 @@ import com.example.kallakurigroup.R;
 import com.example.kallakurigroup.fragments.AboutUsFragment;
 import com.example.kallakurigroup.fragments.ContactUsFragment;
 import com.example.kallakurigroup.fragments.FeedBackFragment;
-import com.example.kallakurigroup.fragments.homefragment.HomeFragment;
+import com.example.kallakurigroup.fragments.HomeFragment;
 import com.example.kallakurigroup.models.localdbmodels.UserTableModel;
 import com.example.kallakurigroup.utils.Storage;
 import com.google.android.material.appbar.MaterialToolbar;

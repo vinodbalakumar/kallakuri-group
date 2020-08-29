@@ -12,6 +12,7 @@
     <color name="purple">#5c135c</color>
     <color name="border_color">#e5e5e5</color>
     <color name="grey">#808080</color>
+    <color name="grey_light">#e5e5e5</color>
     <color name="gender_color">#aaaaaa</color>
     <color name="email_text_color">#f98ff1f5</color>
     <color name="e5e5e5">#e5e5e5</color>

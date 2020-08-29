@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.kallakurigroup.R;
 import com.example.kallakurigroup.databinding.BrandsRowBinding;
-import com.example.kallakurigroup.fragments.homefragment.IHomeFragment;
+import com.example.kallakurigroup.listeners.BrandsListener;
 import com.example.kallakurigroup.models.productsmodels.BrandsDetails;
 
 import java.util.ArrayList;
@@ -18,11 +18,11 @@ import java.util.ArrayList;
 public class BrandsAdapter extends RecyclerView.Adapter<BrandsAdapter.Brands> {
 
     private ArrayList<BrandsDetails> list;
-    private IHomeFragment iHomeFragment;
+    private BrandsListener brandsListener;
 
-    public BrandsAdapter(ArrayList<BrandsDetails> list, IHomeFragment iHomeFragment) {
+    public BrandsAdapter(ArrayList<BrandsDetails> list, BrandsListener brandsListener) {
         this.list = list;
-        this.iHomeFragment = iHomeFragment;
+        this.brandsListener = brandsListener;
     }
 
     @NonNull
@@ -56,7 +56,7 @@ public class BrandsAdapter extends RecyclerView.Adapter<BrandsAdapter.Brands> {
             itemView.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    iHomeFragment.brandSelected(getAdapterPosition());
+                    brandsListener.brandSelected(getAdapterPosition(), itemView.brandsRowTextView.getText().toString());
                 }
             });
         }

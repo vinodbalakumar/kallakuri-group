@@ -8,7 +8,7 @@
     android:columnCount="1"
     android:background="@drawable/gradientbackground"
     android:orientation="vertical"
-    tools:context=".fragments.homefragment.HomeFragment">
+    tools:context=".fragments.HomeFragment">
 
     <com.facebook.shimmer.ShimmerFrameLayout
         android:layout_width="match_parent"
