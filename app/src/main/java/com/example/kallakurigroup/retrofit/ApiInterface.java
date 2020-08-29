@@ -1,5 +1,6 @@
 package com.example.kallakurigroup.retrofit;
 
+import com.example.kallakurigroup.models.ResetPinResponse;
 import com.example.kallakurigroup.models.loginmodel.LoginResponceModel;
 import com.example.kallakurigroup.models.otpmodels.OTPResponceModel;
 import com.example.kallakurigroup.models.productsmodels.ProductResponceModel;
@@ -33,6 +34,12 @@ public interface ApiInterface {
 
     @POST("v1/sign-in")
     Call<LoginResponceModel> loginUser(
+            @Header("Content-Type") String contentType,
+            @Body JsonObject jsonObject
+    );
+
+    @POST("v1/forgot-password")
+    Call<ResetPinResponse> resetPass(
             @Header("Content-Type") String contentType,
             @Body JsonObject jsonObject
     );

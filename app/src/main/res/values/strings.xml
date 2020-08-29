@@ -52,9 +52,9 @@
     <string name="signupTitle">Signup with your mobile number</string>
     <string name="register_text">Tapping signup, you agree to our Terms and Conditions and Privacy policy.</string>
     <string name="register">SIGNUP</string>
+    <string name="resetPass">Reset Password</string>
     <string name="signupSpace">SIGN UP</string>
 
-    <string name="max_bus_types">Maximum 1 Business Type Allowed</string>
     <string name="enter_surname">Please Enter your surname</string>
     <string name="Please_enter_your_name">Please enter your name</string>
     <string name="Please_enter_your_shop_name">Please enter your Shop Name</string>
@@ -85,7 +85,6 @@
     <string name="firstname">First Name</string>
     <string name="lastname">Last Name</string>
     <string name="fullName">Name</string>
-    <string name="Surname">Sur name</string>
 
     <string name="Male_tgle">Male</string>
     <string name="Female_tgle">Female</string>
@@ -122,13 +121,14 @@
     <string name="SubmitCaps">SUBMIT</string>
     <string name="loginwith">Login with mobile number</string>
     <string name="newUser">I am new user</string>
+    <string name="categories">Categories</string>
 
     <!--    OPTION MENU     -->
     <string name="home">Home</string>
     <string name="contact_us">Contact Us</string>
     <string name="feedback">FeedBack</string>
     <string name="about_us">About Us</string>
-    <string name="kk_groups">Kk Groups</string>
+    <string name="kk_groups">Kallakuri Groups</string>
     <string name="close">CloseNav</string>
     <string name="open">OpenNav</string>
     <string name="logout">Logout</string>
@@ -138,6 +138,8 @@
     <string name="try_again">Try Again!</string>
     <string name="otp_request_Sent">OTP Request Sent</string>
     <string name="registration_successful">Registration Successful</string>
+    <string name="password_changed">Password changed Successful</string>
+
     <string name="role">Role</string>
     <string name="chooseRole">Choose Your Role</string>
 

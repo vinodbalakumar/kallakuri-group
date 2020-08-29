@@ -22,6 +22,15 @@
         <item name="colorControlActivated">@color/colorAccent</item>
     </style>
 
+    <style name="TextLabel2" >
+        <item name="android:textColorHint">#8a8a8a</item>
+        <item name="colorAccent">#d9d9d9</item>
+        <item name="colorControlNormal">#d9d9d9</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="android:editTextStyle">@style/App_EditTextStyle</item>
+        <item name="editTextStyle">@style/App_EditTextStyle</item>
+    </style>
+
     <style name="RadioButtonStyle" parent="ThemeOverlay.AppCompat.Dark">
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColorSecondary">@android:color/black</item>
@@ -30,5 +39,9 @@
     <style name="DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">
         <item name="spinBars">true</item>
         <item name="color">@android:color/white</item>
+    </style>
+
+    <style name="App_EditTextStyle" parent="@android:style/Widget.EditText">
+        <item name="android:importantForAutofill">noExcludeDescendants</item>
     </style>
 </resources>

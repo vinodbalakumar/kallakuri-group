@@ -58,55 +58,56 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/TextLabell"
+                android:theme="@style/TextLabel2"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_10sdp">
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
                     android:id="@+id/roleName"
                     android:hint="@string/role"
                     android:gravity="start"
+                    android:inputType="text"
                     android:focusable="false"
                     android:textSize="@dimen/_12sdp"
                     android:textColorHint="@color/grey"
-                    android:nextFocusDown="@+id/account_first_name"/>
+                    android:nextFocusDown="@+id/account_full_name"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/TextLabell"
+                android:theme="@style/TextLabel2"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_10sdp">
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:id="@+id/account_first_name"
+                    android:inputType="textPersonName"
+                    android:id="@+id/account_full_name"
                     android:hint="@string/fullName"
                     android:gravity="start"
                     android:textSize="@dimen/_12sdp"
                     android:textColorHint="@color/grey"
-                    android:nextFocusDown="@+id/account_last_name"/>
+                    android:nextFocusDown="@+id/account_pass"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/TextLabell"
+                android:theme="@style/TextLabel2"
+                android:visibility="gone"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_10sdp">
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:id="@+id/account_last_name"
-                    android:nextFocusDown="@+id/account_pass"
-                    android:hint="@string/Surname"
+                    android:id="@+id/account_sur_name"
+                    android:nextFocusDown="@+id/account_name"
+                    android:hint="@string/lastname"
                     android:gravity="start"
                     android:textColorHint="@color/grey"
                     android:textSize="@dimen/_12sdp"/>
@@ -115,7 +116,27 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/TextLabell"
+                android:theme="@style/TextLabel2"
+                android:visibility="gone"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_10sdp">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:id="@+id/account_name"
+                    android:hint="@string/firstname"
+                    android:gravity="start"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColorHint="@color/grey"
+                    android:nextFocusDown="@+id/account_pass"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/TextLabel2"
                 android:visibility="visible"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="10dp">
@@ -135,7 +156,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/TextLabell"
+                android:theme="@style/TextLabel2"
                 android:orientation="vertical"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_10sdp">
@@ -304,7 +325,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/view4"
                 android:padding="0.6dp"
-                android:theme="@style/TextLabell"
+                android:theme="@style/TextLabel2"
                 android:layout_below="@+id/view_shop_name"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
@@ -335,7 +356,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="0.6dp"
-                    android:theme="@style/TextLabell"
+                    android:theme="@style/TextLabel2"
                     android:layout_weight="1">
                     <EditText
                         android:layout_width="match_parent"
@@ -353,7 +374,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/village_tv"
-                    android:theme="@style/TextLabell"
+                    android:theme="@style/TextLabel2"
                     android:layout_weight="1"
                     android:layout_marginLeft="5dp">
                     <EditText
@@ -376,7 +397,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/City_tv"
-                android:theme="@style/TextLabell"
+                android:theme="@style/TextLabel2"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_10sdp">
                 <EditText
@@ -401,7 +422,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/district_view"
                     android:layout_width="0dp"
-                    android:theme="@style/TextLabell"
+                    android:theme="@style/TextLabel2"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/district"

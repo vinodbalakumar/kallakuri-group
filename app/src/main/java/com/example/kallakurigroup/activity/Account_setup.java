@@ -68,7 +68,6 @@ public class Account_setup extends Activity {
     Button submit;
     RelativeLayout left_lay;
     EditText fname_et;
-    EditText lname_et;
     EditText password_et;
     EditText confirmPass_et;
     public Calendar calendar;
@@ -130,8 +129,7 @@ public class Account_setup extends Activity {
         user_DOB = date;
         submit = (Button) this.findViewById(R.id.submit_btn_accntsetup);
         left_lay = (RelativeLayout) findViewById(R.id.left_lay);
-        fname_et = (EditText) findViewById(R.id.account_first_name);
-        lname_et = (EditText) findViewById(R.id.account_last_name);
+        fname_et = (EditText) findViewById(R.id.account_full_name);
         password_et = (EditText) findViewById(R.id.account_pass);
         confirmPass_et = (EditText) findViewById(R.id.account_confirm_pass);
         emailid_Et = (EditText) findViewById(R.id.email);
