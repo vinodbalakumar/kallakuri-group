@@ -3,7 +3,6 @@
     android:id="@+id/top_bar"
     android:layout_width="match_parent"
     android:layout_height="@dimen/_52sdp"
-    android:background="@color/white"
     android:focusableInTouchMode="true">
 
     <RelativeLayout
@@ -46,13 +45,15 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
     </RelativeLayout>
     <View
         android:id="@+id/shadow_big"
         android:layout_alignParentBottom="true"
         android:background="@drawable/shadow_line"
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="@dimen/_4sdp"/>
 
 </RelativeLayout>

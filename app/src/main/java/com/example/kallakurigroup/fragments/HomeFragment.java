@@ -9,15 +9,17 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.kallakurigroup.R;
 import com.example.kallakurigroup.adapters.BrandsAdapter;
-import com.example.kallakurigroup.databinding.FragmentHomeBinding;
 import com.example.kallakurigroup.listeners.BrandsListener;
 import com.example.kallakurigroup.models.productsmodels.BrandsDetails;
 import com.example.kallakurigroup.models.productsmodels.ProductDetails;
@@ -28,6 +30,7 @@ import com.example.kallakurigroup.retrofit.ApiInterface;
 import com.example.kallakurigroup.utils.Dialogs;
 import com.example.kallakurigroup.utils.Storage;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageClickListener;
 import com.synnapps.carouselview.ImageListener;
 
@@ -35,6 +38,8 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,10 +49,21 @@ import retrofit2.Response;
  */
 public class HomeFragment extends Fragment implements BrandsListener {
 
-    private ShimmerFrameLayout shimmerFrameLayout;
     private ArrayList<BrandsDetails> brandsList;
     private ProductResponceModel model;
     private Map<String, ArrayList<ProductDetails>> productsObject;
+
+    @BindView(R.id.homePlaceHolder)
+    ShimmerFrameLayout homePlaceHolder;
+
+    @BindView(R.id.ll_brands)
+    LinearLayout llBrands;
+
+    @BindView(R.id.homeCarouselView)
+    CarouselView homeCarouselView;
+
+    @BindView(R.id.homeRecyclerView)
+    RecyclerView homeRecyclerView;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -59,17 +75,20 @@ public class HomeFragment extends Fragment implements BrandsListener {
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_home, container, false);
-        final FragmentHomeBinding fragmentHomeBinding = FragmentHomeBinding.bind(v);
 
-        fragmentHomeBinding.homePlaceHolder.startShimmer();
+        ButterKnife.bind(this, v);
+
+       // final FragmentHomeBinding fragmentHomeBinding = FragmentHomeBinding.bind(v);
+
+        homePlaceHolder.startShimmer();
 
         final ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("https://raw.githubusercontent.com/sayyam/carouselview/master/sample/src/main/res/drawable/image_3.jpg");
         arrayList.add("https://raw.githubusercontent.com/sayyam/carouselview/master/sample/src/main/res/drawable/image_1.jpg");
         arrayList.add("https://raw.githubusercontent.com/sayyam/carouselview/master/sample/src/main/res/drawable/image_2.jpg");
 
-        fragmentHomeBinding.homeCarouselView.setPageCount(arrayList.size());
-        fragmentHomeBinding.homeCarouselView.setImageListener(new ImageListener() {
+        homeCarouselView.setPageCount(arrayList.size());
+        homeCarouselView.setImageListener(new ImageListener() {
             @Override
             public void setImageForPosition(int position, ImageView imageView) {
                 Glide.with(Objects.requireNonNull(getActivity()).getApplicationContext())
@@ -77,19 +96,25 @@ public class HomeFragment extends Fragment implements BrandsListener {
                         .into(imageView);
             }
         });
-        fragmentHomeBinding.homeCarouselView.setImageClickListener(new ImageClickListener() {
+        homeCarouselView.setImageClickListener(new ImageClickListener() {
             @Override
             public void onClick(int position) {
                 Toast.makeText(Objects.requireNonNull(getActivity()).getApplicationContext(), arrayList.get(position), Toast.LENGTH_SHORT).show();
             }
         });
 
-        fragmentHomeBinding.homeRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        homeRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+
+        getBrands();
+
+        return v;
+    }
+
+    void getBrands(){
 
         Storage storage = new Storage(getActivity().getApplicationContext());
 
-
-       // Dialogs.ProgressDialog(getContext());
+        // Dialogs.ProgressDialog(getContext());
 
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
@@ -109,16 +134,14 @@ public class HomeFragment extends Fragment implements BrandsListener {
                     productsObject = model.getData().getProductPricings();
 
                     BrandsAdapter adapter = new BrandsAdapter(brandsList, HomeFragment.this);
-                    fragmentHomeBinding.homeRecyclerView.setAdapter(adapter);
-                    fragmentHomeBinding.homePlaceHolder.setVisibility(View.GONE);
-                    fragmentHomeBinding.homeCarouselCard.setVisibility(View.VISIBLE);
-                    fragmentHomeBinding.homeRecyclerView.setVisibility(View.VISIBLE);
-                    fragmentHomeBinding.recyclerCard.setVisibility(View.VISIBLE);
-                    loadAnimation(fragmentHomeBinding.homeCarouselCard);
-                    loadAnimation(fragmentHomeBinding.homeRecyclerView);
+                    homeRecyclerView.setAdapter(adapter);
+                    homePlaceHolder.setVisibility(View.GONE);
+                    llBrands.setVisibility(View.VISIBLE);
+                    loadAnimation(llBrands);
+                    loadAnimation(homeRecyclerView);
 
                 } else {
-                    fragmentHomeBinding.homePlaceHolder.setVisibility(View.GONE);
+                    homePlaceHolder.setVisibility(View.GONE);
                     Dialogs.show_popUp(getResources().getString(R.string.networkalert) + "-" +  response.code(), getContext());
                 }
 
@@ -130,8 +153,6 @@ public class HomeFragment extends Fragment implements BrandsListener {
                 Dialogs.Cancel();
             }
         });
-
-        return v;
     }
 
     private void loadAnimation(ViewGroup view) {

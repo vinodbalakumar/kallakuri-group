@@ -141,7 +141,7 @@ public class Reset_password_Activity extends AppCompatActivity implements View.O
 
             data.put("phoneNo", mMobileNum);
             data.put("psswd", password);
-            data.put("iemi", "");
+            //data.put("iemi", "");
 
             jsonObject = (JsonObject) jsonParser.parse(data.toString());
 

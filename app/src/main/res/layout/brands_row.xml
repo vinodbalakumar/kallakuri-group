@@ -12,27 +12,23 @@
 
     </data>
 
-<!--<androidx.cardview.widget.CardView
-    android:id="@+id/brandsRowCardView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:cardElevation="@dimen/_5sdp"
-    app:cardCornerRadius="@dimen/_7sdp"
-    android:layout_margin="@dimen/_7sdp"
-    android:clickable="true"
-    android:focusable="true"
-    android:foreground="?android:attr/selectableItemBackground">
-
-
-</androidx.cardview.widget.CardView>-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/brandsRowCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="@dimen/_5sdp"
+        app:cardCornerRadius="@dimen/_7sdp"
+        android:layout_margin="@dimen/_7sdp"
+        android:clickable="true"
+        android:focusable="true"
+        android:descendantFocusability="blocksDescendants"
+        android:foreground="?android:attr/selectableItemBackground">
 
     <LinearLayout
         android:id="@+id/ll_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_line_background_purple"
         android:gravity="center"
-        android:layout_margin="@dimen/_5sdp"
         android:orientation="vertical">
 
         <ImageView
@@ -41,6 +37,7 @@
             android:layout_height="@dimen/_80sdp"
             android:layout_margin="@dimen/_5sdp"
             android:scaleType="centerCrop"
+            android:focusable="false"
             android:imageUrl="@{brand.imagePath}" />
 
         <TextView
@@ -50,8 +47,11 @@
             android:gravity="center"
             android:paddingVertical="@dimen/_8sdp"
             android:text="@{brand.brandName}"
-            android:background="@drawable/button_line_background_purple"
+            android:background="@color/textBack"
             android:textColor="@color/black"
             android:textSize="@dimen/_12sdp" />
     </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
 </layout>

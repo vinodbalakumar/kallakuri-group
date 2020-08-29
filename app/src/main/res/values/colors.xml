@@ -20,5 +20,6 @@
     <color name="viewline">#D9DADA</color>
     <color name="view_all_button">#0099ff</color>
     <color name="placeHolder">#dddddd</color>
+    <color name="textBack">#CEB8CE</color>
 
 </resources>

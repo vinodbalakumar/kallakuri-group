@@ -3,6 +3,9 @@ package com.example.kallakurigroup.activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,6 +62,9 @@ public class ProductsActivity extends AppCompatActivity implements ProductItemLi
 
         productRecyclerView.setAdapter(new ProductsAdapter(productsList, ProductsActivity.this));
 
+        //loadAnimation(llBrands);
+        loadAnimation(productRecyclerView);
+
         left_lay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,5 +77,12 @@ public class ProductsActivity extends AppCompatActivity implements ProductItemLi
     @Override
     public void productSelected(int position) {
         Toast.makeText(this, productsList.get(position).getProductFinalPrice(), Toast.LENGTH_SHORT).show();
+    }
+
+    private void loadAnimation(ViewGroup view) {
+        Context context = view.getContext();
+        LayoutAnimationController layoutAnimationController = AnimationUtils
+                .loadLayoutAnimation(context, R.anim.layout_right_slide);
+        view.setLayoutAnimation(layoutAnimationController);
     }
 }
