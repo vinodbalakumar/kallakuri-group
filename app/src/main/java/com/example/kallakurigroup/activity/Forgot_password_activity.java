@@ -1,13 +1,10 @@
 package com.example.kallakurigroup.activity;
 
 import android.annotation.SuppressLint;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -18,14 +15,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.kallakurigroup.R;
-import com.example.kallakurigroup.models.localdbmodels.UserTableModel;
+import com.example.kallakurigroup.database.UserTableDAO;
 import com.example.kallakurigroup.models.otpmodels.OTPResponceModel;
 import com.example.kallakurigroup.retrofit.ApiClient;
 import com.example.kallakurigroup.retrofit.ApiInterface;
 import com.example.kallakurigroup.utils.Dialogs;
 import com.example.kallakurigroup.utils.Network_info;
-import com.example.kallakurigroup.utils.Storage;
-import com.example.kallakurigroup.utils.Validations;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -58,6 +53,8 @@ public class Forgot_password_activity extends AppCompatActivity implements View.
 
     public static String mMobilenUmber;
 
+    UserTableDAO userTableDao;
+
     Context context;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -68,6 +65,8 @@ public class Forgot_password_activity extends AppCompatActivity implements View.
             context = Forgot_password_activity.this;
 
             ButterKnife.bind(this);
+
+            userTableDao = new UserTableDAO(this);
 
             mButtonReset.setOnClickListener(this);
             mImageBack.setOnClickListener(this);
@@ -218,19 +217,6 @@ public class Forgot_password_activity extends AppCompatActivity implements View.
                     if(phoneNo == null) {
                         Dialogs.show_popUp(responceModel.getHeader().getMessage(), context);
                     }else {
-
-                        Storage storage = new Storage(context);
-                        SQLiteDatabase database = storage.getWritableDatabase();
-
-                        if (storage.getUserDetails().getPhoneNo() == null) {
-                            UserTableModel model = new UserTableModel(1, responePhoneNo, "", "", "", "", "", "", "", "", "", "");
-                            storage.insertUserDetails(model);
-                        } else {
-                            ContentValues values = new ContentValues();
-                            values.put(Storage.USER_PHONE_NO, responePhoneNo);
-                            database.update(Storage.USER_TABLE, values, "uno=1", null);
-                        }
-                        database.close();
 
                         Toast.makeText(context, getResources().getString(R.string.otp_request_Sent), Toast.LENGTH_SHORT).hashCode();
 

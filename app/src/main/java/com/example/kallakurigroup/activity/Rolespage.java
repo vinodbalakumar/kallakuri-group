@@ -1,9 +1,7 @@
 package com.example.kallakurigroup.activity;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,16 +12,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
 
 import com.example.kallakurigroup.R;
-import com.example.kallakurigroup.databinding.ActivityRolespageBinding;
 import com.example.kallakurigroup.models.rolesmodels.RolesResponceModel;
 import com.example.kallakurigroup.retrofit.ApiClient;
 import com.example.kallakurigroup.retrofit.ApiInterface;
 import com.example.kallakurigroup.utils.Dialogs;
 import com.example.kallakurigroup.utils.Network_info;
-import com.example.kallakurigroup.utils.Storage;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -31,8 +26,6 @@ import java.util.Map;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static com.example.kallakurigroup.R.layout.activity_rolespage;
 
 
 public class Rolespage extends AppCompatActivity{
@@ -45,6 +38,8 @@ public class Rolespage extends AppCompatActivity{
     Button btnSubmit;
     Context context;
 
+    String mobileNum;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +47,8 @@ public class Rolespage extends AppCompatActivity{
         setContentView(R.layout.activity_rolespage);
 
         context = Rolespage.this;
+
+        mobileNum = getIntent().getStringExtra("mobile_num");
 
         radioGroup = (RadioGroup) findViewById(R.id.rolesRadiGroup);
 
@@ -156,14 +153,7 @@ public class Rolespage extends AppCompatActivity{
         if (selectedRadioButton != null) {
             String roleName = selectedRadioButton.getText().toString().trim();
             int index = radioGroup.indexOfChild(selectedRadioButton);
-            Storage storage = new Storage(Rolespage.this);
-            ContentValues values = new ContentValues();
-            values.put(Storage.USER_ROLE_NAME, roleName);
-            values.put(Storage.USER_ROLE_NUMBER, String.valueOf(roleValues.get(index)));
-            SQLiteDatabase database = storage.getWritableDatabase();
-            database.update(Storage.USER_TABLE,values, "uno=1", null);
-            database.close();
-            startActivity(new Intent(Rolespage.this, Account_setup.class));
+            startActivity(new Intent(Rolespage.this, Account_setup.class).putExtra("role_name", roleName).putExtra("role_num", String.valueOf(roleValues.get(index))).putExtra("mobile_num", mobileNum));
         } else {
             Dialogs.show_popUp(getResources().getString(R.string.Please_select_your_role),context);
         }

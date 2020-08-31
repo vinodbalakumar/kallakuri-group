@@ -1,10 +1,8 @@
 package com.example.kallakurigroup.activity;
 
 import android.annotation.SuppressLint;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,17 +15,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.kallakurigroup.R;
 import com.example.kallakurigroup.models.ResetPinResponse;
-import com.example.kallakurigroup.models.localdbmodels.UserTableModel;
-import com.example.kallakurigroup.models.otpmodels.OTPResponceModel;
 import com.example.kallakurigroup.retrofit.ApiClient;
 import com.example.kallakurigroup.retrofit.ApiInterface;
 import com.example.kallakurigroup.utils.Dialogs;
 import com.example.kallakurigroup.utils.Network_info;
-import com.example.kallakurigroup.utils.Storage;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -68,7 +62,7 @@ public class Reset_password_Activity extends AppCompatActivity implements View.O
 
         ButterKnife.bind(this);
 
-        mMobileNum = getIntent().getStringExtra("mobileNum");
+        mMobileNum = getIntent().getStringExtra("mobile_num");
 
         header_text.setText(getString(R.string.resetPass));
 
@@ -117,7 +111,6 @@ public class Reset_password_Activity extends AppCompatActivity implements View.O
 
         Intent i = new Intent(Reset_password_Activity.this, Login.class);
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-        i.putExtra("reset", false);
         startActivity(i);
 
     }

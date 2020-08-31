@@ -43,6 +43,7 @@
         <activity android:name=".activity.Account_setup"/>
         <activity android:name=".activity.Homepage"/>
         <activity android:name=".activity.ProductsActivity"/>
+        <activity android:name=".activity.ProductsDetailsActivity"/>
         <activity android:name=".activity.Rolespage"/>
 
     </application>

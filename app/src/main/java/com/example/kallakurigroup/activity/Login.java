@@ -18,6 +18,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.kallakurigroup.R;
+import com.example.kallakurigroup.database.UserTableDAO;
 import com.example.kallakurigroup.utils.Dialogs;
 import com.example.kallakurigroup.utils.LoginCommon;
 import com.example.kallakurigroup.utils.Network_info;
@@ -62,6 +63,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
     SharedPreferences sharedpreferences;
     String PREFERENCE = "KALLAKURI";
 
+    UserTableDAO userTableDAO;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +77,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         sharedpreferences = getSharedPreferences(PREFERENCE, Context.MODE_PRIVATE);
         editor = sharedpreferences.edit();
 
+        userTableDAO = new UserTableDAO(this);
 
         mSubmit.setOnClickListener(this);
         mForgotPin.setOnClickListener(this);
@@ -100,100 +104,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
 
             }
         });
-
-       /* mEditPin.addTextChangedListener(new TextWatcher() {
-
-            public void afterTextChanged(Editable s) {
-
-                if (!mEditPin.getText().toString().equals("") && mEditPin.getText().toString() != null && !mEditUserName.getText().toString().equals("") && mEditUserName.getText().toString() != null) {
-
-                    if (mEditPin.getText().toString().length() <= 5) {
-                        Cleared = true;
-                    }
-                    if (mEditPin.getText().toString().length() == 6) {
-
-                        if (mEditUserName.getText().toString().length() == 10) {
-
-                            mPhoneNumber = mEditUserName.getText().toString();
-
-                            mPass = mEditPin.getText().toString();
-
-                            if(Cleared) {
-                                Cleared =  false;
-                                validations();
-                            }
-                        }
-
-                    }
-                }
-
-            }
-
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-        });
-
-        mEditUserName.addTextChangedListener(new TextWatcher() {
-
-            public void afterTextChanged(Editable s) {
-
-                //if (ClassicSingleton.isSupport){
-                    if (!mEditUserName.getText().toString().equals("") && mEditUserName.getText().toString() != null){
-
-                        if(mEditUserName.getText().toString().length()<=9){
-                            Cleared = true;
-                        }
-
-                        if (mEditUserName.getText().toString().length() == 10) {
-
-                            mPhoneNumber = mEditUserName.getText().toString();
-
-                            mPass = mEditPin.getText().toString();
-
-                            if(Cleared) {
-                                Cleared =  false;
-                                validations();
-                            }
-
-                       // }
-                    }
-                }else if (!mEditUserName.getText().toString().equals("") && mEditUserName.getText().toString() != null && !mEditPin.getText().toString().equals("") && mEditPin.getText().toString() != null) {
-
-                    if(mEditUserName.getText().toString().length()<=9){
-                        Cleared = true;
-                    }
-
-                    if (mEditUserName.getText().toString().length() == 10) {
-
-                        if (mEditPin.getText().toString().length() == 6) {
-
-                            mPhoneNumber = mEditUserName.getText().toString();
-
-                            mPass = mEditPin.getText().toString();
-
-                            if(Cleared) {
-                                Cleared =  false;
-                                validations();
-                            }
-                        }
-                    }
-                }
-            }
-
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-        });
-
-
-        */
     }
 
 
@@ -213,18 +123,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                     pin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(pin);
                     break;
-               // case R.id.back_arrow:
-                   /* if (ClassicSingleton.isSupport){
-
-                    }else {*/
-                      //  finish();
-                   // }
 
                 case R.id.buttonSignup:
 
                     Intent i = new Intent(Login.this, SignUp.class);
-                    //  i.putExtra("from","newsignup");
-                    //  i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NO_HISTORY);
                     startActivity(i);
 
                 default:
@@ -266,7 +168,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
 
                 if (Network_info.isNetworkAvailable(context)) {
 
-                    new LoginCommon(context, mPhoneNumber, mPass).doLogin();
+                    new LoginCommon(context, mPhoneNumber, mPass).doLogin(userTableDAO);
 
                 } else {
 

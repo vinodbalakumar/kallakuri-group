@@ -7,25 +7,32 @@ import androidx.databinding.BindingAdapter;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.annotations.SerializedName;
+import com.j256.ormlite.field.DatabaseField;
 
 public class BrandsDetails {
 
     @SerializedName("id")
+    @DatabaseField(id = true,index = true,columnName = "Brand_Id")
     private int id;
 
     @SerializedName("brandName")
+    @DatabaseField
     private String brandName;
 
     @SerializedName("description")
+    @DatabaseField
     private String description;
 
     @SerializedName("imagePath")
+    @DatabaseField
     private String imagePath;
 
     @SerializedName("types")
+    @DatabaseField
     private String types;
 
     @SerializedName("status")
+    @DatabaseField
     private String status;
 
     public int getId() {

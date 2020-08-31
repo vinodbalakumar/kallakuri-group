@@ -17,7 +17,7 @@ public class LoginProfileModel {
     private String geoLocation;
 
     @SerializedName("id")
-    private String id;
+    private int id;
 
     @SerializedName("imeiNo")
     private String imeiNo;
@@ -55,6 +55,12 @@ public class LoginProfileModel {
     @SerializedName("village")
     private String village;
 
+    @SerializedName("city")
+    private String city;
+
+    @SerializedName("deliveryAddress")
+    private String deliveryAddress;
+
     public String getCreatedAt() {
         return createdAt;
     }
@@ -87,11 +93,11 @@ public class LoginProfileModel {
         this.geoLocation = geoLocation;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -189,5 +195,21 @@ public class LoginProfileModel {
 
     public void setVillage(String village) {
         this.village = village;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getDeliveryAddress() {
+        return deliveryAddress;
+    }
+
+    public void setDeliveryAddress(String deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
     }
 }

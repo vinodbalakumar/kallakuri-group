@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,14 +22,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.kallakurigroup.R;
+import com.example.kallakurigroup.database.UserTableDAO;
 import com.example.kallakurigroup.fragments.AboutUsFragment;
 import com.example.kallakurigroup.fragments.ContactUsFragment;
 import com.example.kallakurigroup.fragments.FeedBackFragment;
 import com.example.kallakurigroup.fragments.HomeFragment;
-import com.example.kallakurigroup.models.localdbmodels.UserTableModel;
-import com.example.kallakurigroup.utils.Storage;
+import com.example.kallakurigroup.models.userModels.UserTableModel;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
+
+import butterknife.BindView;
 
 
 public class Homepage extends AppCompatActivity {
@@ -43,6 +44,11 @@ public class Homepage extends AppCompatActivity {
     // define a variable to track hamburger-arrow state
     protected boolean isHomeAsUp = false;
 
+    UserTableDAO userTableDAO;
+    UserTableModel userTableModel;
+
+    RelativeLayout left_lay;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,8 +57,14 @@ public class Homepage extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        userTableDAO = new UserTableDAO(this);
+        userTableModel = userTableDAO.getData().get(0);
+
         navigationView = findViewById(R.id.navigationView);
         drawerLayout = findViewById(R.id.drawerLayout);
+
+        left_lay = findViewById(R.id.left_lay);
+        left_lay.setVisibility(View.GONE);
 
         actionBarDrawerToggle = new ActionBarDrawerToggle(Homepage.this, drawerLayout, toolbar, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -78,10 +90,8 @@ public class Homepage extends AppCompatActivity {
         TextView username =view.findViewById(R.id.headerUsername);
         TextView phoneNo =view.findViewById(R.id.headerPhoneNo);
 
-        Storage storage = new Storage(Homepage.this);
-        UserTableModel userDetails = storage.getUserDetails();
-        username.setText(userDetails.getName());
-        phoneNo.setText(userDetails.getPhoneNo());
+        username.setText(userTableModel.getName());
+        phoneNo.setText(userTableModel.getPhoneNo());
 
         HomeFragment homeFragment = new HomeFragment();
         loadFragment(homeFragment);
@@ -118,13 +128,13 @@ public class Homepage extends AppCompatActivity {
 
     }
 
-    @Override
+   /* @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.home_option_menu, menu);
         return true;
-    }
+    }*/
 
-    @Override
+    /*@Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()) {
@@ -133,7 +143,7 @@ public class Homepage extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     private void loadFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -163,8 +173,7 @@ public class Homepage extends AppCompatActivity {
                             moveTaskToBack(true);
                         }
                         if (actionType.equals("Logout")) {
-                            Storage storage = new Storage(Homepage.this);
-                            storage.deleteUser();
+                             userTableDAO.deleteAll();
                             startActivity(new Intent(Homepage.this, Login.class));
                         }
                     }

@@ -1,10 +1,8 @@
 package com.example.kallakurigroup.activity;
 
 import android.annotation.SuppressLint;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -14,7 +12,6 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -25,13 +22,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.kallakurigroup.R;
-import com.example.kallakurigroup.models.localdbmodels.UserTableModel;
 import com.example.kallakurigroup.models.otpmodels.OTPResponceModel;
 import com.example.kallakurigroup.retrofit.ApiClient;
 import com.example.kallakurigroup.retrofit.ApiInterface;
 import com.example.kallakurigroup.utils.Dialogs;
 import com.example.kallakurigroup.utils.Network_info;
-import com.example.kallakurigroup.utils.Storage;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -267,19 +262,6 @@ public class SignUp extends AppCompatActivity {
                     if(phoneNo == null) {
                         Dialogs.show_popUp(responceModel.getHeader().getMessage(), context);
                     }else {
-
-                        Storage storage = new Storage(context);
-                        SQLiteDatabase database = storage.getWritableDatabase();
-
-                        if (storage.getUserDetails().getPhoneNo() == null) {
-                            UserTableModel model = new UserTableModel(1, responePhoneNo, "", "", "", "", "", "", "", "", "", "");
-                            storage.insertUserDetails(model);
-                        } else {
-                            ContentValues values = new ContentValues();
-                            values.put(Storage.USER_PHONE_NO, responePhoneNo);
-                            database.update(Storage.USER_TABLE, values, "uno=1", null);
-                        }
-                        database.close();
 
                         Toast.makeText(context, getResources().getString(R.string.otp_request_Sent), Toast.LENGTH_SHORT).hashCode();
 

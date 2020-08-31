@@ -5,13 +5,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.sqlite.SQLiteDatabase;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -35,11 +33,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.kallakurigroup.R;
-import com.example.kallakurigroup.models.rolesmodels.RolesResponceModel;
+import com.example.kallakurigroup.database.UserTableDAO;
+import com.example.kallakurigroup.models.loginmodel.LoginResponceModel;
+import com.example.kallakurigroup.models.userModels.UserTableModel;
 import com.example.kallakurigroup.retrofit.ApiClient;
 import com.example.kallakurigroup.retrofit.ApiInterface;
 import com.example.kallakurigroup.utils.Dialogs;
-import com.example.kallakurigroup.utils.Storage;
 import com.example.kallakurigroup.utils.Validations;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -49,11 +48,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -87,6 +84,7 @@ public class Account_setup extends Activity {
     String user_DOB;
     String state_clicked, roleNameClicked = "role";
     String roleNumClicked = "0";
+    String mMobileNum, imeiNum = "";
     RadioButton toggle_female;
     RadioButton toggle_male;
     TextView header_text;
@@ -98,23 +96,25 @@ public class Account_setup extends Activity {
 
     String currentLocationAddress = "", geoLocation = "";
 
-    Storage storage;
-    SQLiteDatabase database;
+    UserTableDAO userTableDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.account_set);
 
-        storage = new Storage(context);
-        database = storage.getWritableDatabase();
+        userTableDAO = new UserTableDAO(this);
+
+        sharedpreferences = context.getSharedPreferences(PREFERENCE, Context.MODE_PRIVATE);
+        editor = sharedpreferences.edit();
+
+        roleNumClicked = getIntent().getStringExtra("role_num");
+        roleNameClicked = getIntent().getStringExtra("role_name");
+        mMobileNum = getIntent().getStringExtra("mobile_num");
 
         dateView = (EditText) findViewById(R.id.dob_et);
 
         header_text = (TextView) findViewById(R.id.header_text);
-
-        sharedpreferences = context.getSharedPreferences(PREFERENCE, Context.MODE_PRIVATE);
-        editor = sharedpreferences.edit();
 
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
@@ -143,9 +143,7 @@ public class Account_setup extends Activity {
         state_et = (Spinner) findViewById(R.id.state_et);
        // role_et = (Spinner) findViewById(R.id.role_et);
         role_et = (EditText) findViewById(R.id.roleName);
-        role_et.setText(storage.getUserDetails().getRoleName());
-        roleNameClicked = storage.getUserDetails().getRoleName();
-        roleNumClicked = storage.getUserDetails().getRoleNumber();
+        role_et.setText(roleNameClicked);
         gender = toggle_male.getText().toString();
 
         header_text.setText(getString(R.string.businessDetails));
@@ -502,21 +500,6 @@ public class Account_setup extends Activity {
 
             Dialogs.ProgressDialog(context);
 
-            ContentValues values = new ContentValues();
-            values.put(storage.USER_ROLE_NUMBER, roleNumClicked);
-            values.put(storage.USER_ROLE_NAME, roleNameClicked);
-            values.put(Storage.USER_NAME, name);
-            values.put(Storage.USER_EMAIL, email);
-            values.put(Storage.USER_PASSWORD, password);
-            values.put(Storage.USER_VILLAGE, city);
-            values.put(Storage.USER_TOWN, city);
-            values.put(Storage.USER_DISTRICT, district);
-            values.put(Storage.USER_STATE, state);
-            values.put(Storage.USER_PINCODE, pincode);
-
-            database.update(Storage.USER_TABLE, values, "uno=1", null);
-            database.close();
-
             JSONObject mainObject = new JSONObject();
 
             JSONObject data = new JSONObject();
@@ -540,7 +523,6 @@ public class Account_setup extends Activity {
             JSONObject header = new JSONObject();
 
             try {
-
                 userProfileBody.put("createdAt", JSONObject.NULL);
                 userProfileBody.put("district", district);
                 userProfileBody.put("email", email);
@@ -549,7 +531,7 @@ public class Account_setup extends Activity {
                 userProfileBody.put("imeiNo", "");
                 userProfileBody.put("name", name);
                 userProfileBody.put("password", password);
-                userProfileBody.put("phoneNo", storage.getUserDetails().getPhoneNo());
+                userProfileBody.put("phoneNo", mMobileNum);
                 userProfileBody.put("pincode", pincode);
                 userProfileBody.put("reference", "");
                 userProfileBody.put("role", roleNumClicked);
@@ -586,11 +568,11 @@ public class Account_setup extends Activity {
                 ApiInterface apiService =
                         ApiClient.getClient().create(ApiInterface.class);
 
-                Call<ResponseBody> call = apiService.createUser("application/json", jsonObject);
+                Call<LoginResponceModel> call = apiService.createUser("application/json", jsonObject);
 
-                call.enqueue(new Callback<ResponseBody>() {
+                call.enqueue(new Callback<LoginResponceModel>() {
                     @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    public void onResponse(Call<LoginResponceModel> call, Response<LoginResponceModel> response) {
 
                         Dialogs.Cancel();
 
@@ -602,6 +584,9 @@ public class Account_setup extends Activity {
                         if (response.code() == 200) {
                             Toast.makeText(context, getResources().getString(R.string.registration_successful), Toast.LENGTH_SHORT).show();
 
+                            UserTableModel userTableModel = new UserTableModel(response.body().getData().getLoginProfileModel().getId(), imeiNum, mMobileNum, roleNameClicked, roleNumClicked, name, email, password, village, village, city, district, state, pincode, currentLocationAddress,  geoLocation);
+                            userTableDAO.addData(userTableModel);
+
                             Intent i1 = new Intent(Account_setup.this, Login.class);
                             i1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(i1);
@@ -612,7 +597,7 @@ public class Account_setup extends Activity {
                     }
 
                     @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    public void onFailure(Call<LoginResponceModel> call, Throwable t) {
                        Dialogs.Cancel();
                        Dialogs.show_popUp(getResources().getString(R.string.error) + ": " + t.getMessage(), context);
                     }

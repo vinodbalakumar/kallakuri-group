@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,21 +19,26 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.kallakurigroup.R;
 import com.example.kallakurigroup.adapters.BrandsAdapter;
+import com.example.kallakurigroup.database.BrandsTableDAO;
+import com.example.kallakurigroup.database.ProductTableDAO;
+import com.example.kallakurigroup.database.UserTableDAO;
 import com.example.kallakurigroup.listeners.BrandsListener;
 import com.example.kallakurigroup.models.productsmodels.BrandsDetails;
 import com.example.kallakurigroup.models.productsmodels.ProductDetails;
 import com.example.kallakurigroup.models.productsmodels.ProductResponceModel;
 import com.example.kallakurigroup.activity.ProductsActivity;
+import com.example.kallakurigroup.models.userModels.UserTableModel;
 import com.example.kallakurigroup.retrofit.ApiClient;
 import com.example.kallakurigroup.retrofit.ApiInterface;
 import com.example.kallakurigroup.utils.Dialogs;
-import com.example.kallakurigroup.utils.Storage;
+import com.example.kallakurigroup.utils.GridSpacingItemDecoration;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageClickListener;
 import com.synnapps.carouselview.ImageListener;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -49,9 +53,9 @@ import retrofit2.Response;
  */
 public class HomeFragment extends Fragment implements BrandsListener {
 
-    private ArrayList<BrandsDetails> brandsList;
+    private List<BrandsDetails> brandsList;
     private ProductResponceModel model;
-    private Map<String, ArrayList<ProductDetails>> productsObject;
+    private Map<String, List<ProductDetails>> productsObject;
 
     @BindView(R.id.homePlaceHolder)
     ShimmerFrameLayout homePlaceHolder;
@@ -65,6 +69,12 @@ public class HomeFragment extends Fragment implements BrandsListener {
     @BindView(R.id.homeRecyclerView)
     RecyclerView homeRecyclerView;
 
+    UserTableDAO userTableDAO;
+    UserTableModel userTableModel;
+
+    BrandsTableDAO brandsTableDAO;
+    ProductTableDAO productTableDAO;
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -77,6 +87,11 @@ public class HomeFragment extends Fragment implements BrandsListener {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
         ButterKnife.bind(this, v);
+
+        brandsTableDAO = new BrandsTableDAO(getActivity());
+        productTableDAO = new ProductTableDAO(getActivity());
+        userTableDAO = new UserTableDAO(getActivity());
+        userTableModel = userTableDAO.getData().get(0);
 
        // final FragmentHomeBinding fragmentHomeBinding = FragmentHomeBinding.bind(v);
 
@@ -104,6 +119,7 @@ public class HomeFragment extends Fragment implements BrandsListener {
         });
 
         homeRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        //homeRecyclerView.addItemDecoration(new GridSpacingItemDecoration(5));
 
         getBrands();
 
@@ -112,14 +128,10 @@ public class HomeFragment extends Fragment implements BrandsListener {
 
     void getBrands(){
 
-        Storage storage = new Storage(getActivity().getApplicationContext());
-
-        // Dialogs.ProgressDialog(getContext());
-
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
-        Call<ProductResponceModel> call = apiService.getProducts(storage.getUserDetails().getRoleNumber());
+        Call<ProductResponceModel> call = apiService.getProducts(userTableModel.getRoleNumber());
         call.enqueue(new Callback<ProductResponceModel>() {
             @Override
             public void onResponse(Call<ProductResponceModel> call, Response<ProductResponceModel> response) {
@@ -132,6 +144,8 @@ public class HomeFragment extends Fragment implements BrandsListener {
 
                     brandsList = model.getData().getBrandsList();
                     productsObject = model.getData().getProductPricings();
+
+                    storeLocalDb();
 
                     BrandsAdapter adapter = new BrandsAdapter(brandsList, HomeFragment.this);
                     homeRecyclerView.setAdapter(adapter);
@@ -155,6 +169,25 @@ public class HomeFragment extends Fragment implements BrandsListener {
         });
     }
 
+    private void storeLocalDb() {
+
+        brandsTableDAO.deleteAll();
+        productTableDAO.deleteAll();
+
+        for(BrandsDetails brands : brandsList )
+        {
+            brandsTableDAO.addData(brands);
+        }
+
+        List<ProductDetails> productsList = new ArrayList<>();
+        for (Map.Entry<String, List<ProductDetails>> productList : productsObject.entrySet()) {
+            productsList.addAll(productList.getValue());
+        }
+
+        productTableDAO.addData(productsList);
+
+    }
+
     private void loadAnimation(ViewGroup view) {
         Context context = view.getContext();
         LayoutAnimationController layoutAnimationController = AnimationUtils
@@ -163,20 +196,14 @@ public class HomeFragment extends Fragment implements BrandsListener {
     }
 
     @Override
-    public void brandSelected(int position, String brandName) {
-
-        ArrayList<ProductDetails> selectedProducts = new ArrayList<>();
-        for (Map.Entry<String, ArrayList<ProductDetails>> productList : productsObject.entrySet()) {
-            if(productList.getKey().equals(String.valueOf(brandsList.get(position).getId()))) {
-                selectedProducts.addAll(productList.getValue());
-            }
-        }
+    public void brandSelected(int position, String brandName, int brandId) {
 
         Intent intent = new Intent(getContext(), ProductsActivity.class);
-        Bundle bundle = new Bundle();
+       /* Bundle bundle = new Bundle();
         bundle.putParcelableArrayList("products", selectedProducts);
-        intent.putExtras(bundle);
+        intent.putExtras(bundle);*/
         intent.putExtra("brand_name", brandName);
+        intent.putExtra("brand_id", String.valueOf(brandId));
         startActivity(intent);
     }
 }

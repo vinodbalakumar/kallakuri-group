@@ -6,12 +6,16 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-
     <androidx.drawerlayout.widget.DrawerLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/abc_action_bar_default_height_material"
         android:layout_height="match_parent"
         android:id="@+id/drawerLayout">
+
+        <include
+            layout="@layout/app_bar_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/mainLayout"/>
 
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/navigationView"
@@ -19,14 +23,10 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             app:headerLayout="@layout/header_home"
+            android:layout_marginTop="@dimen/_48sdp"
             app:menu="@menu/main_menu" />
 
     </androidx.drawerlayout.widget.DrawerLayout>
-
-    <include
-        layout="@layout/app_bar_main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
 
 
 </RelativeLayout>

@@ -1,8 +1,7 @@
 package com.example.kallakurigroup.models.productsmodels;
 
 import com.google.gson.annotations.SerializedName;
-
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class DataModel {
@@ -11,10 +10,10 @@ public class DataModel {
     private String reqType;
 
     @SerializedName("productPricings")
-    private Map<String, ArrayList<ProductDetails>> productPricings;
+    private Map<String, List<ProductDetails>> productPricings;
 
     @SerializedName("brands")
-    private ArrayList<BrandsDetails> brandsList;
+    private List<BrandsDetails> brandsList;
 
     public String getReqType() {
         return reqType;
@@ -24,19 +23,19 @@ public class DataModel {
         this.reqType = reqType;
     }
 
-    public Map<String, ArrayList<ProductDetails>> getProductPricings() {
+    public Map<String, List<ProductDetails>> getProductPricings() {
         return productPricings;
     }
 
-    public void setProductPricings(Map<String, ArrayList<ProductDetails>> productPricings) {
+    public void setProductPricings(Map<String, List<ProductDetails>> productPricings) {
         this.productPricings = productPricings;
     }
 
-    public ArrayList<BrandsDetails> getBrandsList() {
+    public List<BrandsDetails> getBrandsList() {
         return brandsList;
     }
 
-    public void setBrandsList(ArrayList<BrandsDetails> brandsList) {
+    public void setBrandsList(List<BrandsDetails> brandsList) {
         this.brandsList = brandsList;
     }
 }

@@ -33,17 +33,50 @@
     <TextView
         android:layout_toRightOf="@id/left_lay"
         android:id="@+id/header_text"
-        android:textSize="@dimen/_15sdp"
+        android:textSize="@dimen/_14sdp"
         android:textColor="@color/white"
         android:gravity="center_vertical"
         android:maxLines="1"
-        android:text="Name"
+        android:text="@string/kk_groups"
         android:layout_marginLeft="@dimen/_5sdp"
         android:layout_centerVertical="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <View
+        <RelativeLayout
+            android:id="@+id/hcl"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_centerInParent="true">
+
+            <ImageView
+                android:id="@+id/shp_cart"
+                android:layout_width="@dimen/_22sdp"
+                android:layout_height="@dimen/_22sdp"
+                android:layout_centerInParent="true"
+                android:clickable="true"
+                android:src="@drawable/cart_whtie" />
+
+            <TextView
+                android:id="@+id/cart_text_number"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_marginLeft="@dimen/_minus9sdp"
+                android:layout_toRightOf="@+id/shp_cart"
+                android:background="@drawable/badge_circel"
+                android:text="0"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="#fff"
+                android:textSize="10dp"
+                android:visibility="visible" />
+
+        </RelativeLayout>
+
+
+        <View
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"/>

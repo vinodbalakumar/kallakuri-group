@@ -9,9 +9,10 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_48sdp"
-        app:title="@string/kk_groups"
-        app:titleTextColor="@color/white"
-        android:background="@color/colorPrimary"/>
+        android:background="@color/colorPrimary">
+        <include layout="@layout/header"/>
+    </com.google.android.material.appbar.MaterialToolbar>
+
 
     <FrameLayout
         android:id="@+id/frameLayout"

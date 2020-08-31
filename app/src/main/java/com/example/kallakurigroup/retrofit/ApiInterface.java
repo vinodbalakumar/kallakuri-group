@@ -27,7 +27,7 @@ public interface ApiInterface {
     );
 
     @POST("v1/create-profile")
-    Call<ResponseBody> createUser(
+    Call<LoginResponceModel> createUser(
             @Header("Content-Type") String contentType,
             @Body JsonObject jsonObject
     );

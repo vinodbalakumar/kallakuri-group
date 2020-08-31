@@ -14,4 +14,5 @@ public class LoginResponceModel {
     public void setData(LoginData data) {
         this.data = data;
     }
+
 }

@@ -1,6 +1,7 @@
 package com.example.kallakurigroup.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,18 +18,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.kallakurigroup.R;
 import com.example.kallakurigroup.adapters.ProductsAdapter;
+import com.example.kallakurigroup.database.ProductTableDAO;
 import com.example.kallakurigroup.databinding.ActivityProductsBinding;
 import com.example.kallakurigroup.listeners.ProductItemListener;
 import com.example.kallakurigroup.models.productsmodels.ProductDetails;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ProductsActivity extends AppCompatActivity implements ProductItemListener {
 
-    private ArrayList<ProductDetails> productsList;
+    private List<ProductDetails> productsList;
 
     @BindView(R.id.left_lay)
     RelativeLayout left_lay;
@@ -38,6 +41,11 @@ public class ProductsActivity extends AppCompatActivity implements ProductItemLi
 
     @BindView(R.id.productRecyclerView)
     RecyclerView productRecyclerView;
+
+    @BindView(R.id.rl_noDataFound)
+    RelativeLayout rlNoDataFound;
+
+    ProductTableDAO productTableDAO;
 
     Context context;
 
@@ -51,16 +59,25 @@ public class ProductsActivity extends AppCompatActivity implements ProductItemLi
 
         ButterKnife.bind(this);
 
+        productTableDAO = new ProductTableDAO(this);
 
         header_text.setText(getIntent().getStringExtra("brand_name"));
 
         productRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        productsList = this.getIntent().getExtras().getParcelableArrayList("products");
+        //productsList = this.getIntent().getExtras().getParcelableArrayList("products");
 
-        productRecyclerView.setLayoutManager(new GridLayoutManager(this, 1));
 
-        productRecyclerView.setAdapter(new ProductsAdapter(productsList, ProductsActivity.this));
+        productsList = productTableDAO.getProductByBrandId(getIntent().getStringExtra("brand_id"));
+
+        if(productsList!=null && productsList.size()>0){
+            productRecyclerView.setLayoutManager(new GridLayoutManager(this, 1));
+
+            productRecyclerView.setAdapter(new ProductsAdapter(productsList, ProductsActivity.this));
+        }else {
+            productRecyclerView.setVisibility(View.GONE);
+            rlNoDataFound.setVisibility(View.VISIBLE);
+        }
 
         //loadAnimation(llBrands);
         loadAnimation(productRecyclerView);
@@ -76,7 +93,7 @@ public class ProductsActivity extends AppCompatActivity implements ProductItemLi
 
     @Override
     public void productSelected(int position) {
-        Toast.makeText(this, productsList.get(position).getProductFinalPrice(), Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(context, ProductsDetailsActivity.class).putExtra("product_id", productsList.get(position).getId()));
     }
 
     private void loadAnimation(ViewGroup view) {

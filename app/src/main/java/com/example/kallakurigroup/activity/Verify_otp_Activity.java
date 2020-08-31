@@ -3,7 +3,6 @@ package com.example.kallakurigroup.activity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -26,7 +25,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.example.kallakurigroup.R;
-import com.example.kallakurigroup.models.localdbmodels.UserTableModel;
 import com.example.kallakurigroup.models.otpmodels.OTPResponceModel;
 import com.example.kallakurigroup.retrofit.ApiClient;
 import com.example.kallakurigroup.retrofit.ApiInterface;
@@ -34,7 +32,6 @@ import com.example.kallakurigroup.utils.ClassicSingleton;
 import com.example.kallakurigroup.utils.Dialogs;
 import com.example.kallakurigroup.utils.Network_info;
 import com.example.kallakurigroup.utils.Popup_Class;
-import com.example.kallakurigroup.utils.Storage;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.stfalcon.smsverifycatcher.OnSmsCatchListener;
@@ -360,9 +357,9 @@ public class Verify_otp_Activity extends AppCompatActivity {
 
         if(mOTPCode.equals(mOTP)){
             if(mFrom.equalsIgnoreCase("signup")) {
-                startActivity(new Intent(Verify_otp_Activity.this, Rolespage.class));
+                startActivity(new Intent(Verify_otp_Activity.this, Rolespage.class).putExtra("mobile_num", mMobileNumber));
             }else {
-                startActivity(new Intent(Verify_otp_Activity.this, Reset_password_Activity.class).putExtra("mobileNum", mMobileNumber));
+                startActivity(new Intent(Verify_otp_Activity.this, Reset_password_Activity.class).putExtra("mobile_num", mMobileNumber));
             }
         } else {
             Toast.makeText(Verify_otp_Activity.this, getResources().getString(R.string.otp_not_match), Toast.LENGTH_SHORT).show();
@@ -522,21 +519,7 @@ public class Verify_otp_Activity extends AppCompatActivity {
                         Dialogs.show_popUp(responceModel.getHeader().getMessage(), context);
                     }else {
 
-                        Storage storage = new Storage(context);
-                        SQLiteDatabase database = storage.getWritableDatabase();
-
-                        if (storage.getUserDetails().getPhoneNo() == null) {
-                            UserTableModel model = new UserTableModel(1, responePhoneNo, "", "", "", "", "", "", "", "", "", "");
-                            storage.insertUserDetails(model);
-                        } else {
-                            ContentValues values = new ContentValues();
-                            values.put(Storage.USER_PHONE_NO, responePhoneNo);
-                            database.update(Storage.USER_TABLE, values, "uno=1", null);
-                        }
-                        database.close();
-
                         mOTPCode = otpCode;
-
                         textNote.setText(mMobileNumber+": Your One Time Password is KK - "+mOTPCode+" for registering an new Account with KK-GROUPS");
 
                     }

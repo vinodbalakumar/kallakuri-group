@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         app:cardElevation="@dimen/_5sdp"
         app:cardCornerRadius="@dimen/_7sdp"
-        android:layout_margin="@dimen/_7sdp"
+        android:layout_margin="@dimen/_5sdp"
         android:clickable="true"
         android:focusable="true"
         android:descendantFocusability="blocksDescendants"
@@ -43,7 +43,7 @@
         <TextView
             android:id="@+id/brandsRowTextView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingVertical="@dimen/_8sdp"
             android:text="@{brand.brandName}"

@@ -16,13 +16,14 @@ import com.example.kallakurigroup.listeners.BrandsListener;
 import com.example.kallakurigroup.models.productsmodels.BrandsDetails;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BrandsAdapter extends RecyclerView.Adapter<BrandsAdapter.Brands> {
 
-    private ArrayList<BrandsDetails> list;
+    private List<BrandsDetails> list;
     private BrandsListener brandsListener;
 
-    public BrandsAdapter(ArrayList<BrandsDetails> list, BrandsListener brandsListener) {
+    public BrandsAdapter(List<BrandsDetails> list, BrandsListener brandsListener) {
         this.list = list;
         this.brandsListener = brandsListener;
     }
@@ -58,7 +59,7 @@ public class BrandsAdapter extends RecyclerView.Adapter<BrandsAdapter.Brands> {
             itemView.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                   brandsListener.brandSelected(getAdapterPosition(), itemView.brandsRowTextView.getText().toString());
+                   brandsListener.brandSelected(getAdapterPosition(), list.get(getAdapterPosition()).getBrandName(), list.get(getAdapterPosition()).getId());
                 }
             });
         }

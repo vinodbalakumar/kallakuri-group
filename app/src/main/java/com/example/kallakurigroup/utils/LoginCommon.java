@@ -8,7 +8,8 @@ import android.util.Log;
 
 import com.example.kallakurigroup.activity.Homepage;
 import com.example.kallakurigroup.R;
-import com.example.kallakurigroup.models.localdbmodels.UserTableModel;
+import com.example.kallakurigroup.database.UserTableDAO;
+import com.example.kallakurigroup.models.userModels.UserTableModel;
 import com.example.kallakurigroup.models.loginmodel.LoginProfileModel;
 import com.example.kallakurigroup.models.loginmodel.LoginResponceModel;
 import com.example.kallakurigroup.retrofit.ApiClient;
@@ -32,9 +33,7 @@ public class LoginCommon {
 
     Context context;
 
-    String mPhoneNumber, mPass;
-
-    ReadInfoFromPhone mReadInfo;
+    String mPhoneNumber, mPass, imeiNo = "";
 
     JSONObject obj = null;
 
@@ -53,15 +52,13 @@ public class LoginCommon {
             sharedpreferences = context.getSharedPreferences(PREFERENCE, Context.MODE_PRIVATE);
             editor = sharedpreferences.edit();
 
-            mReadInfo = new ReadInfoFromPhone(context);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-    public void doLogin() {
+    public void doLogin(UserTableDAO dao) {
 
         try {
 
@@ -105,7 +102,11 @@ public class LoginCommon {
                         if (model==null || !model.getPassword().equals(mPass)) {
                             Dialogs.show_popUp(context.getResources().getString(R.string.invalidlogin) , context);
                         }else {
-                            localStorage(model);
+
+                            LoginProfileModel loginResponse = response.body().getData().getLoginProfileModel();
+                            UserTableModel userTableModel = new UserTableModel(loginResponse.getId(), loginResponse.getImeiNo(), loginResponse.getPhoneNo(), loginResponse.getRole(), loginResponse.getRole(), loginResponse.getName(), loginResponse.getEmail(), loginResponse.getPassword(), loginResponse.getVillage(), loginResponse.getTown(), loginResponse.getCity(), loginResponse.getDistrict(), loginResponse.getState(), loginResponse.getPincode(), loginResponse.getDeliveryAddress(),  loginResponse.getGeoLocation());
+                            dao.deleteAll();
+                            dao.addData(userTableModel);
 
                             context.startActivity(new Intent(context, Homepage.class));
 
@@ -170,33 +171,6 @@ public class LoginCommon {
             e.printStackTrace();
         }
       return jsonObject;
-    }
-
-    private void localStorage(LoginProfileModel model) {
-
-        Storage storage = new Storage(context);
-        SQLiteDatabase database = storage.getWritableDatabase();
-
-        UserTableModel model1 = new UserTableModel();
-        model1.setName(model.getName());
-        model1.setPhoneNo(model.getPhoneNo());
-        model1.setEmail(model.getEmail());
-        model1.setPassword(model.getPassword());
-        model1.setVillage(model.getVillage());
-        model1.setTown(model.getTown());
-        model1.setDistrict(model.getDistrict());
-        model1.setState(model.getState());
-        model1.setPincode(model.getPincode());
-        model1.setRoleNumber(model.getRole());
-
-        if (storage.getUserDetails().getPhoneNo() == null) {
-            storage.insertUserDetails(model1);
-        } else {
-            storage.updateUserDetails(model1);
-        }
-        database.close();
-
-
     }
 
 }

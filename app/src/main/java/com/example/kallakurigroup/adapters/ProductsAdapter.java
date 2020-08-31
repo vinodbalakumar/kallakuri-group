@@ -17,13 +17,14 @@ import com.example.kallakurigroup.databinding.ProductsRowBinding;
 import com.example.kallakurigroup.models.productsmodels.ProductDetails;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHolder> {
 
-    ArrayList<ProductDetails> list;
+    List<ProductDetails> list;
     ProductsActivity productsActivity;
 
-    public ProductsAdapter(ArrayList<ProductDetails> list, ProductsActivity productsActivity) {
+    public ProductsAdapter(List<ProductDetails> list, ProductsActivity productsActivity) {
         this.list = list;
         this.productsActivity = productsActivity;
     }
