@@ -28,6 +28,7 @@ import com.example.kallakurigroup.fragments.ContactUsFragment;
 import com.example.kallakurigroup.fragments.FeedBackFragment;
 import com.example.kallakurigroup.fragments.HomeFragment;
 import com.example.kallakurigroup.models.userModels.UserTableModel;
+import com.example.kallakurigroup.utils.Popup_Class;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -118,7 +119,8 @@ public class Homepage extends AppCompatActivity {
                         loadFragment(aboutUsFragment);
                         break;
                     case R.id.optionLogout:
-                        exitApp("Logout","KkGroups Alert!", "Are you sure you want to logout?");
+                        //exitApp("Logout","KkGroups Alert!", "Are you sure you want to logout?");
+                        new Popup_Class().showDialog_logout(Homepage.this, getResources().getString(R.string.logout_confirm1), Homepage.this, "Logout");
                         break;
                 }
 
@@ -157,11 +159,12 @@ public class Homepage extends AppCompatActivity {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
-            exitApp("Close", "KkGroups Alert!", "Are you sure you want to leave this page?");
+           // exitApp("Close", "KkGroups Alert!", "Are you sure you want to leave this page?");
+            new Popup_Class().showDialog_logout(Homepage.this, getResources().getString(R.string.leave_app_confirm), Homepage.this, "close");
         }
     }
 
-    private void exitApp(final String actionType, String title, String message) {
+   /* private void exitApp(final String actionType, String title, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(Homepage.this);
         builder.setTitle(title)
                 .setMessage(message)
@@ -185,7 +188,7 @@ public class Homepage extends AppCompatActivity {
         });
         builder.setCancelable(false);
         builder.show();
-    }
+    }*/
 
     // call this method for animation between hamburged and arrow
     protected void setHomeAsUp(boolean isHomeAsUp) {

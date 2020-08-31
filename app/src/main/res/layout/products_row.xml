@@ -10,7 +10,7 @@
 
     </data>
 
-    <androidx.cardview.widget.CardView
+    <!--<androidx.cardview.widget.CardView
         android:id="@+id/brandsRowCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,11 +19,11 @@
         android:layout_marginVertical="@dimen/_5sdp"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="@dimen/_7sdp"
-        app:cardElevation="@dimen/_5sdp">
+        app:cardElevation="@dimen/_5sdp">-->
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="@dimen/_100sdp">
 
             <RelativeLayout
                 android:id="@+id/rl_top"
@@ -154,7 +154,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text="+ Add"
-                                android:visibility="gone"
+                                android:visibility="visible"
                                 android:paddingVertical="@dimen/_3sdp"
                                 android:background="@drawable/button_background"
                                 android:textColor="@color/white"
@@ -165,7 +165,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:orientation="horizontal"
-                                android:visibility="visible"
+                                android:visibility="gone"
                                 android:weightSum="3">
 
                                 <ImageView
@@ -216,11 +216,11 @@
                         android:text="@{product.productDescription}"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:textColor="@color/black"
+                        android:singleLine="true"
+                        android:maxLines="1"
                         android:textSize="@dimen/_12sdp"/>
 
                 </LinearLayout>
-
-
             </RelativeLayout>
 
             <LinearLayout
@@ -296,9 +296,14 @@
 
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/textBack"/>
         </RelativeLayout>
 
-    </androidx.cardview.widget.CardView>
+    <!--</androidx.cardview.widget.CardView>-->
 
 
 </layout>

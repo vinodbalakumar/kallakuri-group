@@ -345,11 +345,11 @@ public class ProductTableDAO {
         return i;
     }
 
-    public int updateRow(String Tablename, ContentValues values, String key, String ColumnName)
+    public int updateRow(String Tablename, ContentValues values, String key, int value)
     {
         RuntimeExceptionDao<ProductDetails, String> dao = helper.getProductTableDataDao();
 
-        String condition = " Where "+" "+key+"="+ ColumnName ;
+        String condition = " Where "+" "+key+"="+ value ;
 
         int j =   dao.updateRaw("UPDATE "+Tablename +" set "+ values +condition);
 

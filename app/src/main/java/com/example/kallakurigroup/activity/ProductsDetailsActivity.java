@@ -70,6 +70,24 @@ public class ProductsDetailsActivity extends AppCompatActivity {
     @BindView(R.id.prodBrand)
     TextView prodBrand;
 
+    @BindView(R.id.plus)
+    ImageView plus;
+
+    @BindView(R.id.minus)
+    ImageView minus;
+
+    @BindView(R.id.inner_lt)
+    LinearLayout inner_lt;
+
+    @BindView(R.id.productAdd)
+    TextView textProductAdd;
+
+    @BindView(R.id.textTotAmount)
+    TextView textTotAmount;
+
+    @BindView(R.id.cart_text_number)
+    TextView textCartCount;
+
     ProductTableDAO productTableDAO;
 
     Context context;
@@ -100,6 +118,54 @@ public class ProductsDetailsActivity extends AppCompatActivity {
             }
         });
 
+        textProductAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                inner_lt.setVisibility(View.VISIBLE);
+                textProductAdd.setVisibility(View.GONE);
+                int selectedCount = 1;
+                float prodPrice = Float.parseFloat(ProductOfferPrice.getText().toString());
+                float selectedPrice = prodPrice*selectedCount;
+                if(selectedCount<10) {
+                    quantity_count.setText(String.valueOf(selectedCount));
+                    updateCartCountandTotAmount("plus", selectedPrice);
+                }
+            }
+        });
+
+        plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int selectedCount = Integer.parseInt(quantity_count.getText().toString());
+                float prodPrice = Float.parseFloat(ProductOfferPrice.getText().toString());
+                float selectedPrice = prodPrice*selectedCount;
+                if(selectedCount<10) {
+                    selectedCount = selectedCount + 1;
+                    quantity_count.setText(String.valueOf(selectedCount));
+                    updateCartCountandTotAmount("plus", selectedPrice);
+                }
+            }
+        });
+
+        minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int selectedCount = Integer.parseInt(quantity_count.getText().toString());
+                float prodPrice = Float.parseFloat(ProductOfferPrice.getText().toString());
+                float selectedPrice = prodPrice*selectedCount;
+                if(selectedCount>1) {
+                    selectedCount = selectedCount - 1;
+                    quantity_count.setText(String.valueOf(selectedCount));
+                }else if(selectedCount == 1){
+                    inner_lt.setVisibility(View.GONE);
+                    quantity_count.setVisibility(View.VISIBLE);
+                    selectedCount = 0;
+                    quantity_count.setText(String.valueOf(selectedCount));
+                    updateCartCountandTotAmount("minus", selectedPrice);
+                }
+            }
+        });
+
         setData();
 
     }
@@ -127,10 +193,31 @@ public class ProductsDetailsActivity extends AppCompatActivity {
 
       prodBrand.setText(prodDetails.getProductBrand());
     }
+
     private void loadAnimation(ViewGroup view) {
         Context context = view.getContext();
         LayoutAnimationController layoutAnimationController = AnimationUtils
                 .loadLayoutAnimation(context, R.anim.layout_right_slide);
         view.setLayoutAnimation(layoutAnimationController);
     }
+
+    void updateCartCountandTotAmount(String type, float price){
+
+        float totalAmount = Float.parseFloat(textTotAmount.getText().toString());
+
+        int totCartCount = Integer.parseInt(textCartCount.getText().toString());
+
+        if(type.equalsIgnoreCase("plus")){
+            totalAmount = totalAmount+price;
+            totCartCount = totCartCount+1;
+        }else {
+            totalAmount = totalAmount-price;
+            totCartCount = totCartCount-1;
+        }
+
+        textCartCount.setText(String.valueOf(totCartCount));
+        textTotAmount.setText(String.valueOf(totalAmount));
+
+    }
+
 }

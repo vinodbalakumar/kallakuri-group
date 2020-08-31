@@ -42,7 +42,8 @@
     <string name="verify_otp">VERIFY OTP</string>
     <string name="otp_not_match">OTP does not matched</string>
     <string name="are_you_sure">Are you sure?</string>
-    <string name="logout_confirm1">Do you want to Signout?</string>
+    <string name="logout_confirm1">Do you want to SignOut?</string>
+    <string name="leave_app_confirm">Do you want to close the application?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="Successful">Successful</string>
@@ -142,6 +143,7 @@
 
     <string name="role">Role</string>
     <string name="chooseRole">Choose Your Role</string>
+    <string name="totAmount">Total Amount :</string>
 
     <string-array name="state_arrays">
         <item>State</item>

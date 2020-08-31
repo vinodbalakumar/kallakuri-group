@@ -1,5 +1,6 @@
 package com.example.kallakurigroup.activity;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -44,6 +45,12 @@ public class ProductsActivity extends AppCompatActivity implements ProductItemLi
 
     @BindView(R.id.rl_noDataFound)
     RelativeLayout rlNoDataFound;
+
+    @BindView(R.id.textTotAmount)
+    TextView textTotAmount;
+
+    @BindView(R.id.cart_text_number)
+    TextView textCartCount;
 
     ProductTableDAO productTableDAO;
 
@@ -96,10 +103,43 @@ public class ProductsActivity extends AppCompatActivity implements ProductItemLi
         startActivity(new Intent(context, ProductsDetailsActivity.class).putExtra("product_id", productsList.get(position).getId()));
     }
 
+    @Override
+    public void quantityCountChanges(int position, int selectedCount, float selectedPrice, float prodPrice, String type) {
+
+        ContentValues values = new ContentValues();
+        values.put("selectedQty", selectedCount);
+        productTableDAO.updateRow("ProductDetails", values, "Product_Id", productsList.get(position).getId());
+
+        ContentValues value1 = new ContentValues();
+        value1.put("selectedPrice", String.valueOf(selectedPrice));
+        productTableDAO.updateRow("ProductDetails", value1, "Product_Id", productsList.get(position).getId());
+
+        int totCartCount = Integer.parseInt(textCartCount.getText().toString());
+
+        float totalAmount = Float.parseFloat(textTotAmount.getText().toString());
+
+        if(type.equalsIgnoreCase("plus")){
+            totalAmount = totalAmount+prodPrice;
+            totCartCount = totCartCount+1;
+        }else {
+            totalAmount = totalAmount-prodPrice;
+            totCartCount = totCartCount-1;
+        }
+
+        textCartCount.setText(String.valueOf(totCartCount));
+        updateTotalAmount(totalAmount);
+    }
+
     private void loadAnimation(ViewGroup view) {
         Context context = view.getContext();
         LayoutAnimationController layoutAnimationController = AnimationUtils
                 .loadLayoutAnimation(context, R.anim.layout_right_slide);
         view.setLayoutAnimation(layoutAnimationController);
+    }
+
+    void updateTotalAmount(float price){
+        float totalAmount = Float.parseFloat(textTotAmount.getText().toString());
+        totalAmount = totalAmount+price;
+        textTotAmount.setText(String.valueOf(totalAmount));
     }
 }

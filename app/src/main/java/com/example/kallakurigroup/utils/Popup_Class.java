@@ -33,7 +33,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.kallakurigroup.R;
+import com.example.kallakurigroup.activity.Login;
+import com.example.kallakurigroup.database.BrandsTableDAO;
+import com.example.kallakurigroup.database.ProductTableDAO;
+import com.example.kallakurigroup.database.UserTableDAO;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.j256.ormlite.stmt.query.In;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -234,5 +239,90 @@ public class Popup_Class {
         dialog.show();
 
         return dialog;
+    }
+
+    public void showDialog_logout(final Context context, String message, final Activity activity, String type) {
+
+        sharedpreferences = context.getSharedPreferences(PREFERENCE, Context.MODE_PRIVATE);
+        editor = sharedpreferences.edit();
+
+        LayoutInflater li = LayoutInflater.from(context);
+
+        LinearLayout lt = (LinearLayout) li.inflate(R.layout.logout_dialog, null);
+
+        TextView t_yes = (TextView) lt.findViewById(R.id.p_yes);
+        TextView t_no = (TextView) lt.findViewById(R.id.p_no);
+        TextView t_msg = (TextView) lt.findViewById(R.id.p_text);
+        //  ImageView iv = (ImageView) lt.findViewById(R.id.p_image);
+
+      /*  TextView title = (TextView) lt.findViewById(R.id.title);
+
+        title.setText(context.getString(R.string.logout));*/
+
+        t_msg.setText(message);
+
+
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        View v = dialog.getWindow().getDecorView();
+        v.setBackgroundResource(R.drawable.trans);
+        dialog.setContentView(lt);
+        dialog.getWindow().setLayout((int) context.getResources().getDimension(R.dimen._274sdp), ViewGroup.LayoutParams.WRAP_CONTENT);
+        //   dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.show();
+
+        t_no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialog.dismiss();
+            }
+        });
+
+
+        t_yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+
+                if(type.equalsIgnoreCase("close")){
+                    activity.moveTaskToBack(true);
+                }else {
+
+                    refreshData(context);
+
+                    //activity.finishAffinity();
+                    Intent i = new Intent(context, Login.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(i);
+                }
+
+            }
+        });
+    }
+
+    public void refreshData(Context context){
+        try {
+            editor.clear().apply();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try {
+            new UserTableDAO(context).deleteAll();
+            new BrandsTableDAO(context).deleteAll();
+            new ProductTableDAO(context).deleteAll();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try{
+            editor.clear();
+            editor.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 }

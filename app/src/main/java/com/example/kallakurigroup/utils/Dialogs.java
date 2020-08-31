@@ -1,8 +1,10 @@
 package com.example.kallakurigroup.utils;
 
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +19,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.kallakurigroup.R;
+import com.example.kallakurigroup.database.BrandsTableDAO;
+import com.example.kallakurigroup.database.ProductTableDAO;
+import com.example.kallakurigroup.database.UserTableDAO;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+
+import static com.example.kallakurigroup.utils.Popup_Class.PREFERENCE;
 
 /**
  * Created by android on 2/3/17.
@@ -133,4 +140,5 @@ public class Dialogs {
         });
 
     }
+
 }
