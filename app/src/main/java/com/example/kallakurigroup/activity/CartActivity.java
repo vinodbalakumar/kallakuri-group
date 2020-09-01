@@ -22,6 +22,7 @@ import com.example.kallakurigroup.adapters.CartAdapter;
 import com.example.kallakurigroup.database.ProductTableDAO;
 import com.example.kallakurigroup.listeners.CartItemListener;
 import com.example.kallakurigroup.models.productsmodels.ProductDetails;
+import com.j256.ormlite.stmt.query.In;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -126,6 +127,13 @@ public class CartActivity extends AppCompatActivity implements CartItemListener 
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
                 finish();
+            }
+        });
+
+        rl_checkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(CartActivity.this, ChooseAddress.class));
             }
         });
         setDataCartAmount();

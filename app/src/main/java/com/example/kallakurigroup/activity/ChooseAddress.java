@@ -16,6 +16,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.kallakurigroup.R;
+import com.example.kallakurigroup.database.UserTableDAO;
+import com.example.kallakurigroup.models.userModels.UserTableModel;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
@@ -51,11 +53,15 @@ public class ChooseAddress extends AppCompatActivity {
     SharedPreferences.Editor editor;
     public static final String PREFERENCE = "KALLAKURI";
 
+    UserTableDAO userTableDAO;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_address);
         context = this;
+
+        userTableDAO = new UserTableDAO(this);
 
         sharedpreferences = context.getSharedPreferences(PREFERENCE, Context.MODE_PRIVATE);
         editor = sharedpreferences.edit();
@@ -93,14 +99,50 @@ public class ChooseAddress extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-               /* Intent intent = new Intent(ChooseAddress.this, OrderPaymentsActivityNew.class);
-                intent.putExtra("billingAddresId", billingAddresId + "");
-                intent.putExtra("delAddressId", delAddressId + "");
-                startActivity(intent);*/
+                Intent intent = new Intent(ChooseAddress.this, OrderPaymentsActivityNew.class);
+                /*intent.putExtra("billingAddresId", billingAddresId + "");
+                intent.putExtra("delAddressId", delAddressId + "");*/
+                startActivity(intent);
 
             }
         });
 
+        setaddress();
+    }
+
+    void setaddress(){
+        LinearLayout ll = (LinearLayout) getLayoutInflater().inflate(R.layout.item_address, null);
+        TextView name = (TextView) ll.findViewById(R.id.name);
+        TextView phonenum = (TextView) ll.findViewById(R.id.phone_no);
+        TextView address = (TextView) ll.findViewById(R.id.address);
+       /* TextView village = (TextView) ll.findViewById(R.id.village);
+        TextView city = (TextView) ll.findViewById(R.id.city);
+        TextView district = (TextView) ll.findViewById(R.id.district);
+        TextView state = (TextView) ll.findViewById(R.id.state);
+        TextView pincode = (TextView) ll.findViewById(R.id.pincode);*/
+
+        UserTableModel model = userTableDAO.getData().get(0);
+
+        name.setText(""+ model.getName());
+
+        phonenum.setText("+91 " + model.getPhoneNo());
+
+        address.setText(""+ model.getDeliveryAddress());
+
+       /* village.setText(""+ model.ger());
+
+        city.setText(""+ model.getName());
+
+        state.setText(""+ model.getName());
+
+        district.setText(""+ model.getName());
+
+        pincode.setText(""+ model.getName());*/
+
+        View v = new View(this);
+        v.setBackgroundResource(R.color.viewline);
+        v.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1));
+        llDelAddress.addView(ll);
     }
 
 }

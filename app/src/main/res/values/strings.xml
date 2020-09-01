@@ -153,6 +153,59 @@
     <string name="add_new_delivery_address">Add new Delivery Address</string>
     <string name="billingAddress">Billing Address</string>
     <string name="delAddress">Delivery Address</string>
+    <string name="subtotal">Sub Total</string>
+    <string name="handlingcharges">Handling Charges</string>
+    <string name="gstcharges">GST Charges</string>
+    <string name="remove">Remove</string>
+    <string name="cashback">Cashback</string>
+    <string name="ApplyPromo">"Apply "</string>
+    <string name="selectOprionPayBal">Select an option to pay balance</string>
+    <string name="UseWallet">Use Wallet</string>
+    <string name="YourCurrentBalIs">Your current balance</string>
+    <string name="cashonDel">Cash on delivery</string>
+    <string name="netPayamount">Net payable amount</string>
+    <string name="netBanking">Net banking</string>
+    <string name="card">Card</string>
+    <string name="credit">Credit</string>
+    <string name="lm_card_number">Enter card number</string>
+    <string name="lm_card_exp">Expiry</string>
+    <string name="lm_card_cvv">CVV Code</string>
+    <string name="hint_mm">MM</string>
+    <string name="hint_yy">YYYY</string>
+    <string name="hint_cvv">CVV</string>
+
+    <string name="cvv_help_title">Visa, MasterCard, Discover and Others</string>
+
+    <string name="cvv_help_det">CVV is the last three digits of the number that appears on the back of your card in the signature bar.</string>
+    <string name="select_nmbank">Select NumberMall Bank</string>
+    <string name="select_paymode">Select Payment Mode</string>
+    <string name="select_Agbank">Select Agent Bank</string>
+
+    <string name="enter_insta_manual_bankrefcode">Enter Bank Reference Code</string>
+    <string name="lm_card_name">Name on card</string>
+    <string name="EMI">EMI</string>
+    <string name="insta_auto_wallet">SELECT WALLET</string>
+    <string name="lm_loadmoney">LOAD MONEY</string>
+    <string name="lm_agent_bank">Bank</string>
+    <string name="lm_agent_acnname">Account Name</string>
+    <string name="lm_agent_acno">Account Number</string>
+    <string name="lm_agent_bankbrnch">Branch</string>
+    <string name="lm_agent_bankifsc">IFSC Code(Optional)</string>
+    <string name="lm_agent_bank_mmid">MMID(Optional)</string>
+    <string name="lm_addbank">Add Bank</string>
+    <string name="select_bank">Select Bank</string>
+    <string name="lm_proceedtopay">PROCEED TO PAY</string>
+    <string name="payhelp">YOUR PAYMENT DETAILS ARE SECURED VIA  128 BIT ENCRYPTION BY VERISIGN</string>
+    <string name="lm_selectbank">SELECT BANK</string>
+    <string name="lm_lastusedbank">LAST USED BANKS</string>
+    <string name="lm_select_other">SELECT OTHER BANK</string>
+    <string name="proceedmin">Proceed</string>
+    <string name="enter_promo_code_here">\"Enter promo code here</string>
+    <string name="chooseCustomerContact">Choose customer contact \n for confirming this order by OTP</string>
+    <string name="addNewContact">Add new add-on customer contact</string>
+    <string name="PaymentOptions">Payment Options</string>
+    <string name="delCharges">Delivery Charges</string>
+
 
     <string-array name="state_arrays">
         <item>State</item>
