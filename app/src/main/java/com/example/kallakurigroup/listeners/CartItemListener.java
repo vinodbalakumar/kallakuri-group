@@ -1,8 +1,6 @@
 package com.example.kallakurigroup.listeners;
 
-public interface ProductItemListener {
-
-    void productSelected(int position);
+public interface CartItemListener {
 
     void quantityCountChanges(int position, int selectedQty, float selectedPrice, float prodPrice, String type);
 

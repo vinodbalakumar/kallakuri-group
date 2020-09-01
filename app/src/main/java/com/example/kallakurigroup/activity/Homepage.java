@@ -2,13 +2,16 @@ package com.example.kallakurigroup.activity;
 
 import android.animation.ValueAnimator;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,12 +51,21 @@ public class Homepage extends AppCompatActivity {
     UserTableDAO userTableDAO;
     UserTableModel userTableModel;
 
-    RelativeLayout left_lay;
+    RelativeLayout left_lay, rl_cart;
+    ImageView shp_cart;
+    TextView cart_text_number;
+
+    SharedPreferences sharedpreferences;
+    SharedPreferences.Editor editor;
+    String PREFERENCE = "KALLAKURI";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
+
+        sharedpreferences = getSharedPreferences(PREFERENCE, Context.MODE_PRIVATE);
+        editor = sharedpreferences.edit();
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,6 +78,12 @@ public class Homepage extends AppCompatActivity {
 
         left_lay = findViewById(R.id.left_lay);
         left_lay.setVisibility(View.GONE);
+
+        shp_cart = findViewById(R.id.shp_cart);
+        rl_cart = findViewById(R.id.rl_cart);
+        rl_cart.setVisibility(View.VISIBLE);
+
+        cart_text_number = findViewById(R.id.cart_text_number);
 
         actionBarDrawerToggle = new ActionBarDrawerToggle(Homepage.this, drawerLayout, toolbar, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -84,6 +102,17 @@ public class Homepage extends AppCompatActivity {
                 }
             }
         });
+
+
+        shp_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(cart_text_number.getText().toString()!=null && !cart_text_number.getText().toString().equalsIgnoreCase("0")) {
+                    startActivity(new Intent(Homepage.this, CartActivity.class));
+                }
+            }
+        });
+
 
         setHomeAsUp(isHomeAsUp);
 
@@ -128,6 +157,7 @@ public class Homepage extends AppCompatActivity {
             }
         });
 
+        setDataCartCount();
     }
 
    /* @Override
@@ -210,4 +240,18 @@ public class Homepage extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setDataCartCount();
+    }
+
+    void setDataCartCount(){
+       if(sharedpreferences.contains("cart_count") && sharedpreferences.getInt("cart_count", 0)!=0){
+           cart_text_number.setText(String.valueOf(sharedpreferences.getInt("cart_count", 0)));
+           cart_text_number.setVisibility(View.VISIBLE);
+       }else {
+           cart_text_number.setVisibility(View.GONE);
+       }
+    }
 }

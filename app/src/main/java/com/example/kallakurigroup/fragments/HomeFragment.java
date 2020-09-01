@@ -38,6 +38,7 @@ import com.synnapps.carouselview.ImageClickListener;
 import com.synnapps.carouselview.ImageListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -53,9 +54,10 @@ import retrofit2.Response;
  */
 public class HomeFragment extends Fragment implements BrandsListener {
 
-    private List<BrandsDetails> brandsList;
+    private List<BrandsDetails> brandsList = new ArrayList<>();
     private ProductResponceModel model;
-    private Map<String, List<ProductDetails>> productsObject;
+    private Map<String, List<ProductDetails>> productsObject = new HashMap<>();
+    private List<BrandsDetails> listTopBrands = new ArrayList<>();
 
     @BindView(R.id.homePlaceHolder)
     ShimmerFrameLayout homePlaceHolder;
@@ -97,27 +99,6 @@ public class HomeFragment extends Fragment implements BrandsListener {
 
         homePlaceHolder.startShimmer();
 
-        final ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add("https://raw.githubusercontent.com/sayyam/carouselview/master/sample/src/main/res/drawable/image_3.jpg");
-        arrayList.add("https://raw.githubusercontent.com/sayyam/carouselview/master/sample/src/main/res/drawable/image_1.jpg");
-        arrayList.add("https://raw.githubusercontent.com/sayyam/carouselview/master/sample/src/main/res/drawable/image_2.jpg");
-
-        homeCarouselView.setPageCount(arrayList.size());
-        homeCarouselView.setImageListener(new ImageListener() {
-            @Override
-            public void setImageForPosition(int position, ImageView imageView) {
-                Glide.with(Objects.requireNonNull(getActivity()).getApplicationContext())
-                        .load(arrayList.get(position))
-                        .into(imageView);
-            }
-        });
-        homeCarouselView.setImageClickListener(new ImageClickListener() {
-            @Override
-            public void onClick(int position) {
-                Toast.makeText(Objects.requireNonNull(getActivity()).getApplicationContext(), arrayList.get(position), Toast.LENGTH_SHORT).show();
-            }
-        });
-
         homeRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         //homeRecyclerView.addItemDecoration(new GridSpacingItemDecoration(5));
 
@@ -144,15 +125,10 @@ public class HomeFragment extends Fragment implements BrandsListener {
 
                     brandsList = model.getData().getBrandsList();
                     productsObject = model.getData().getProductPricings();
+                    listTopBrands = model.getData().getLatestProducts();
 
                     storeLocalDb();
-
-                    BrandsAdapter adapter = new BrandsAdapter(brandsList, HomeFragment.this);
-                    homeRecyclerView.setAdapter(adapter);
-                    homePlaceHolder.setVisibility(View.GONE);
-                    llBrands.setVisibility(View.VISIBLE);
-                    loadAnimation(llBrands);
-                    loadAnimation(homeRecyclerView);
+                    setAdapter();
 
                 } else {
                     homePlaceHolder.setVisibility(View.GONE);
@@ -186,6 +162,34 @@ public class HomeFragment extends Fragment implements BrandsListener {
 
         productTableDAO.addData(productsList);
 
+    }
+
+    private void setAdapter(){
+        BrandsAdapter adapter = new BrandsAdapter(brandsList, HomeFragment.this);
+        homeRecyclerView.setAdapter(adapter);
+        homePlaceHolder.setVisibility(View.GONE);
+        llBrands.setVisibility(View.VISIBLE);
+        loadAnimation(llBrands);
+        loadAnimation(homeRecyclerView);
+
+        homePlaceHolder.startShimmer();
+
+        homeCarouselView.setImageListener(new ImageListener() {
+            @Override
+            public void setImageForPosition(int position, ImageView imageView) {
+                Glide.with(Objects.requireNonNull(getActivity()).getApplicationContext())
+                        .load(listTopBrands.get(position).getImagePath())
+                        .into(imageView);
+            }
+        });
+
+        homeCarouselView.setPageCount(listTopBrands.size());
+
+        homeCarouselView.setImageClickListener(new ImageClickListener() {
+            @Override
+            public void onClick(int position) {
+            }
+        });
     }
 
     private void loadAnimation(ViewGroup view) {

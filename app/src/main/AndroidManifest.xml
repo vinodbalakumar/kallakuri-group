@@ -45,6 +45,7 @@
         <activity android:name=".activity.ProductsActivity"/>
         <activity android:name=".activity.ProductsDetailsActivity"/>
         <activity android:name=".activity.Rolespage"/>
+        <activity android:name=".activity.CartActivity"/>
 
     </application>
 

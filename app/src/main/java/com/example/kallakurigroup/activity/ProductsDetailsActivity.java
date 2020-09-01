@@ -1,6 +1,9 @@
 package com.example.kallakurigroup.activity;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +31,14 @@ public class ProductsDetailsActivity extends AppCompatActivity {
 
     private List<ProductDetails> productsList;
 
+    @BindView(R.id.rl_cart)
+    RelativeLayout rl_cart;
+
     @BindView(R.id.left_lay)
     RelativeLayout left_lay;
+
+    @BindView(R.id.shp_cart)
+    ImageView shp_cart;
 
     @BindView(R.id.header_text)
     TextView header_text;
@@ -88,9 +97,18 @@ public class ProductsDetailsActivity extends AppCompatActivity {
     @BindView(R.id.cart_text_number)
     TextView textCartCount;
 
+    @BindView(R.id.ll_bottom_amount)
+    LinearLayout llBottomAmount;
+
     ProductTableDAO productTableDAO;
 
     Context context;
+
+    int productId = 0;
+
+    SharedPreferences sharedpreferences;
+    SharedPreferences.Editor editor;
+    String PREFERENCE = "KALLAKURI";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,11 +120,18 @@ public class ProductsDetailsActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        rl_cart.setVisibility(View.VISIBLE);
+
+        sharedpreferences = getSharedPreferences(PREFERENCE, Context.MODE_PRIVATE);
+        editor = sharedpreferences.edit();
+
         productTableDAO = new ProductTableDAO(this);
 
         header_text.setText("");
 
-        productsList = productTableDAO.getProductbyId(getIntent().getExtras().getInt("product_id"));
+        productId = getIntent().getExtras().getInt("product_id");
+
+        productsList = productTableDAO.getProductbyId(productId);
 
         //loadAnimation(llBrands);
         loadAnimation(llMain);
@@ -114,8 +139,16 @@ public class ProductsDetailsActivity extends AppCompatActivity {
         left_lay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                finishActivityPage();
             }
+        });
+
+        shp_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(textCartCount.getText().toString()!=null && !textCartCount.getText().toString().equalsIgnoreCase("0")) {
+                    startActivity(new Intent(ProductsDetailsActivity.this, CartActivity.class));
+                }            }
         });
 
         textProductAdd.setOnClickListener(new View.OnClickListener() {
@@ -126,10 +159,8 @@ public class ProductsDetailsActivity extends AppCompatActivity {
                 int selectedCount = 1;
                 float prodPrice = Float.parseFloat(ProductOfferPrice.getText().toString());
                 float selectedPrice = prodPrice*selectedCount;
-                if(selectedCount<10) {
-                    quantity_count.setText(String.valueOf(selectedCount));
-                    updateCartCountandTotAmount("plus", selectedPrice);
-                }
+                quantity_count.setText(String.valueOf(selectedCount));
+                updateCartCountandTotAmount("plus", prodPrice, selectedCount, selectedPrice);
             }
         });
 
@@ -138,11 +169,11 @@ public class ProductsDetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 int selectedCount = Integer.parseInt(quantity_count.getText().toString());
                 float prodPrice = Float.parseFloat(ProductOfferPrice.getText().toString());
-                float selectedPrice = prodPrice*selectedCount;
-                if(selectedCount<10) {
+                if(selectedCount!=10) {
                     selectedCount = selectedCount + 1;
+                    float selectedPrice = prodPrice*selectedCount;
                     quantity_count.setText(String.valueOf(selectedCount));
-                    updateCartCountandTotAmount("plus", selectedPrice);
+                    updateCartCountandTotAmount("plus", prodPrice, selectedCount, selectedPrice);
                 }
             }
         });
@@ -152,28 +183,32 @@ public class ProductsDetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 int selectedCount = Integer.parseInt(quantity_count.getText().toString());
                 float prodPrice = Float.parseFloat(ProductOfferPrice.getText().toString());
-                float selectedPrice = prodPrice*selectedCount;
-                if(selectedCount>1) {
-                    selectedCount = selectedCount - 1;
-                    quantity_count.setText(String.valueOf(selectedCount));
-                }else if(selectedCount == 1){
+                if(selectedCount==1) {
                     inner_lt.setVisibility(View.GONE);
-                    quantity_count.setVisibility(View.VISIBLE);
-                    selectedCount = 0;
-                    quantity_count.setText(String.valueOf(selectedCount));
-                    updateCartCountandTotAmount("minus", selectedPrice);
+                    textProductAdd.setVisibility(View.VISIBLE);
                 }
+                selectedCount = selectedCount - 1;
+                float selectedPrice = prodPrice*selectedCount;
+                quantity_count.setText(String.valueOf(selectedCount));
+                updateCartCountandTotAmount("minus", prodPrice, selectedCount, selectedPrice);
             }
         });
 
         setData();
-
+        setDataCartAmount();
     }
 
    void setData(){
 
         ProductDetails prodDetails = productsList.get(0);
         Glide.with(prodImage).load(prodDetails.getProductImage())/*.apply(RequestOptions.circleCropTransform())*/.into(prodImage);
+
+       if(prodDetails.getSelectedQty()!=null && !prodDetails.getSelectedQty().equalsIgnoreCase("0")){
+           textProductAdd.setVisibility(View.GONE);
+           inner_lt.setVisibility(View.VISIBLE);
+       }
+
+       quantity_count.setText(prodDetails.getSelectedQty());
 
        prodName.setText(prodDetails.getProductName());
 
@@ -194,6 +229,23 @@ public class ProductsDetailsActivity extends AppCompatActivity {
       prodBrand.setText(prodDetails.getProductBrand());
     }
 
+    void setDataCartAmount(){
+        if(sharedpreferences.contains("cart_count") && sharedpreferences.getInt("cart_count", 0)!=0){
+            textCartCount.setText(String.valueOf(sharedpreferences.getInt("cart_count", 0)));
+            textCartCount.setVisibility(View.VISIBLE);
+        }else {
+            textCartCount.setVisibility(View.GONE);
+        }
+
+        if(sharedpreferences.contains("total_amount") && sharedpreferences.getFloat("total_amount", 0)!=0){
+            textTotAmount.setText(String.valueOf(sharedpreferences.getFloat("total_amount", 0)));
+            llBottomAmount.setVisibility(View.VISIBLE);
+        }else {
+            llBottomAmount.setVisibility(View.GONE);
+        }
+
+    }
+
     private void loadAnimation(ViewGroup view) {
         Context context = view.getContext();
         LayoutAnimationController layoutAnimationController = AnimationUtils
@@ -201,7 +253,7 @@ public class ProductsDetailsActivity extends AppCompatActivity {
         view.setLayoutAnimation(layoutAnimationController);
     }
 
-    void updateCartCountandTotAmount(String type, float price){
+    void updateCartCountandTotAmount(String type, float price, int selectedCount, float selectedPrice){
 
         float totalAmount = Float.parseFloat(textTotAmount.getText().toString());
 
@@ -215,9 +267,34 @@ public class ProductsDetailsActivity extends AppCompatActivity {
             totCartCount = totCartCount-1;
         }
 
-        textCartCount.setText(String.valueOf(totCartCount));
-        textTotAmount.setText(String.valueOf(totalAmount));
+       /* textCartCount.setText(String.valueOf(totCartCount));
+        textTotAmount.setText(String.valueOf(totalAmount));*/
 
+
+        ContentValues values = new ContentValues();
+        values.put("selectedQty", selectedCount);
+        productTableDAO.updateRow("ProductDetails", values, "Product_Id", productId);
+
+        ContentValues value1 = new ContentValues();
+        value1.put("selectedPrice", String.valueOf(selectedPrice));
+        productTableDAO.updateRow("ProductDetails", value1, "Product_Id", productId);
+
+        editor.putInt("cart_count", totCartCount).apply();
+        editor.putFloat("total_amount", totalAmount).apply();
+        editor.commit();
+
+        setDataCartAmount();
     }
 
+    @Override
+    public void onBackPressed() {
+      //  super.onBackPressed();
+       finishActivityPage();
+    }
+
+    void finishActivityPage(){
+        Intent returnIntent = new Intent();
+        setResult(100, returnIntent);
+        finish();
+    }
 }

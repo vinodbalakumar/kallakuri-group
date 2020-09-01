@@ -135,7 +135,7 @@
     <string name="logout">Logout</string>
     <string name="kk">Kk</string>
     <string name="username">Username</string>
-    <string name="cart">cart</string>
+    <string name="cart">Cart</string>
     <string name="try_again">Try Again!</string>
     <string name="otp_request_Sent">OTP Request Sent</string>
     <string name="registration_successful">Registration Successful</string>
@@ -144,6 +144,15 @@
     <string name="role">Role</string>
     <string name="chooseRole">Choose Your Role</string>
     <string name="totAmount">Total Amount :</string>
+    <string name="maxLimitexceeded">You should not add more of these products</string>
+    <string name="gst">GST</string>
+    <string name="delivery">Delivery</string>
+    <string name="shopmore">Shop More</string>
+    <string name="Checkout">Checkout</string>
+    <string name="ProceedtoPayment">Proceed to Payment</string>
+    <string name="add_new_delivery_address">Add new Delivery Address</string>
+    <string name="billingAddress">Billing Address</string>
+    <string name="delAddress">Delivery Address</string>
 
     <string-array name="state_arrays">
         <item>State</item>

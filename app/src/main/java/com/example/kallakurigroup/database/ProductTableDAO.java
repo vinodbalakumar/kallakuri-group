@@ -97,6 +97,35 @@ public class ProductTableDAO {
         }
     }
 
+
+    //method to get single product info
+    public List<ProductDetails> getProductsCart()
+    {
+        List<ProductDetails> list = new ArrayList<>();
+        //DatabaseHelper helper = new DatabaseHelper(mContext);
+        RuntimeExceptionDao<ProductDetails, String> simpleDao = helper.getProductTableDataDao();
+        try
+        {
+            //ProductDetailsTableModelNEW entity = simpleDao.queryForId(pid);
+            // list = simpleDao.queryForEq("Product_Id",Integer.parseInt(pid));
+            //list  =   simpleDao.queryBuilder().where().ne("selectedQty",0).query();
+         //  int i = simpleDao.executeRaw("SELECT * FROM ProductDetails Where selectedQty!=0");
+            list = simpleDao.queryForAll();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        if(list.size()>0)
+        {
+            return list;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
     //method for insert data
     public int addData(ProductDetails resp)
     {
@@ -125,7 +154,7 @@ public class ProductTableDAO {
             for(ProductDetails products : productsList)
             {
 
-                ProductDetails productDetails = new ProductDetails(products.getId(), products.getProductName(), products.getProductCost(), products.getProductDescription(), products.getProductImage(), products.getCatalog(), products.getSubCatalog(), products.getStatus(), products.getProductDiscount(), products.getProductFinalPrice(), products.getProductType(), products.getProductCategory(), products.getProductBrand(), products.getProductBrandId(), products.getProductQuantity(), products.getProductDiscountAmount(), products.getDeliveryTime(), products.getDeliveryCharge(), "", "");
+                ProductDetails productDetails = new ProductDetails(products.getId(), products.getProductName(), products.getProductCost(), products.getProductDescription(), products.getProductImage(), products.getCatalog(), products.getSubCatalog(), products.getStatus(), products.getProductDiscount(), products.getProductFinalPrice(), products.getProductType(), products.getProductCategory(), products.getProductBrand(), products.getProductBrandId(), products.getProductQuantity(), products.getProductDiscountAmount(), products.getDeliveryTime(), products.getDeliveryCharge(), "0", "0");
                 i = dao.create(productDetails);
 
             }
@@ -349,7 +378,7 @@ public class ProductTableDAO {
     {
         RuntimeExceptionDao<ProductDetails, String> dao = helper.getProductTableDataDao();
 
-        String condition = " Where "+" "+key+"="+ value ;
+        String condition = " Where "+key+"="+ value ;
 
         int j =   dao.updateRaw("UPDATE "+Tablename +" set "+ values +condition);
 

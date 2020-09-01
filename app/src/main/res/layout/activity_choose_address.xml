@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_choose_address"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+    <include
+        layout="@layout/header"
+        android:id="@+id/header_top"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_48sdp"/>
+    <ScrollView
+        android:layout_above="@+id/ll_proceedtoPay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:layout_below="@+id/header_top">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/_18sdp"
+                android:id="@+id/add_new"
+                android:paddingBottom="@dimen/_18sdp"
+                android:layout_below="@+id/header_top"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/_16sdp">
+
+
+                <ImageView
+                    android:layout_width="@dimen/_16sdp"
+                    android:layout_height="@dimen/_16sdp"
+                    android:src="@drawable/plus"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_new_delivery_address"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:textSize="@dimen/_12sdp"/>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlDelAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/grey_light"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/_10sdp">
+
+                <TextView
+                    android:id="@+id/textStep"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="left"
+                    android:text="@string/delAddress"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/_16sdp"
+                    android:visibility="visible" />
+
+
+                <ImageView
+                    android:id="@+id/editdelAddress"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:visibility="gone"
+                    android:src="@drawable/ic_edit_icon" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/llDelAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:visibility="visible"
+        android:background="@color/textBack"
+        android:id="@+id/ll_proceedtoPay"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_48sdp">
+        <TextView
+            android:layout_centerInParent="true"
+            android:text="@string/ProceedtoPayment"
+            android:textSize="@dimen/_14sdp"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:textStyle="bold"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -188,7 +188,7 @@
                                     android:layout_toRightOf="@id/minus"
                                     android:layout_weight="1"
                                     android:gravity="center"
-                                    android:text="0"
+                                    android:text="@{product.selectedQty}"
                                     android:singleLine="true"
                                     android:maxLines="1"
                                     android:textSize="@dimen/_12sdp" />

@@ -9,22 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.example.kallakurigroup.R;
-import com.example.kallakurigroup.adapters.ProductsAdapter;
+import com.example.kallakurigroup.adapters.CartAdapter;
 import com.example.kallakurigroup.database.ProductTableDAO;
-import com.example.kallakurigroup.databinding.ActivityProductsBinding;
-import com.example.kallakurigroup.listeners.ProductItemListener;
+import com.example.kallakurigroup.listeners.CartItemListener;
 import com.example.kallakurigroup.models.productsmodels.ProductDetails;
 
 import java.util.ArrayList;
@@ -33,15 +29,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ProductsActivity extends AppCompatActivity implements ProductItemListener {
+public class CartActivity extends AppCompatActivity implements CartItemListener {
 
-    private List<ProductDetails> productsList;
+    private List<ProductDetails> productsList = new ArrayList<>();
 
     @BindView(R.id.left_lay)
     RelativeLayout left_lay;
-
-    @BindView(R.id.shp_cart)
-    ImageView shp_cart;
 
     @BindView(R.id.header_text)
     TextView header_text;
@@ -49,20 +42,26 @@ public class ProductsActivity extends AppCompatActivity implements ProductItemLi
     @BindView(R.id.productRecyclerView)
     RecyclerView productRecyclerView;
 
-    @BindView(R.id.rl_noDataFound)
-    RelativeLayout rlNoDataFound;
-
-    @BindView(R.id.textTotAmount)
-    TextView textTotAmount;
-
     @BindView(R.id.cart_text_number)
     TextView textCartCount;
 
-    @BindView(R.id.ll_bottom_amount)
-    LinearLayout llBottomAmount;
+    @BindView(R.id.amount_final)
+    TextView amount_final;
 
-    @BindView(R.id.rl_cart)
-    RelativeLayout rl_cart;
+    @BindView(R.id.sub_total_amount)
+    TextView sub_total_amount;
+
+    @BindView(R.id.delChargesAmount)
+    TextView delChargesAmount;
+
+    @BindView(R.id.GSTChargesAmount)
+    TextView GSTChargesAmount;
+
+    @BindView(R.id.ll_shop_more)
+    LinearLayout ll_shop_more;
+
+    @BindView(R.id.rl_checkout)
+    RelativeLayout rl_checkout;
 
     ProductTableDAO productTableDAO;
 
@@ -72,41 +71,42 @@ public class ProductsActivity extends AppCompatActivity implements ProductItemLi
     SharedPreferences.Editor editor;
     String PREFERENCE = "KALLAKURI";
 
-    ProductsAdapter productsAdapter;
+    CartAdapter cartAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_products);
+        setContentView(R.layout.activity_cart);
 
         context = this;
 
         ButterKnife.bind(this);
-
-        rl_cart.setVisibility(View.VISIBLE);
 
         sharedpreferences = getSharedPreferences(PREFERENCE, Context.MODE_PRIVATE);
         editor = sharedpreferences.edit();
 
         productTableDAO = new ProductTableDAO(this);
 
-        header_text.setText(getIntent().getStringExtra("brand_name"));
+        header_text.setText(getResources().getString(R.string.cart));
 
         productRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         //productsList = this.getIntent().getExtras().getParcelableArrayList("products");
 
 
-        productsList = productTableDAO.getProductByBrandId(getIntent().getStringExtra("brand_id"));
+        List<ProductDetails> productDetailsList = productTableDAO.getProductsCart();
+
+        for (ProductDetails productDetails:productDetailsList){
+            if(!productDetails.getSelectedQty().equalsIgnoreCase("0")){
+                productsList.add(productDetails);
+            }
+        }
 
         if(productsList!=null && productsList.size()>0){
             productRecyclerView.setLayoutManager(new GridLayoutManager(this, 1));
-            productsAdapter = new ProductsAdapter(productsList, ProductsActivity.this, context);
-            productRecyclerView.setAdapter(productsAdapter);
-        }else {
-            productRecyclerView.setVisibility(View.GONE);
-            rlNoDataFound.setVisibility(View.VISIBLE);
+            cartAdapter = new CartAdapter(productsList, CartActivity.this, context);
+            productRecyclerView.setAdapter(cartAdapter);
         }
 
         //loadAnimation(llBrands);
@@ -119,20 +119,17 @@ public class ProductsActivity extends AppCompatActivity implements ProductItemLi
             }
         });
 
-        shp_cart.setOnClickListener(new View.OnClickListener() {
+        ll_shop_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(textCartCount.getText().toString()!=null && !textCartCount.getText().toString().equalsIgnoreCase("0")) {
-                    startActivity(new Intent(ProductsActivity.this, CartActivity.class));
-                }            }
+                Intent i = new Intent(CartActivity.this, Homepage.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+                finish();
+            }
         });
-
         setDataCartAmount();
-    }
 
-    @Override
-    public void productSelected(int position) {
-        startActivityForResult(new Intent(context, ProductsDetailsActivity.class).putExtra("product_id", productsList.get(position).getId()), 100);
     }
 
     @Override
@@ -148,7 +145,7 @@ public class ProductsActivity extends AppCompatActivity implements ProductItemLi
 
         int totCartCount = Integer.parseInt(textCartCount.getText().toString());
 
-        float totalAmount = Float.parseFloat(textTotAmount.getText().toString());
+        float totalAmount = Float.parseFloat(amount_final.getText().toString());
 
         if(type.equalsIgnoreCase("plus")){
             totalAmount = totalAmount+prodPrice;
@@ -182,17 +179,14 @@ public class ProductsActivity extends AppCompatActivity implements ProductItemLi
 
     void setDataCartAmount(){
         if(sharedpreferences.contains("cart_count") && sharedpreferences.getInt("cart_count", 0)!=0){
-            textCartCount.setText(String.valueOf(sharedpreferences.getInt("cart_count", 0)));
+            amount_final.setText(String.valueOf(sharedpreferences.getInt("cart_count", 0)));
             textCartCount.setVisibility(View.VISIBLE);
         }else {
             textCartCount.setVisibility(View.GONE);
         }
 
         if(sharedpreferences.contains("total_amount") && sharedpreferences.getFloat("total_amount", 0)!=0){
-            textTotAmount.setText(String.valueOf(sharedpreferences.getFloat("total_amount", 0)));
-            llBottomAmount.setVisibility(View.VISIBLE);
-        }else {
-            llBottomAmount.setVisibility(View.GONE);
+            amount_final.setText(String.valueOf(sharedpreferences.getFloat("total_amount", 0)));
         }
     }
 

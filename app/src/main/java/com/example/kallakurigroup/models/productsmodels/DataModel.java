@@ -15,6 +15,9 @@ public class DataModel {
     @SerializedName("brands")
     private List<BrandsDetails> brandsList;
 
+    @SerializedName("latestProducts")
+    private List<BrandsDetails> latestProducts;
+
     public String getReqType() {
         return reqType;
     }
@@ -37,5 +40,13 @@ public class DataModel {
 
     public void setBrandsList(List<BrandsDetails> brandsList) {
         this.brandsList = brandsList;
+    }
+
+    public List<BrandsDetails> getLatestProducts() {
+        return latestProducts;
+    }
+
+    public void setLatestProducts(List<BrandsDetails> latestProducts) {
+        this.latestProducts = latestProducts;
     }
 }

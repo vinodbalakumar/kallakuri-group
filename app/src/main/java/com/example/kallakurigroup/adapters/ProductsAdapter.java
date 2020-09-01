@@ -1,11 +1,13 @@
 package com.example.kallakurigroup.adapters;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -24,10 +26,12 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
 
     List<ProductDetails> list;
     ProductItemListener productItemListener;
+    Context context;
 
-    public ProductsAdapter(List<ProductDetails> list, ProductItemListener productItemListener) {
+    public ProductsAdapter(List<ProductDetails> list, ProductItemListener productItemListener, Context context) {
         this.list = list;
         this.productItemListener = productItemListener;
+        this.context = context;
     }
 
     @NonNull
@@ -45,6 +49,10 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
         ProductDetails productDetails = list.get(position);
         holder.productsRowBinding.setProduct(productDetails);
 
+        if(list.get(position).getSelectedQty()!=null && !list.get(position).getSelectedQty().equalsIgnoreCase("0")){
+            holder.productsRowBinding.productAdd.setVisibility(View.GONE);
+            holder.productsRowBinding.innerLt.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -60,7 +68,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
             super(itemView.getRoot());
             productsRowBinding = itemView;
 
-            itemView.getRoot().setOnClickListener(new View.OnClickListener() {
+            itemView.prodImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     productItemListener.productSelected(getAdapterPosition());
@@ -75,10 +83,8 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
                     int selectedCount = 1;
                     float prodPrice = Float.parseFloat(itemView.ProductOfferPrice.getText().toString());
                     float selectedPrice = prodPrice*selectedCount;
-                    if(selectedCount<10) {
-                        itemView.quantityCount.setText(String.valueOf(selectedCount));
-                        productItemListener.quantityCountChanges(getAdapterPosition(), selectedCount, selectedPrice, prodPrice, "plus");
-                    }
+                    itemView.quantityCount.setText(String.valueOf(selectedCount));
+                    productItemListener.quantityCountChanges(getAdapterPosition(), selectedCount, selectedPrice, prodPrice, "plus");
                 }
             });
 
@@ -87,9 +93,9 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
                 public void onClick(View view) {
                   int selectedCount = Integer.parseInt(itemView.quantityCount.getText().toString());
                   float prodPrice = Float.parseFloat(itemView.ProductOfferPrice.getText().toString());
-                  float selectedPrice = prodPrice*selectedCount;
-                  if(selectedCount<10) {
+                  if(selectedCount!=10) {
                       selectedCount = selectedCount + 1;
+                      float selectedPrice = prodPrice*selectedCount;
                       itemView.quantityCount.setText(String.valueOf(selectedCount));
                       productItemListener.quantityCountChanges(getAdapterPosition(), selectedCount, selectedPrice, prodPrice, "plus");
                   }
@@ -101,22 +107,18 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
                 public void onClick(View view) {
                     int selectedCount = Integer.parseInt(itemView.quantityCount.getText().toString());
                     float prodPrice = Float.parseFloat(itemView.ProductOfferPrice.getText().toString());
-                    float selectedPrice = prodPrice*selectedCount;
-                    if(selectedCount>1) {
-                        selectedCount = selectedCount - 1;
-                        itemView.quantityCount.setText(String.valueOf(selectedCount));
-                        productItemListener.quantityCountChanges(getAdapterPosition(), selectedCount, selectedPrice, prodPrice, "minus");
-                    }else if(selectedCount == 1){
+                    if(selectedCount==1) {
                         itemView.innerLt.setVisibility(View.GONE);
                         itemView.productAdd.setVisibility(View.VISIBLE);
-                        selectedCount = 0;
-                        itemView.quantityCount.setText(String.valueOf(selectedCount));
-                        productItemListener.quantityCountChanges(getAdapterPosition(), selectedCount, selectedPrice, prodPrice, "minus");
-                    }
+                        }
+                    selectedCount = selectedCount - 1;
+                    float selectedPrice = prodPrice*selectedCount;
+                    itemView.quantityCount.setText(String.valueOf(selectedCount));
+                    productItemListener.quantityCountChanges(getAdapterPosition(), selectedCount, selectedPrice, prodPrice, "minus");
                 }
             });
         }
 
     }
-
 }
+

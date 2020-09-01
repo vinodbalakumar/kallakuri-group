@@ -13,12 +13,12 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/recyclerCard"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:cardCornerRadius="@dimen/_7sdp"
         android:layout_below="@id/titleHead"
         android:layout_margin="@dimen/_5sdp"
         app:cardElevation="@dimen/_5sdp"
-
+        android:layout_above="@+id/ll_bottom_amount"
         android:backgroundTint="@color/card_back"
         android:padding="@dimen/_10sdp"
         android:visibility="visible">
@@ -36,7 +36,7 @@
         android:id="@+id/rl_noDataFound"
         android:layout_width="match_parent"
         android:visibility="gone"
-        android:layout_above="@+id/ll_bottom"
+        android:layout_above="@+id/ll_bottom_amount"
         android:layout_centerInParent="true"
         android:layout_height="match_parent">
 
@@ -49,7 +49,7 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/ll_bottom"
+        android:id="@+id/ll_bottom_amount"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_50sdp"
         android:layout_alignParentBottom="true"
