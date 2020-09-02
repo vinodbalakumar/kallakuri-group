@@ -116,7 +116,16 @@ public class Homepage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(cart_text_number.getText().toString()!=null && !cart_text_number.getText().toString().equalsIgnoreCase("0")) {
-                    startActivity(new Intent(Homepage.this, CartActivity.class));
+                    startActivity(new Intent(Homepage.this, CartActivity.class).putExtra("from","home"));
+                }
+            }
+        });
+
+        cart_text_number.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(cart_text_number.getText().toString()!=null && !cart_text_number.getText().toString().equalsIgnoreCase("0")) {
+                    startActivity(new Intent(Homepage.this, CartActivity.class).putExtra("from","home"));
                 }
             }
         });

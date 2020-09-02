@@ -130,7 +130,16 @@ public class ProductsActivity extends AppCompatActivity implements ProductItemLi
             @Override
             public void onClick(View view) {
                 if(textCartCount.getText().toString()!=null && !textCartCount.getText().toString().equalsIgnoreCase("0")) {
-                    startActivity(new Intent(ProductsActivity.this, CartActivity.class));
+                    startActivityForResult(new Intent(ProductsActivity.this, CartActivity.class).putExtra("from","prodAct"), 100);
+                }
+            }
+        });
+
+        textCartCount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(textCartCount.getText().toString()!=null && !textCartCount.getText().toString().equalsIgnoreCase("0")) {
+                    startActivityForResult(new Intent(ProductsActivity.this, CartActivity.class).putExtra("from","prodAct"), 100);
                 }
             }
         });
@@ -236,5 +245,4 @@ public class ProductsActivity extends AppCompatActivity implements ProductItemLi
 
         }
     }//onActivityResult
-
 }

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -39,6 +40,9 @@ public class CartActivity extends AppCompatActivity implements CartItemListener 
 
     @BindView(R.id.left_lay)
     RelativeLayout left_lay;
+
+    /*@BindView(R.id.back_arrow)
+    ImageView back_arrow;*/
 
     @BindView(R.id.header_text)
     TextView header_text;
@@ -79,6 +83,7 @@ public class CartActivity extends AppCompatActivity implements CartItemListener 
 
     List<String> cartList = new ArrayList<>();
 
+    String fromType = "Home";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +101,8 @@ public class CartActivity extends AppCompatActivity implements CartItemListener 
         productTableDAO = new ProductTableDAO(this);
 
         header_text.setText(getResources().getString(R.string.cart));
+
+        //back_arrow.setImageDrawable(getResources().getDrawable(R.drawable.home_white));
 
         productRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
@@ -116,23 +123,21 @@ public class CartActivity extends AppCompatActivity implements CartItemListener 
             productRecyclerView.setAdapter(cartAdapter);
         }
 
+        fromType = getIntent().getStringExtra("from");
         //loadAnimation(llBrands);
         loadAnimation(productRecyclerView);
 
         left_lay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+              backToPage();
             }
         });
 
         ll_shop_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(CartActivity.this, Homepage.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
-                finish();
+              backToHome();
             }
         });
 
@@ -179,7 +184,11 @@ public class CartActivity extends AppCompatActivity implements CartItemListener 
         editor.putFloat("total_amount", totalAmount).apply();
         editor.commit();
 
-        setDataCartAmount();
+        if(cartList.size()>0) {
+            setDataCartAmount();
+        }else {
+            backToHome();
+        }
     }
 
    /* @Override
@@ -212,7 +221,34 @@ public class CartActivity extends AppCompatActivity implements CartItemListener 
             amount_final.setText(String.valueOf(sharedpreferences.getFloat("total_amount", 0)));
             sub_total_amount.setText(String.valueOf(sharedpreferences.getFloat("total_amount", 0)));
         }
+
+    }
+
+    @Override
+    public void onBackPressed() {
+       // super.onBackPressed();
+        backToPage();
     }
 
 
+    void backToHome(){
+        Intent i = new Intent(CartActivity.this, Homepage.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+        finish();
+    }
+
+    void backToPage(){
+        if(fromType.equalsIgnoreCase("prodAct")){
+            Intent returnIntent = new Intent();
+            setResult(100, returnIntent);
+            finish();
+        }else if(fromType.equalsIgnoreCase("prodDet")){
+            Intent returnIntent = new Intent();
+            setResult(200, returnIntent);
+            finish();
+        }else {
+            finish();
+        }
+    }
 }

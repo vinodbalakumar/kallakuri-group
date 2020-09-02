@@ -70,21 +70,20 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                     cartItemListener.quantityCountChanges(getAdapterPosition(), selectedCount, selectedPrice, prodPrice, "minus");
                     list.remove(getAdapterPosition());
                     notifyDataSetChanged();
-                    notify();
                 }
             });
 
             itemView.plus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                  int selectedCount = Integer.parseInt(itemView.quantityCount.getText().toString());
-                  float prodPrice = Float.parseFloat(itemView.ProductOfferPrice.getText().toString());
-                  if(selectedCount!=10) {
-                      selectedCount = selectedCount + 1;
-                      float selectedPrice = prodPrice*selectedCount;
-                      itemView.quantityCount.setText(String.valueOf(selectedCount));
-                      cartItemListener.quantityCountChanges(getAdapterPosition(), selectedCount, selectedPrice, prodPrice, "plus");
-                  }
+                    int selectedCount = Integer.parseInt(itemView.quantityCount.getText().toString());
+                    float prodPrice = Float.parseFloat(itemView.ProductOfferPrice.getText().toString());
+                    if(selectedCount!=10) {
+                        selectedCount = selectedCount + 1;
+                        float selectedPrice = prodPrice*selectedCount;
+                        itemView.quantityCount.setText(String.valueOf(selectedCount));
+                        cartItemListener.quantityCountChanges(getAdapterPosition(), selectedCount, selectedPrice, prodPrice, "plus");
+                    }
                 }
             });
 
@@ -93,10 +92,19 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                 public void onClick(View view) {
                     int selectedCount = Integer.parseInt(itemView.quantityCount.getText().toString());
                     float prodPrice = Float.parseFloat(itemView.ProductOfferPrice.getText().toString());
-                    selectedCount = selectedCount - 1;
-                    float selectedPrice = prodPrice*selectedCount;
-                    itemView.quantityCount.setText(String.valueOf(selectedCount));
-                    cartItemListener.quantityCountChanges(getAdapterPosition(), selectedCount, selectedPrice, prodPrice, "minus");
+                    if(selectedCount==1) {
+                        selectedCount = selectedCount - 1;
+                        float selectedPrice = prodPrice*selectedCount;
+                        itemView.quantityCount.setText(String.valueOf(selectedCount));
+                        cartItemListener.quantityCountChanges(getAdapterPosition(), selectedCount, selectedPrice, prodPrice, "minus");
+                        list.remove(getAdapterPosition());
+                        notifyDataSetChanged();
+                    }else {
+                        selectedCount = selectedCount - 1;
+                        float selectedPrice = prodPrice*selectedCount;
+                        itemView.quantityCount.setText(String.valueOf(selectedCount));
+                        cartItemListener.quantityCountChanges(getAdapterPosition(), selectedCount, selectedPrice, prodPrice, "minus");
+                    }
                 }
             });
         }

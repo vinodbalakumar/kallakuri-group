@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.kallakurigroup.R;
+import com.example.kallakurigroup.adapters.ProductsAdapter;
 import com.example.kallakurigroup.database.ProductTableDAO;
 import com.example.kallakurigroup.models.productsmodels.ProductDetails;
 import com.google.gson.Gson;
@@ -138,8 +139,6 @@ public class ProductsDetailsActivity extends AppCompatActivity {
 
         productId = getIntent().getExtras().getInt("product_id");
 
-        productsList = productTableDAO.getProductbyId(productId);
-
         //loadAnimation(llBrands);
         loadAnimation(llMain);
 
@@ -154,8 +153,18 @@ public class ProductsDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(textCartCount.getText().toString()!=null && !textCartCount.getText().toString().equalsIgnoreCase("0")) {
-                    startActivity(new Intent(ProductsDetailsActivity.this, CartActivity.class));
-                }            }
+                    startActivityForResult(new Intent(ProductsDetailsActivity.this, CartActivity.class).putExtra("from","prodDet"), 200);
+                }
+            }
+        });
+
+        textCartCount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(textCartCount.getText().toString()!=null && !textCartCount.getText().toString().equalsIgnoreCase("0")) {
+                    startActivityForResult(new Intent(ProductsDetailsActivity.this, CartActivity.class).putExtra("from","prodDet"), 200);
+                }
+            }
         });
 
         textProductAdd.setOnClickListener(new View.OnClickListener() {
@@ -206,6 +215,10 @@ public class ProductsDetailsActivity extends AppCompatActivity {
     }
 
    void setData(){
+        if(productsList!=null && productsList.size()>0){
+            productsList.clear();
+        }
+       productsList = productTableDAO.getProductbyId(productId);
 
         ProductDetails prodDetails = productsList.get(0);
         Glide.with(prodImage).load(prodDetails.getProductImage())/*.apply(RequestOptions.circleCropTransform())*/.into(prodImage);
@@ -312,4 +325,18 @@ public class ProductsDetailsActivity extends AppCompatActivity {
         setResult(100, returnIntent);
         finish();
     }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 200) {
+
+            if (resultCode == 200) {
+                setData();
+                setDataCartAmount();
+            }
+
+        }
+    }//onActivityResult
 }
