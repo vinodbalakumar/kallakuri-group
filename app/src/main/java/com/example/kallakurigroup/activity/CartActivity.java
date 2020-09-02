@@ -195,6 +195,7 @@ public class CartActivity extends AppCompatActivity implements CartItemListener 
 
         if(sharedpreferences.contains("total_amount") && sharedpreferences.getFloat("total_amount", 0)!=0){
             amount_final.setText(String.valueOf(sharedpreferences.getFloat("total_amount", 0)));
+            sub_total_amount.setText(String.valueOf(sharedpreferences.getFloat("total_amount", 0)));
         }
     }
 

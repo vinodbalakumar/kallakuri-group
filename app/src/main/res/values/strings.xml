@@ -205,7 +205,9 @@
     <string name="addNewContact">Add new add-on customer contact</string>
     <string name="PaymentOptions">Payment Options</string>
     <string name="delCharges">Delivery Charges</string>
-
+    <string name="GOHOME">GO HOME</string>
+    <string name="orderFailed">Order Failed, Please Try Again</string>
+    <string name="orderPlaced">Order Placed</string>
 
     <string-array name="state_arrays">
         <item>State</item>

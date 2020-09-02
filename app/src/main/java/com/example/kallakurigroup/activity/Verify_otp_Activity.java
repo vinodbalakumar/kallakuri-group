@@ -162,7 +162,7 @@ public class Verify_otp_Activity extends AppCompatActivity {
             }
         });
 
-        smsVerifyCatcher.setPhoneNumberFilter("MD-NUMMAL");
+        smsVerifyCatcher.setPhoneNumberFilter("QP-UPDATE");
 
         mButtonVerify.setOnClickListener(new View.OnClickListener() {
             @Override

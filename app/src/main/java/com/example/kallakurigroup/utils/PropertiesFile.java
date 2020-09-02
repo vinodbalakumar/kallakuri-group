@@ -6,5 +6,6 @@ public class PropertiesFile {
     public static String version = "2.5";
 
     public static String baseUrl = "http://ec2-3-84-237-24.compute-1.amazonaws.com:8080/";
+    public static String baseUrlProducts = "http://ec2-3-84-237-24.compute-1.amazonaws.com:8080/";
 
 }

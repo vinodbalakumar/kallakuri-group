@@ -1,11 +1,9 @@
 package com.example.kallakurigroup.activity;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -18,22 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.kallakurigroup.R;
 import com.example.kallakurigroup.database.UserTableDAO;
 import com.example.kallakurigroup.models.userModels.UserTableModel;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.lang.reflect.Type;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
 
 
 public class ChooseAddress extends AppCompatActivity {
@@ -99,7 +83,7 @@ public class ChooseAddress extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(ChooseAddress.this, OrderPaymentsActivityNew.class);
+                Intent intent = new Intent(ChooseAddress.this, OrderPaymentsActivity.class);
                 /*intent.putExtra("billingAddresId", billingAddresId + "");
                 intent.putExtra("delAddressId", delAddressId + "");*/
                 startActivity(intent);

@@ -24,7 +24,7 @@
                 android:layout_height="@dimen/_25sdp"
                 android:layout_marginBottom="@dimen/_5sdp">
                 <TextView
-                    android:id="@+id/amount_payable_text"
+                    android:id="@+id/subTotal"
                     android:gravity="center_vertical"
                     android:text="@string/subtotal"
                     android:textColor="@color/black"
@@ -33,7 +33,7 @@
                     android:layout_height="match_parent" />
                 <TextView
                     android:layout_marginLeft="@dimen/_2sdp"
-                    android:layout_toRightOf="@id/amount_payable_text"
+                    android:layout_toRightOf="@id/subTotal"
                     android:id="@+id/amount_payable_suffix"
                     android:gravity="center_vertical"
                     android:text="(Incl. of all taxes)"
@@ -44,10 +44,10 @@
                 <TextView
                     android:textSize="@dimen/_10sdp"
                     android:textColor="@color/black"
-                    android:text=""
+                    android:text="00"
                     android:layout_alignParentRight="true"
                     android:gravity="center_vertical"
-                    android:id="@+id/amount_payable"
+                    android:id="@+id/subTotalAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent" />
             </RelativeLayout>
@@ -78,7 +78,7 @@
                     android:text="00"
                     android:layout_alignParentRight="true"
                     android:gravity="center_vertical"
-                    android:id="@+id/gst_charges"
+                    android:id="@+id/gst_charges_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent" />
             </RelativeLayout>
@@ -171,7 +171,7 @@
                 <TextView
                     android:textColor="@color/black"
                     android:layout_alignParentRight="true"
-                    android:id="@+id/bal_amt"
+                    android:id="@+id/netPayableAmount"
                     android:layout_width="wrap_content"
                     android:textSize="@dimen/_10sdp"
                     android:text=""
@@ -326,7 +326,7 @@
         </LinearLayout>
     </ScrollView>
     <RelativeLayout
-        android:id="@+id/bottom_view"
+        android:id="@+id/rl_proceed"
         android:visibility="visible"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"

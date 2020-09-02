@@ -32,6 +32,7 @@ import com.example.kallakurigroup.retrofit.ApiClient;
 import com.example.kallakurigroup.retrofit.ApiInterface;
 import com.example.kallakurigroup.utils.Dialogs;
 import com.example.kallakurigroup.utils.GridSpacingItemDecoration;
+import com.example.kallakurigroup.utils.PropertiesFile;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageClickListener;
@@ -112,7 +113,7 @@ public class HomeFragment extends Fragment implements BrandsListener {
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
-        Call<ProductResponceModel> call = apiService.getProducts(userTableModel.getRoleNumber());
+        Call<ProductResponceModel> call = apiService.getProducts(/*PropertiesFile.baseUrlProducts, */userTableModel.getRoleNumber());
         call.enqueue(new Callback<ProductResponceModel>() {
             @Override
             public void onResponse(Call<ProductResponceModel> call, Response<ProductResponceModel> response) {

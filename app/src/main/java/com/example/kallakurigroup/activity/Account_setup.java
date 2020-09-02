@@ -657,5 +657,11 @@ public class Account_setup extends Activity {
             }
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        locationFetching();
+    }
 }
 
