@@ -584,8 +584,8 @@ public class Account_setup extends Activity {
                         if (response.code() == 200) {
                             Toast.makeText(context, getResources().getString(R.string.registration_successful), Toast.LENGTH_SHORT).show();
 
-                            UserTableModel userTableModel = new UserTableModel(response.body().getData().getLoginProfileModel().getId(), imeiNum, mMobileNum, roleNameClicked, roleNumClicked, name, email, password, village, village, city, district, state, pincode, currentLocationAddress,  geoLocation);
-                            userTableDAO.addData(userTableModel);
+                            /*UserTableModel userTableModel = new UserTableModel(response.body().getData().getLoginProfileModel().getId(), imeiNum, mMobileNum, roleNameClicked, roleNumClicked, name, email, password, village, village, city, district, state, pincode, currentLocationAddress,  geoLocation);
+                            userTableDAO.addData(userTableModel);*/
 
                             Intent i1 = new Intent(Account_setup.this, Login.class);
                             i1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -661,7 +661,7 @@ public class Account_setup extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        locationFetching();
+      //  locationFetching();
     }
 }
 

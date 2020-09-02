@@ -21,7 +21,12 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.kallakurigroup.R;
 import com.example.kallakurigroup.database.ProductTableDAO;
 import com.example.kallakurigroup.models.productsmodels.ProductDetails;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.j256.ormlite.stmt.query.In;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -109,6 +114,8 @@ public class ProductsDetailsActivity extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     SharedPreferences.Editor editor;
     String PREFERENCE = "KALLAKURI";
+
+    List<String> cartList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -230,10 +237,16 @@ public class ProductsDetailsActivity extends AppCompatActivity {
     }
 
     void setDataCartAmount(){
-        if(sharedpreferences.contains("cart_count") && sharedpreferences.getInt("cart_count", 0)!=0){
-            textCartCount.setText(String.valueOf(sharedpreferences.getInt("cart_count", 0)));
+        Gson gson = new Gson();
+        String json = sharedpreferences.getString("cart_count", null);
+        Type type = new TypeToken<ArrayList<String>>() {}.getType();
+        cartList = gson.fromJson(json, type);
+
+        if(cartList!=null && cartList.size()>0){
+            textCartCount.setText(String.valueOf(cartList.size()));
             textCartCount.setVisibility(View.VISIBLE);
         }else {
+            cartList = new ArrayList<>();
             textCartCount.setVisibility(View.GONE);
         }
 
@@ -255,22 +268,6 @@ public class ProductsDetailsActivity extends AppCompatActivity {
 
     void updateCartCountandTotAmount(String type, float price, int selectedCount, float selectedPrice){
 
-        float totalAmount = Float.parseFloat(textTotAmount.getText().toString());
-
-        int totCartCount = Integer.parseInt(textCartCount.getText().toString());
-
-        if(type.equalsIgnoreCase("plus")){
-            totalAmount = totalAmount+price;
-            totCartCount = totCartCount+1;
-        }else {
-            totalAmount = totalAmount-price;
-            totCartCount = totCartCount-1;
-        }
-
-       /* textCartCount.setText(String.valueOf(totCartCount));
-        textTotAmount.setText(String.valueOf(totalAmount));*/
-
-
         ContentValues values = new ContentValues();
         values.put("selectedQty", selectedCount);
         productTableDAO.updateRow("ProductDetails", values, "Product_Id", productId);
@@ -279,7 +276,25 @@ public class ProductsDetailsActivity extends AppCompatActivity {
         value1.put("selectedPrice", String.valueOf(selectedPrice));
         productTableDAO.updateRow("ProductDetails", value1, "Product_Id", productId);
 
-        editor.putInt("cart_count", totCartCount).apply();
+        float totalAmount = Float.parseFloat(textTotAmount.getText().toString());
+
+        if(type.equalsIgnoreCase("plus")){
+            totalAmount = totalAmount+price;
+        }else {
+            totalAmount = totalAmount-price;
+        }
+
+        if(!cartList.contains(String.valueOf(productId))){
+            cartList.add(String.valueOf(productId));
+        }else if(selectedCount==0){
+            cartList.remove(String.valueOf(productId));
+        }
+
+        Gson gson = new Gson();
+        String json = gson.toJson(cartList);
+        editor.putString("cart_count", json);
+        editor.apply();
+
         editor.putFloat("total_amount", totalAmount).apply();
         editor.commit();
 

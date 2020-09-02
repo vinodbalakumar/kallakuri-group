@@ -34,6 +34,12 @@ import com.example.kallakurigroup.models.userModels.UserTableModel;
 import com.example.kallakurigroup.utils.Popup_Class;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -58,6 +64,8 @@ public class Homepage extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     SharedPreferences.Editor editor;
     String PREFERENCE = "KALLAKURI";
+
+    List<String> cartList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -246,12 +254,18 @@ public class Homepage extends AppCompatActivity {
         setDataCartCount();
     }
 
+
     void setDataCartCount(){
-       if(sharedpreferences.contains("cart_count") && sharedpreferences.getInt("cart_count", 0)!=0){
-           cart_text_number.setText(String.valueOf(sharedpreferences.getInt("cart_count", 0)));
-           cart_text_number.setVisibility(View.VISIBLE);
-       }else {
-           cart_text_number.setVisibility(View.GONE);
-       }
+        Gson gson = new Gson();
+        String json = sharedpreferences.getString("cart_count", null);
+        Type type = new TypeToken<ArrayList<String>>() {}.getType();
+        cartList = gson.fromJson(json, type);
+
+        if(cartList!=null && cartList.size()>0){
+            cart_text_number.setText(String.valueOf(cartList.size()));
+            cart_text_number.setVisibility(View.VISIBLE);
+        }else {
+            cart_text_number.setVisibility(View.GONE);
+        }
     }
 }

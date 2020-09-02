@@ -52,8 +52,8 @@ public class PaymentSuccessFailure extends AppCompatActivity {
         editor = sharedpreferences.edit();
 
         statusText.setText(getResources().getString(R.string.orderPlaced));
-        mainLayout.setBackgroundColor(Color.GREEN);
-        statusImage.setBackground(getResources().getDrawable(R.drawable.tick_white));
+        mainLayout.setBackgroundColor(Color.parseColor("#4aa322"));
+        statusImage.setImageDrawable(getResources().getDrawable(R.drawable.tick_white));
 
         goHome.setOnClickListener(new View.OnClickListener() {
             @Override

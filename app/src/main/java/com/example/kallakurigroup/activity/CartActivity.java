@@ -22,8 +22,11 @@ import com.example.kallakurigroup.adapters.CartAdapter;
 import com.example.kallakurigroup.database.ProductTableDAO;
 import com.example.kallakurigroup.listeners.CartItemListener;
 import com.example.kallakurigroup.models.productsmodels.ProductDetails;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.j256.ormlite.stmt.query.In;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,6 +76,9 @@ public class CartActivity extends AppCompatActivity implements CartItemListener 
     String PREFERENCE = "KALLAKURI";
 
     CartAdapter cartAdapter;
+
+    List<String> cartList = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,22 +157,25 @@ public class CartActivity extends AppCompatActivity implements CartItemListener 
         value1.put("selectedPrice", String.valueOf(selectedPrice));
         productTableDAO.updateRow("ProductDetails", value1, "Product_Id", productsList.get(position).getId());
 
-        int totCartCount = Integer.parseInt(textCartCount.getText().toString());
-
         float totalAmount = Float.parseFloat(amount_final.getText().toString());
 
         if(type.equalsIgnoreCase("plus")){
             totalAmount = totalAmount+prodPrice;
-            totCartCount = totCartCount+1;
         }else {
             totalAmount = totalAmount-prodPrice;
-            totCartCount = totCartCount-1;
         }
 
-      /*  textCartCount.setText(String.valueOf(totCartCount));
-        textTotAmount.setText(String.valueOf(totalAmount));*/
+        if(!cartList.contains(String.valueOf(productsList.get(position).getId()))){
+            cartList.add(String.valueOf(productsList.get(position).getId()));
+        }else if(selectedCount==0){
+            cartList.remove(String.valueOf(productsList.get(position).getId()));
+        }
 
-        editor.putInt("cart_count", totCartCount).apply();
+        Gson gson = new Gson();
+        String json = gson.toJson(cartList);
+        editor.putString("cart_count", json);
+        editor.apply();
+
         editor.putFloat("total_amount", totalAmount).apply();
         editor.commit();
 
@@ -186,10 +195,16 @@ public class CartActivity extends AppCompatActivity implements CartItemListener 
     }
 
     void setDataCartAmount(){
-        if(sharedpreferences.contains("cart_count") && sharedpreferences.getInt("cart_count", 0)!=0){
-            amount_final.setText(String.valueOf(sharedpreferences.getInt("cart_count", 0)));
-            textCartCount.setVisibility(View.VISIBLE);
+        Gson gson = new Gson();
+        String json = sharedpreferences.getString("cart_count", null);
+        Type type = new TypeToken<ArrayList<String>>() {}.getType();
+        cartList = gson.fromJson(json, type);
+
+        if(cartList!=null && cartList.size()>0){
+            textCartCount.setText(String.valueOf(cartList.size()));
+           // textCartCount.setVisibility(View.VISIBLE);
         }else {
+            cartList = new ArrayList<>();
             textCartCount.setVisibility(View.GONE);
         }
 
@@ -199,20 +214,5 @@ public class CartActivity extends AppCompatActivity implements CartItemListener 
         }
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 100) {
-
-            if (resultCode == 100) {
-                setDataCartAmount();
-                //productsAdapter.notifyDataSetChanged();
-               /* productsAdapter = new ProductsAdapter(productsList, ProductsActivity.this, context);
-                productRecyclerView.setAdapter(productsAdapter);*/
-            }
-
-        }
-    }//onActivityResult
 
 }

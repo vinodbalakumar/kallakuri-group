@@ -99,11 +99,6 @@ public class ChooseAddress extends AppCompatActivity {
         TextView name = (TextView) ll.findViewById(R.id.name);
         TextView phonenum = (TextView) ll.findViewById(R.id.phone_no);
         TextView address = (TextView) ll.findViewById(R.id.address);
-       /* TextView village = (TextView) ll.findViewById(R.id.village);
-        TextView city = (TextView) ll.findViewById(R.id.city);
-        TextView district = (TextView) ll.findViewById(R.id.district);
-        TextView state = (TextView) ll.findViewById(R.id.state);
-        TextView pincode = (TextView) ll.findViewById(R.id.pincode);*/
 
         UserTableModel model = userTableDAO.getData().get(0);
 
@@ -111,17 +106,11 @@ public class ChooseAddress extends AppCompatActivity {
 
         phonenum.setText("+91 " + model.getPhoneNo());
 
-        address.setText(""+ model.getDeliveryAddress());
-
-       /* village.setText(""+ model.ger());
-
-        city.setText(""+ model.getName());
-
-        state.setText(""+ model.getName());
-
-        district.setText(""+ model.getName());
-
-        pincode.setText(""+ model.getName());*/
+        if(model.getDeliveryAddress()!=null) {
+            address.setText("" + model.getDeliveryAddress());
+        }else {
+            address.setText("Address not available");
+        }
 
         View v = new View(this);
         v.setBackgroundResource(R.color.viewline);

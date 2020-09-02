@@ -26,7 +26,10 @@ import com.example.kallakurigroup.database.ProductTableDAO;
 import com.example.kallakurigroup.databinding.ActivityProductsBinding;
 import com.example.kallakurigroup.listeners.ProductItemListener;
 import com.example.kallakurigroup.models.productsmodels.ProductDetails;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +38,7 @@ import butterknife.ButterKnife;
 
 public class ProductsActivity extends AppCompatActivity implements ProductItemListener {
 
-    private List<ProductDetails> productsList;
+    private List<ProductDetails> productsList = new ArrayList<>();
 
     @BindView(R.id.left_lay)
     RelativeLayout left_lay;
@@ -64,6 +67,8 @@ public class ProductsActivity extends AppCompatActivity implements ProductItemLi
     @BindView(R.id.rl_cart)
     RelativeLayout rl_cart;
 
+    List<String> cartProductIds = new ArrayList<>();
+
     ProductTableDAO productTableDAO;
 
     Context context;
@@ -73,6 +78,8 @@ public class ProductsActivity extends AppCompatActivity implements ProductItemLi
     String PREFERENCE = "KALLAKURI";
 
     ProductsAdapter productsAdapter;
+
+    List<String> cartList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,7 +131,8 @@ public class ProductsActivity extends AppCompatActivity implements ProductItemLi
             public void onClick(View view) {
                 if(textCartCount.getText().toString()!=null && !textCartCount.getText().toString().equalsIgnoreCase("0")) {
                     startActivity(new Intent(ProductsActivity.this, CartActivity.class));
-                }            }
+                }
+            }
         });
 
         setDataCartAmount();
@@ -146,22 +154,26 @@ public class ProductsActivity extends AppCompatActivity implements ProductItemLi
         value1.put("selectedPrice", String.valueOf(selectedPrice));
         productTableDAO.updateRow("ProductDetails", value1, "Product_Id", productsList.get(position).getId());
 
-        int totCartCount = Integer.parseInt(textCartCount.getText().toString());
-
         float totalAmount = Float.parseFloat(textTotAmount.getText().toString());
 
         if(type.equalsIgnoreCase("plus")){
             totalAmount = totalAmount+prodPrice;
-            totCartCount = totCartCount+1;
         }else {
             totalAmount = totalAmount-prodPrice;
-            totCartCount = totCartCount-1;
         }
 
-      /*  textCartCount.setText(String.valueOf(totCartCount));
-        textTotAmount.setText(String.valueOf(totalAmount));*/
 
-        editor.putInt("cart_count", totCartCount).apply();
+        if(!cartList.contains(String.valueOf(productsList.get(position).getId()))){
+            cartList.add(String.valueOf(productsList.get(position).getId()));
+        }else if(selectedCount==0){
+            cartList.remove(String.valueOf(productsList.get(position).getId()));
+        }
+
+        Gson gson = new Gson();
+        String json = gson.toJson(cartList);
+        editor.putString("cart_count", json);
+        editor.apply();
+
         editor.putFloat("total_amount", totalAmount).apply();
         editor.commit();
 
@@ -181,10 +193,17 @@ public class ProductsActivity extends AppCompatActivity implements ProductItemLi
     }
 
     void setDataCartAmount(){
-        if(sharedpreferences.contains("cart_count") && sharedpreferences.getInt("cart_count", 0)!=0){
-            textCartCount.setText(String.valueOf(sharedpreferences.getInt("cart_count", 0)));
+
+        Gson gson = new Gson();
+        String json = sharedpreferences.getString("cart_count", null);
+        Type type = new TypeToken<ArrayList<String>>() {}.getType();
+        cartList = gson.fromJson(json, type);
+
+        if(cartList!=null && cartList.size()>0){
+            textCartCount.setText(String.valueOf(cartList.size()));
             textCartCount.setVisibility(View.VISIBLE);
         }else {
+            cartList = new ArrayList<>();
             textCartCount.setVisibility(View.GONE);
         }
 
@@ -204,9 +223,15 @@ public class ProductsActivity extends AppCompatActivity implements ProductItemLi
 
             if (resultCode == 100) {
                 setDataCartAmount();
-                //productsAdapter.notifyDataSetChanged();
-               /* productsAdapter = new ProductsAdapter(productsList, ProductsActivity.this, context);
-                productRecyclerView.setAdapter(productsAdapter);*/
+                if(productsList!=null && productsList.size()>0){
+                    productsList.clear();
+                    productsList = productTableDAO.getProductByBrandId(getIntent().getStringExtra("brand_id"));
+                    productsAdapter = new ProductsAdapter(productsList, ProductsActivity.this, context);
+                    productRecyclerView.setAdapter(productsAdapter);
+                }else {
+                    productRecyclerView.setVisibility(View.GONE);
+                    rlNoDataFound.setVisibility(View.VISIBLE);
+                }
             }
 
         }

@@ -10,7 +10,6 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -18,21 +17,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.kallakurigroup.R;
+import com.example.kallakurigroup.activity.ProductsActivity;
 import com.example.kallakurigroup.adapters.BrandsAdapter;
 import com.example.kallakurigroup.database.BrandsTableDAO;
 import com.example.kallakurigroup.database.ProductTableDAO;
+import com.example.kallakurigroup.database.TopBrandsTableDAO;
 import com.example.kallakurigroup.database.UserTableDAO;
 import com.example.kallakurigroup.listeners.BrandsListener;
 import com.example.kallakurigroup.models.productsmodels.BrandsDetails;
 import com.example.kallakurigroup.models.productsmodels.ProductDetails;
 import com.example.kallakurigroup.models.productsmodels.ProductResponceModel;
-import com.example.kallakurigroup.activity.ProductsActivity;
+import com.example.kallakurigroup.models.productsmodels.TopBrandsDetails;
 import com.example.kallakurigroup.models.userModels.UserTableModel;
 import com.example.kallakurigroup.retrofit.ApiClient;
 import com.example.kallakurigroup.retrofit.ApiInterface;
 import com.example.kallakurigroup.utils.Dialogs;
-import com.example.kallakurigroup.utils.GridSpacingItemDecoration;
-import com.example.kallakurigroup.utils.PropertiesFile;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageClickListener;
@@ -58,7 +57,7 @@ public class HomeFragment extends Fragment implements BrandsListener {
     private List<BrandsDetails> brandsList = new ArrayList<>();
     private ProductResponceModel model;
     private Map<String, List<ProductDetails>> productsObject = new HashMap<>();
-    private List<BrandsDetails> listTopBrands = new ArrayList<>();
+    private List<TopBrandsDetails> listTopBrands = new ArrayList<>();
 
     @BindView(R.id.homePlaceHolder)
     ShimmerFrameLayout homePlaceHolder;
@@ -77,6 +76,7 @@ public class HomeFragment extends Fragment implements BrandsListener {
 
     BrandsTableDAO brandsTableDAO;
     ProductTableDAO productTableDAO;
+    TopBrandsTableDAO topBrandsTableDAO;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -93,6 +93,7 @@ public class HomeFragment extends Fragment implements BrandsListener {
 
         brandsTableDAO = new BrandsTableDAO(getActivity());
         productTableDAO = new ProductTableDAO(getActivity());
+        topBrandsTableDAO = new TopBrandsTableDAO(getActivity());
         userTableDAO = new UserTableDAO(getActivity());
         userTableModel = userTableDAO.getData().get(0);
 
@@ -103,7 +104,13 @@ public class HomeFragment extends Fragment implements BrandsListener {
         homeRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         //homeRecyclerView.addItemDecoration(new GridSpacingItemDecoration(5));
 
-        getBrands();
+        if(productTableDAO.getData().size()>0){
+            brandsList = brandsTableDAO.getData();
+            listTopBrands = topBrandsTableDAO.getData();
+            setAdapter();
+        }else {
+            getBrands();
+        }
 
         return v;
     }
@@ -150,10 +157,16 @@ public class HomeFragment extends Fragment implements BrandsListener {
 
         brandsTableDAO.deleteAll();
         productTableDAO.deleteAll();
+        topBrandsTableDAO.deleteAll();
 
         for(BrandsDetails brands : brandsList )
         {
             brandsTableDAO.addData(brands);
+        }
+
+        for(TopBrandsDetails topBrands : listTopBrands )
+        {
+            topBrandsTableDAO.addData(topBrands);
         }
 
         List<ProductDetails> productsList = new ArrayList<>();

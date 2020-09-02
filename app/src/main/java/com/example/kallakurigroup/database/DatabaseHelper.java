@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.example.kallakurigroup.models.productsmodels.BrandsDetails;
 import com.example.kallakurigroup.models.productsmodels.ProductDetails;
+import com.example.kallakurigroup.models.productsmodels.TopBrandsDetails;
 import com.example.kallakurigroup.models.userModels.UserTableModel;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
@@ -30,6 +31,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper
 
 	private Dao<BrandsDetails, String> brandTableDao = null;
 	private RuntimeExceptionDao<BrandsDetails, String> brandTableRuntimeDao = null;
+
+	private Dao<TopBrandsDetails, String> topBrandTableDao = null;
+	private RuntimeExceptionDao<TopBrandsDetails, String> topBrandTableRuntimeDao = null;
 
 
 	private static DatabaseHelper instance;
@@ -75,6 +79,21 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper
 		return brandTableRuntimeDao;
 	}
 
+	public Dao<TopBrandsDetails, String> getTopBrandTableDao() throws SQLException {
+		if (topBrandTableDao == null) {
+			topBrandTableDao = getDao(TopBrandsDetails.class);
+		}
+		return topBrandTableDao;
+	}
+
+
+	public RuntimeExceptionDao<TopBrandsDetails, String> getTopBrandTableDataDao() {
+		if (topBrandTableRuntimeDao == null) {
+			topBrandTableRuntimeDao = getRuntimeExceptionDao(TopBrandsDetails.class);
+		}
+		return topBrandTableRuntimeDao;
+	}
+
 
 	public Dao<ProductDetails, String> getProductTableDao() throws SQLException {
 		if (ProductTableDao == null) {
@@ -108,6 +127,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper
 		super.close();
 		userTableRuntimeDao = null;
 		brandTableRuntimeDao = null;
+		topBrandTableRuntimeDao = null;
 		productTableRuntimeDao = null;
 	}
 
@@ -117,6 +137,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper
 			Log.i(DatabaseHelper.class.getName(), "onCreate");
 			TableUtils.createTable(connectionSource, UserTableModel.class);
 			TableUtils.createTable(connectionSource, BrandsDetails.class);
+			TableUtils.createTable(connectionSource, TopBrandsDetails.class);
 			TableUtils.createTable(connectionSource, ProductDetails.class);
 		} catch (SQLException e) {
 			Log.e(DatabaseHelper.class.getName(), "Can't create database", e);
@@ -130,6 +151,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper
 			Log.i(DatabaseHelper.class.getName(), "onUpgrade");
 			TableUtils.dropTable(connectionSource, UserTableModel.class, true);
 			TableUtils.dropTable(connectionSource, BrandsDetails.class, true);
+			TableUtils.dropTable(connectionSource, TopBrandsDetails.class, true);
 			TableUtils.dropTable(connectionSource, ProductDetails.class, true);
 			onCreate(db, connectionSource);
 		} catch (SQLException e) {

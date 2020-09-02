@@ -60,6 +60,20 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             super(itemView.getRoot());
             cartRowBinding = itemView;
 
+            itemView.imageDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int selectedCount = 0;
+                    float prodPrice = Float.parseFloat(itemView.ProductOfferPrice.getText().toString());
+                    float selectedPrice = prodPrice*selectedCount;
+                    itemView.quantityCount.setText(String.valueOf(selectedCount));
+                    cartItemListener.quantityCountChanges(getAdapterPosition(), selectedCount, selectedPrice, prodPrice, "minus");
+                    list.remove(getAdapterPosition());
+                    notifyDataSetChanged();
+                    notify();
+                }
+            });
+
             itemView.plus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
