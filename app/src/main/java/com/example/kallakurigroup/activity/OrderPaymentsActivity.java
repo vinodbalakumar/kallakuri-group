@@ -91,6 +91,9 @@ public class OrderPaymentsActivity extends AppCompatActivity /*implements Paymen
     @BindView(R.id.editOtp)
     EditText editOtp;
 
+    @BindView(R.id.textResendOtp)
+    TextView textResendOtp;
+
     SharedPreferences sharedpreferences;
     SharedPreferences.Editor editor;
     public static final String PREFERENCE = "KALLAKURI";
@@ -153,6 +156,13 @@ public class OrderPaymentsActivity extends AppCompatActivity /*implements Paymen
 
                 validations();
 
+            }
+        });
+
+        textResendOtp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendOTP(mobileNum);
             }
         });
 
