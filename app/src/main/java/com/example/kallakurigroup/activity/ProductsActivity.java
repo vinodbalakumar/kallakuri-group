@@ -23,7 +23,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.kallakurigroup.R;
 import com.example.kallakurigroup.adapters.ProductsAdapter;
 import com.example.kallakurigroup.database.ProductTableDAO;
-import com.example.kallakurigroup.databinding.ActivityProductsBinding;
 import com.example.kallakurigroup.listeners.ProductItemListener;
 import com.example.kallakurigroup.models.productsmodels.ProductDetails;
 import com.google.gson.Gson;
@@ -61,8 +60,11 @@ public class ProductsActivity extends AppCompatActivity implements ProductItemLi
     @BindView(R.id.cart_text_number)
     TextView textCartCount;
 
-    @BindView(R.id.ll_bottom_amount)
-    LinearLayout llBottomAmount;
+    @BindView(R.id.rl_bottom_amount)
+    RelativeLayout rl_bottom_amount;
+
+    @BindView(R.id.imageRightArrow)
+    ImageView imageRightArrow;
 
     @BindView(R.id.rl_cart)
     RelativeLayout rl_cart;
@@ -144,6 +146,20 @@ public class ProductsActivity extends AppCompatActivity implements ProductItemLi
             }
         });
 
+        rl_bottom_amount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivityForResult(new Intent(ProductsActivity.this, CartActivity.class).putExtra("from","prodAct"), 100);
+            }
+        });
+
+        imageRightArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivityForResult(new Intent(ProductsActivity.this, CartActivity.class).putExtra("from","prodAct"), 100);
+            }
+        });
+
         setDataCartAmount();
     }
 
@@ -218,9 +234,9 @@ public class ProductsActivity extends AppCompatActivity implements ProductItemLi
 
         if(sharedpreferences.contains("total_amount") && sharedpreferences.getFloat("total_amount", 0)!=0){
             textTotAmount.setText(String.valueOf(sharedpreferences.getFloat("total_amount", 0)));
-            llBottomAmount.setVisibility(View.VISIBLE);
+            rl_bottom_amount.setVisibility(View.VISIBLE);
         }else {
-            llBottomAmount.setVisibility(View.GONE);
+            rl_bottom_amount.setVisibility(View.GONE);
         }
     }
 

@@ -103,8 +103,11 @@ public class ProductsDetailsActivity extends AppCompatActivity {
     @BindView(R.id.cart_text_number)
     TextView textCartCount;
 
-    @BindView(R.id.ll_bottom_amount)
-    LinearLayout llBottomAmount;
+    @BindView(R.id.rl_bottom_amount)
+    RelativeLayout rlBottomAmount;
+
+    @BindView(R.id.imageRightArrow)
+    ImageView imageRightArrow;
 
     ProductTableDAO productTableDAO;
 
@@ -210,6 +213,20 @@ public class ProductsDetailsActivity extends AppCompatActivity {
             }
         });
 
+        rlBottomAmount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivityForResult(new Intent(ProductsDetailsActivity.this, CartActivity.class).putExtra("from","prodDet"), 100);
+            }
+        });
+
+        imageRightArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivityForResult(new Intent(ProductsDetailsActivity.this, CartActivity.class).putExtra("from","prodDet"), 100);
+            }
+        });
+
         setData();
         setDataCartAmount();
     }
@@ -265,9 +282,9 @@ public class ProductsDetailsActivity extends AppCompatActivity {
 
         if(sharedpreferences.contains("total_amount") && sharedpreferences.getFloat("total_amount", 0)!=0){
             textTotAmount.setText(String.valueOf(sharedpreferences.getFloat("total_amount", 0)));
-            llBottomAmount.setVisibility(View.VISIBLE);
+            rlBottomAmount.setVisibility(View.VISIBLE);
         }else {
-            llBottomAmount.setVisibility(View.GONE);
+            rlBottomAmount.setVisibility(View.GONE);
         }
 
     }

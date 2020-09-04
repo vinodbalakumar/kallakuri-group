@@ -91,7 +91,7 @@
 
     <RelativeLayout
         android:visibility="visible"
-        android:background="@color/textBack"
+        android:background="@color/buttonBack"
         android:id="@+id/ll_proceedtoPay"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
@@ -99,8 +99,8 @@
         <TextView
             android:layout_centerInParent="true"
             android:text="@string/ProceedtoPayment"
-            android:textSize="@dimen/_14sdp"
-            android:textColor="@color/black"
+            android:textSize="@dimen/_15sdp"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:textStyle="bold"
             android:layout_height="wrap_content" />

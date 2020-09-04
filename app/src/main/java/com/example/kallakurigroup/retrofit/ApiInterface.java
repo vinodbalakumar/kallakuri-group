@@ -3,8 +3,11 @@ package com.example.kallakurigroup.retrofit;
 import com.example.kallakurigroup.models.ResetPinResponse;
 import com.example.kallakurigroup.models.loginmodel.LoginResponceModel;
 import com.example.kallakurigroup.models.otpmodels.OTPResponceModel;
+import com.example.kallakurigroup.models.productsmodels.OrderDetails;
+import com.example.kallakurigroup.models.productsmodels.PlaceOrderDetails;
 import com.example.kallakurigroup.models.productsmodels.ProductResponceModel;
 import com.example.kallakurigroup.models.rolesmodels.RolesResponceModel;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import okhttp3.ResponseBody;
@@ -45,9 +48,11 @@ public interface ApiInterface {
             @Body JsonObject jsonObject
     );
 
-    @GET("v1/products/{id}")
-    Call<ProductResponceModel> getProducts(/*
-           @Url String url, */@Path("id") String roleId
-    );
+    @POST
+    Call<ProductResponceModel> getProducts(@Url String url, @Body JsonObject jsonObject);
 
+    @POST
+    Call<PlaceOrderDetails> placeOrder(@Url String url,
+                                       @Body JsonArray jsonArray
+    );
 }

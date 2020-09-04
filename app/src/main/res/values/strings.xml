@@ -13,6 +13,7 @@
     <string name="enter_valid_ten_digit_mobile_number">Please enter valid Phone number</string>
     <string name="pin_change">Are You Sure,Want to set a New Password? </string>
     <string name="enter_Valid_pin">Please Enter Valid PinCode</string>
+    <string name="enter_Valid_password">Please Enter Valid Password</string>
     <string name="enter_password">Please Enter Password</string>
     <string name="enter_confirm_pass">Please Enter Confirm Password</string>
     <string name="pass_does_not_matched">Password does not matched with Confirm Password</string>
@@ -208,6 +209,8 @@
     <string name="GOHOME">GO HOME</string>
     <string name="orderFailed">Order Failed, Please Try Again</string>
     <string name="orderPlaced">Order Placed</string>
+    <string name="gotoCart">Go To Cart</string>
+    <string name="viewDetails"><u>View Details</u></string>
 
     <string-array name="state_arrays">
         <item>State</item>

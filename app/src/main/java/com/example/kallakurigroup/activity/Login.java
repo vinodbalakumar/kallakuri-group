@@ -155,7 +155,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
 
             } else if (mPass.isEmpty() || mPass.length()<6) {
 
-                Dialogs.show_popUp(getResources().getString(R.string.enter_Valid_pin), context);
+                Dialogs.show_popUp(getResources().getString(R.string.enter_Valid_password), context);
 
             } else if (Network_info.isNetworkAvailable(context)) {
 

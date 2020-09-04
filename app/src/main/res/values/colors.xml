@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#4aa322</color>
+    <color name="colorPrimary">#5c135c</color>
     <color name="colorPrimaryDark">#143404</color>
-    <color name="colorAccent">#5c135c</color>
+    <color name="colorAccent">#4aa322</color>
     <color name="transparent">#00000000</color>
     <color name="black">#000000</color>
     <color name="blue">#0099ff</color>
@@ -24,5 +24,13 @@
     <color name="orange">#FFA500</color>
     <color name="card_back">#f5f5f5</color>
     <color name="red">#FF0000</color>
+    <color name="buttonBack">#4aa322</color>
+
+    <color name="button">#dfe30e</color>
+    <color name="top_head">#dee3e0</color>
+    <color name="background">#f7fafa</color>
+    <color name="textColor_button"></color>
+    <color name="textColor_top_head"></color>
+    <color name="textColor_text"></color>
 
 </resources>

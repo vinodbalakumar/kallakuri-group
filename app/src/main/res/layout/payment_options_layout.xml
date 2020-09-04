@@ -7,7 +7,7 @@
     <ScrollView
         android:layout_below="@id/included"
         android:fillViewport="true"
-        android:layout_above="@+id/bottom_view"
+        android:layout_above="@+id/rl_proceed"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
@@ -334,12 +334,13 @@
         <TextView
             android:id="@+id/bottom_view_text"
             android:visibility="visible"
-            android:background="@color/textBack"
+            android:background="@color/buttonBack"
             android:text="@string/proceedmin"
             android:layout_centerInParent="true"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_13sdp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_15sdp"
             android:textAllCaps="false"
+            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"/>

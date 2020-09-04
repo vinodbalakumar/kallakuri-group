@@ -32,10 +32,15 @@ import com.example.kallakurigroup.models.userModels.UserTableModel;
 import com.example.kallakurigroup.retrofit.ApiClient;
 import com.example.kallakurigroup.retrofit.ApiInterface;
 import com.example.kallakurigroup.utils.Dialogs;
+import com.example.kallakurigroup.utils.PropertiesFile;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageClickListener;
 import com.synnapps.carouselview.ImageListener;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -117,10 +122,30 @@ public class HomeFragment extends Fragment implements BrandsListener {
 
     void getBrands(){
 
+        JSONObject mainObject = new JSONObject();
+
+        try {
+            JSONObject data = new JSONObject();
+            JSONObject error = new JSONObject();
+            JSONObject header = new JSONObject();
+            header.put("role", Integer.parseInt(userTableModel.getRoleNumber()));
+            mainObject.put("data", null);
+            mainObject.put("error", null);
+            mainObject.put("header", header);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        JsonParser jsonParser = new JsonParser();
+
+        JsonObject jsonObject = (JsonObject) jsonParser.parse(mainObject.toString());
+
+
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
-        Call<ProductResponceModel> call = apiService.getProducts(/*PropertiesFile.baseUrlProducts, */userTableModel.getRoleNumber());
+        Call<ProductResponceModel> call = apiService.getProducts(PropertiesFile.baseUrlNew+"v1/products", jsonObject);
         call.enqueue(new Callback<ProductResponceModel>() {
             @Override
             public void onResponse(Call<ProductResponceModel> call, Response<ProductResponceModel> response) {

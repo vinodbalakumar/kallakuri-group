@@ -117,6 +117,13 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
                     productItemListener.quantityCountChanges(getAdapterPosition(), selectedCount, selectedPrice, prodPrice, "minus");
                 }
             });
+
+            itemView.textViewDetails.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    productItemListener.productSelected(getAdapterPosition());
+                }
+            });
         }
 
     }

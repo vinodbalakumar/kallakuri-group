@@ -561,6 +561,7 @@ public class Account_setup extends Activity {
                 mainObject.put("data", data);
                 mainObject.put("error", error);
                 mainObject.put("header", header);
+
                 JsonParser jsonParser = new JsonParser();
 
                 JsonObject jsonObject = (JsonObject) jsonParser.parse(mainObject.toString());

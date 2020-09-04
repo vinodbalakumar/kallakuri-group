@@ -17,6 +17,7 @@ import com.example.kallakurigroup.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import pl.droidsonroids.gif.GifImageView;
 
 
 public class PaymentSuccessFailure extends AppCompatActivity {
@@ -25,17 +26,20 @@ public class PaymentSuccessFailure extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     SharedPreferences.Editor editor;
 
-    @BindView(R.id.main_layout)
-    RelativeLayout mainLayout;
-
-    @BindView(R.id.status_image)
-    ImageView statusImage;
-
     @BindView(R.id.status_text)
     TextView statusText;
 
+    @BindView(R.id.orderId)
+    TextView orderId;
+
     @BindView(R.id.go_home)
     TextView goHome;
+
+    @BindView(R.id.failed)
+    ImageView failed;
+
+    @BindView(R.id.success)
+    GifImageView success;
 
     Context context;
 
@@ -51,9 +55,12 @@ public class PaymentSuccessFailure extends AppCompatActivity {
         sharedpreferences = getSharedPreferences(PREFERENCE, Context.MODE_PRIVATE);
         editor = sharedpreferences.edit();
 
-        statusText.setText(getResources().getString(R.string.orderPlaced));
-        mainLayout.setBackgroundColor(Color.parseColor("#4aa322"));
-        statusImage.setImageDrawable(getResources().getDrawable(R.drawable.tick_white));
+        statusText.setText(getIntent().getStringExtra("message"));
+        orderId.setText(getIntent().getStringExtra("orderId"));
+
+        if(getIntent().getExtras().getInt("status") != 200){
+            failed.setVisibility(View.VISIBLE);
+        }
 
         goHome.setOnClickListener(new View.OnClickListener() {
             @Override

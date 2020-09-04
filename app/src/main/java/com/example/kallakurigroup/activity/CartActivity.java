@@ -71,6 +71,9 @@ public class CartActivity extends AppCompatActivity implements CartItemListener 
     @BindView(R.id.rl_checkout)
     RelativeLayout rl_checkout;
 
+    @BindView(R.id.imageRightArrow)
+    ImageView imageRightArrow;
+
     ProductTableDAO productTableDAO;
 
     Context context;
@@ -147,6 +150,14 @@ public class CartActivity extends AppCompatActivity implements CartItemListener 
                 startActivity(new Intent(CartActivity.this, ChooseAddress.class));
             }
         });
+
+        imageRightArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(CartActivity.this, ChooseAddress.class));
+            }
+        });
+
         setDataCartAmount();
 
     }
