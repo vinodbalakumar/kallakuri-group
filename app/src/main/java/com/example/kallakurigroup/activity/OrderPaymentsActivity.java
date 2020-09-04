@@ -1,6 +1,7 @@
 package com.example.kallakurigroup.activity;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,12 +20,19 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.kallakurigroup.R;
+import com.example.kallakurigroup.database.ProductTableDAO;
 import com.example.kallakurigroup.database.UserTableDAO;
+import com.example.kallakurigroup.models.loginmodel.LoginResponceModel;
 import com.example.kallakurigroup.models.otpmodels.OTPResponceModel;
+import com.example.kallakurigroup.models.productsmodels.OrderDetails;
+import com.example.kallakurigroup.models.productsmodels.PlaceOrderDetails;
+import com.example.kallakurigroup.models.productsmodels.ProductDetails;
 import com.example.kallakurigroup.retrofit.ApiClient;
 import com.example.kallakurigroup.retrofit.ApiInterface;
 import com.example.kallakurigroup.utils.Dialogs;
 import com.example.kallakurigroup.utils.Network_info;
+import com.example.kallakurigroup.utils.PropertiesFile;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.stfalcon.smsverifycatcher.OnSmsCatchListener;
@@ -34,6 +42,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -51,6 +60,7 @@ public class OrderPaymentsActivity extends AppCompatActivity /*implements Paymen
     Context context;
 
     UserTableDAO userTableDAO;
+    ProductTableDAO productTableDAO;
 
     @BindView(R.id.header_text)
     TextView name_h;
@@ -113,6 +123,7 @@ public class OrderPaymentsActivity extends AppCompatActivity /*implements Paymen
             context = this;
 
             userTableDAO = new UserTableDAO(this);
+            productTableDAO = new ProductTableDAO(this);
 
             mobileNum = userTableDAO.getData().get(0).getPhoneNo();
 
@@ -299,8 +310,8 @@ public class OrderPaymentsActivity extends AppCompatActivity /*implements Paymen
     public void verifyOtp(String otp) {
 
         if(mOtp.equals(otp)){
-            startActivity(new Intent(OrderPaymentsActivity.this, PaymentSuccessFailure.class));
-
+           // startActivity(new Intent(OrderPaymentsActivity.this, PaymentSuccessFailure.class));
+            placeOrder();
         } else {
             Toast.makeText(OrderPaymentsActivity.this, getResources().getString(R.string.otp_not_match), Toast.LENGTH_SHORT).show();
         }
@@ -352,4 +363,101 @@ public class OrderPaymentsActivity extends AppCompatActivity /*implements Paymen
         return code;
     }
 
+    void placeOrder(){
+
+        JSONArray jsonArray = new JSONArray();
+        List<ProductDetails> productDetailsList = productTableDAO.getProductsCart();
+
+        for (ProductDetails productDetails:productDetailsList){
+            if(!productDetails.getSelectedQty().equalsIgnoreCase("0")){
+                JSONObject jsonObject = new JSONObject();
+                try {
+                jsonObject.put("brand",productDetails.getProductBrand());
+                jsonObject.put("brandId",productDetails.getProductBrandId());
+                jsonObject.put("catalog",productDetails.getCatalog());
+                jsonObject.put("category",productDetails.getProductCategory());
+                jsonObject.put("cost",productDetails.getProductCost());
+                jsonObject.put("deliveryCharge",productDetails.getDeliveryCharge());
+                jsonObject.put("deliveryTime",productDetails.getDeliveryTime());
+                jsonObject.put("description",productDetails.getProductDescription());
+                jsonObject.put("discount",productDetails.getProductDiscount());
+                jsonObject.put("discountAmount",productDetails.getProductDiscountAmount());
+                jsonObject.put("finalPrice",productDetails.getProductFinalPrice());
+                jsonObject.put("id",String.valueOf(productDetails.getId()));
+                jsonObject.put("image",productDetails.getProductImage());
+                jsonObject.put("name",productDetails.getProductName());
+                jsonObject.put("orderCode","");
+                jsonObject.put("orderId",0);
+                jsonObject.put("quantity",productDetails.getProductQuantity());
+                jsonObject.put("orderedDateTime","");
+                jsonObject.put("userPhoneNum",mobileNum);
+                jsonObject.put("orderedQunatity", productDetails.getSelectedQty());
+                jsonObject.put("deliveryStatus","");
+                jsonObject.put("status","");
+                jsonObject.put("subCatalog",productDetails.getCatalog());
+                jsonObject.put("type",productDetails.getProductType());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                jsonArray.put(jsonObject);
+            }
+        }
+
+        JsonParser jsonParser = new JsonParser();
+        JsonArray mainJsonArray = (JsonArray) jsonParser.parse(jsonArray.toString());
+
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+
+        Call<PlaceOrderDetails> call = apiService.placeOrder(PropertiesFile.baseUrlNew+"v1/placeOrder",/*"application/json",*/ mainJsonArray);
+
+        call.enqueue(new Callback<PlaceOrderDetails>() {
+            @Override
+            public void onResponse(Call<PlaceOrderDetails> call, Response<PlaceOrderDetails> response) {
+
+                Dialogs.Cancel();
+
+                if (!response.isSuccessful()) {
+                    Dialogs.show_popUp(getResources().getString(R.string.try_again), context);
+                    return;
+                }
+
+                if (response.code() == 200) {
+                    //Toast.makeText(context, getResources().getString(R.string.registration_successful), Toast.LENGTH_SHORT).show();
+                    for (ProductDetails productDetails:productDetailsList) {
+                        if (!productDetails.getSelectedQty().equalsIgnoreCase("0")) {
+                            if(response.body().getStatus()==200){
+                                ContentValues values = new ContentValues();
+                                values.put("selectedQty", "0");
+                                productTableDAO.updateRow("ProductDetails", values, "Product_Id", productDetails.getId());
+
+                                ContentValues value1 = new ContentValues();
+                                value1.put("selectedPrice", "0");
+                                productTableDAO.updateRow("ProductDetails", value1, "Product_Id", productDetails.getId());
+
+                                editor.putString("cart_count", "0");
+                                editor.apply();
+
+                                editor.putFloat("total_amount", 0).apply();
+                                editor.commit();
+                            }
+
+                            startActivity(new Intent(OrderPaymentsActivity.this, PaymentSuccessFailure.class).putExtra("status", response.body().getStatus()).putExtra("message", response.body().getMessage()).putExtra("orderId", response.body().getOrderCode()));
+
+                        }
+                    }
+                } else {
+                    Dialogs.show_popUp(getResources().getString(R.string.try_again), context);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<PlaceOrderDetails> call, Throwable t) {
+                Dialogs.Cancel();
+                Dialogs.show_popUp(getResources().getString(R.string.error) + ": " + t.getMessage(), context);
+            }
+        });
+
+    }
 }
