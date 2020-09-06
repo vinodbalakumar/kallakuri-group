@@ -264,17 +264,22 @@ public class Homepage extends AppCompatActivity {
     }
 
 
-    void setDataCartCount(){
+    void setDataCartCount() {
         Gson gson = new Gson();
         String json = sharedpreferences.getString("cart_count", null);
-        Type type = new TypeToken<ArrayList<String>>() {}.getType();
-        cartList = gson.fromJson(json, type);
+        try {
+            Type type = new TypeToken<ArrayList<String>>() {
+            }.getType();
+            cartList = gson.fromJson(json, type);
 
-        if(cartList!=null && cartList.size()>0){
-            cart_text_number.setText(String.valueOf(cartList.size()));
-            cart_text_number.setVisibility(View.VISIBLE);
-        }else {
-            cart_text_number.setVisibility(View.GONE);
+            if (cartList != null && cartList.size() > 0) {
+                cart_text_number.setText(String.valueOf(cartList.size()));
+                cart_text_number.setVisibility(View.VISIBLE);
+            } else {
+                cart_text_number.setVisibility(View.GONE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.icu.util.Freezable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -215,24 +216,28 @@ public class CartActivity extends AppCompatActivity implements CartItemListener 
     }
 
     void setDataCartAmount(){
-        Gson gson = new Gson();
-        String json = sharedpreferences.getString("cart_count", null);
-        Type type = new TypeToken<ArrayList<String>>() {}.getType();
-        cartList = gson.fromJson(json, type);
+            Gson gson = new Gson();
+            String json = sharedpreferences.getString("cart_count", null);
+        try {
+            Type type = new TypeToken<ArrayList<String>>() {
+            }.getType();
+            cartList = gson.fromJson(json, type);
 
-        if(cartList!=null && cartList.size()>0){
-            textCartCount.setText(String.valueOf(cartList.size()));
-           // textCartCount.setVisibility(View.VISIBLE);
-        }else {
-            cartList = new ArrayList<>();
-            textCartCount.setVisibility(View.GONE);
+            if (cartList != null && cartList.size() > 0) {
+                textCartCount.setText(String.valueOf(cartList.size()));
+                // textCartCount.setVisibility(View.VISIBLE);
+            } else {
+                cartList = new ArrayList<>();
+                textCartCount.setVisibility(View.GONE);
+            }
+
+            if (sharedpreferences.contains("total_amount") && sharedpreferences.getFloat("total_amount", 0) != 0) {
+                amount_final.setText(String.valueOf(sharedpreferences.getFloat("total_amount", 0)));
+                sub_total_amount.setText(String.valueOf(sharedpreferences.getFloat("total_amount", 0)));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
-
-        if(sharedpreferences.contains("total_amount") && sharedpreferences.getFloat("total_amount", 0)!=0){
-            amount_final.setText(String.valueOf(sharedpreferences.getFloat("total_amount", 0)));
-            sub_total_amount.setText(String.valueOf(sharedpreferences.getFloat("total_amount", 0)));
-        }
-
     }
 
     @Override

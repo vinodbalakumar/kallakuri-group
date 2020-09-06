@@ -269,24 +269,29 @@ public class ProductsDetailsActivity extends AppCompatActivity {
     void setDataCartAmount(){
         Gson gson = new Gson();
         String json = sharedpreferences.getString("cart_count", null);
-        Type type = new TypeToken<ArrayList<String>>() {}.getType();
-        cartList = gson.fromJson(json, type);
+        try{
+            Type type = new TypeToken<ArrayList<String>>() {}.getType();
+            cartList = gson.fromJson(json, type);
 
-        if(cartList!=null && cartList.size()>0){
-            textCartCount.setText(String.valueOf(cartList.size()));
-            textCartCount.setVisibility(View.VISIBLE);
-        }else {
-            cartList = new ArrayList<>();
-            textCartCount.setVisibility(View.GONE);
+            if(cartList!=null && cartList.size()>0){
+                textCartCount.setText(String.valueOf(cartList.size()));
+                textCartCount.setVisibility(View.VISIBLE);
+            }else {
+                cartList = new ArrayList<>();
+                textCartCount.setVisibility(View.GONE);
+            }
+
+            if(sharedpreferences.contains("total_amount") && sharedpreferences.getFloat("total_amount", 0)!=0){
+                textTotAmount.setText(String.valueOf(sharedpreferences.getFloat("total_amount", 0)));
+                rlBottomAmount.setVisibility(View.VISIBLE);
+            }else {
+                rlBottomAmount.setVisibility(View.GONE);
+                rlBottomAmount.setVisibility(View.GONE);
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
         }
-
-        if(sharedpreferences.contains("total_amount") && sharedpreferences.getFloat("total_amount", 0)!=0){
-            textTotAmount.setText(String.valueOf(sharedpreferences.getFloat("total_amount", 0)));
-            rlBottomAmount.setVisibility(View.VISIBLE);
-        }else {
-            rlBottomAmount.setVisibility(View.GONE);
-        }
-
     }
 
     private void loadAnimation(ViewGroup view) {

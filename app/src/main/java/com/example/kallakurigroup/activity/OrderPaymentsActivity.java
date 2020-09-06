@@ -364,7 +364,7 @@ public class OrderPaymentsActivity extends AppCompatActivity /*implements Paymen
     }
 
     void placeOrder(){
-
+        Dialogs.ProgressDialog(context);
         JSONArray jsonArray = new JSONArray();
         List<ProductDetails> productDetailsList = productTableDAO.getProductsCart();
 
