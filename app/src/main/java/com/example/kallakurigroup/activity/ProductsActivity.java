@@ -102,10 +102,7 @@ public class ProductsActivity extends AppCompatActivity implements ProductItemLi
 
         header_text.setText(getIntent().getStringExtra("brand_name"));
 
-        productRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-
         //productsList = this.getIntent().getExtras().getParcelableArrayList("products");
-
 
         productsList = productTableDAO.getProductByBrandId(getIntent().getStringExtra("brand_id"));
 

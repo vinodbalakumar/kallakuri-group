@@ -211,6 +211,12 @@
     <string name="orderPlaced">Order Placed</string>
     <string name="gotoCart">Go To Cart</string>
     <string name="viewDetails"><u>View Details</u></string>
+    <string name="myOrders">My Orders</string>
+    <string name="track"><u>Track</u></string>
+    <string name="deliverTo">Deliver To</string>
+    <string name="deliveryAddress">Delivery Address</string>
+    <string name="deliveryStatus">Delivery Status</string>
+    <string name="orderInfo">Order Info</string>
 
     <string-array name="state_arrays">
         <item>State</item>

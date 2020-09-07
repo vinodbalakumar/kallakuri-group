@@ -1,5 +1,7 @@
 package com.example.kallakurigroup.models.productsmodels;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.widget.ImageView;
 
 import androidx.databinding.BindingAdapter;
@@ -9,7 +11,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.annotations.SerializedName;
 import com.j256.ormlite.field.DatabaseField;
 
-public class OrderDetails/* implements Parcelable */{
+public class OrderDetails implements Parcelable {
 
     @SerializedName("orderId")
     @DatabaseField(id = true,index = true,columnName = "orderId")
@@ -335,4 +337,88 @@ public class OrderDetails/* implements Parcelable */{
     public static void loadImage(ImageView imageView, String imageUrl) {
         Glide.with(imageView).load(imageUrl).apply(RequestOptions.circleCropTransform()).into(imageView);
     }
+
+
+     protected OrderDetails(Parcel in) {
+         orderId = in.readInt();
+         brand = in.readString();
+         brandId = in.readString();
+         catalog = in.readString();
+         category = in.readString();
+         cost = in.readString();
+         deliveryCharge = in.readString();
+         deliveryTime = in.readString();
+         description = in.readString();
+         discount = in.readString();
+         discountAmount = in.readString();
+         finalPrice = in.readString();
+         id = in.readString();
+         image = in.readString();
+         name = in.readString();
+         orderCode = in.readString();
+         quantity = in.readString();
+         orderedDateTime = in.readString();
+         userPhoneNum = in.readString();
+         orderedQunatity = in.readString();
+         deliveryStatus = in.readString();
+         status = in.readString();
+         subCatalog = in.readString();
+         type = in.readString();
+    }
+
+    public static final Creator<OrderDetails> CREATOR = new Creator<OrderDetails>() {
+        @Override
+        public OrderDetails createFromParcel(Parcel in) {
+            return new OrderDetails(in);
+        }
+
+        @Override
+        public OrderDetails[] newArray(int size) {
+            return new OrderDetails[size];
+        }
+    };
+        @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(orderId);
+        parcel.writeString(brand);
+        parcel.writeString(brandId);
+        parcel.writeString(catalog);
+        parcel.writeString(category);
+        parcel.writeString(cost);
+        parcel.writeString(deliveryCharge);
+        parcel.writeString(deliveryTime);
+        parcel.writeString(description);
+        parcel.writeString(discount);
+        parcel.writeString(discountAmount);
+        parcel.writeString(finalPrice);
+        parcel.writeString(id);
+        parcel.writeString(image);
+        parcel.writeString(name);
+        parcel.writeString(orderCode);
+        parcel.writeString(quantity);
+        parcel.writeString(orderedDateTime);
+        parcel.writeString(userPhoneNum);
+        parcel.writeString(orderedQunatity);
+        parcel.writeString(deliveryStatus);
+        parcel.writeString(status);
+        parcel.writeString(subCatalog);
+        parcel.writeString(type);
+    }
+
+    public static final Creator creater = new Creator(){
+        @Override
+        public Object createFromParcel(Parcel parcel) {
+            return parcel;
+        }
+
+        @Override
+        public Object[] newArray(int i) {
+            return new Object[i];
+        }
+    };
 }

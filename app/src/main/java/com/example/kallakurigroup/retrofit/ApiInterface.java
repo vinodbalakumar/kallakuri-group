@@ -1,22 +1,20 @@
 package com.example.kallakurigroup.retrofit;
 
+import com.example.kallakurigroup.models.MainModel;
 import com.example.kallakurigroup.models.ResetPinResponse;
 import com.example.kallakurigroup.models.loginmodel.LoginResponceModel;
 import com.example.kallakurigroup.models.otpmodels.OTPResponceModel;
-import com.example.kallakurigroup.models.productsmodels.OrderDetails;
 import com.example.kallakurigroup.models.productsmodels.PlaceOrderDetails;
 import com.example.kallakurigroup.models.productsmodels.ProductResponceModel;
 import com.example.kallakurigroup.models.rolesmodels.RolesResponceModel;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 import retrofit2.http.Url;
 
 public interface ApiInterface {
@@ -54,5 +52,10 @@ public interface ApiInterface {
     @POST
     Call<PlaceOrderDetails> placeOrder(@Url String url,
                                        @Body JsonArray jsonArray
+    );
+
+    @POST
+    Call<MainModel> getOrders(@Url String url,
+                              @Body JsonObject jsonObject
     );
 }

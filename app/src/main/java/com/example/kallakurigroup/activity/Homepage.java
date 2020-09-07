@@ -1,20 +1,16 @@
 package com.example.kallakurigroup.activity;
 
 import android.animation.ValueAnimator;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -30,6 +26,7 @@ import com.example.kallakurigroup.fragments.AboutUsFragment;
 import com.example.kallakurigroup.fragments.ContactUsFragment;
 import com.example.kallakurigroup.fragments.FeedBackFragment;
 import com.example.kallakurigroup.fragments.HomeFragment;
+import com.example.kallakurigroup.fragments.OrderHistory;
 import com.example.kallakurigroup.models.userModels.UserTableModel;
 import com.example.kallakurigroup.utils.Popup_Class;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -40,8 +37,6 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
 
 
 public class Homepage extends AppCompatActivity {
@@ -59,13 +54,15 @@ public class Homepage extends AppCompatActivity {
 
     RelativeLayout left_lay, rl_cart;
     ImageView shp_cart;
-    TextView cart_text_number;
+    TextView cart_text_number, header_text;
 
     SharedPreferences sharedpreferences;
     SharedPreferences.Editor editor;
     String PREFERENCE = "KALLAKURI";
 
     List<String> cartList = new ArrayList<>();
+
+    int selectedFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +89,8 @@ public class Homepage extends AppCompatActivity {
         rl_cart.setVisibility(View.VISIBLE);
 
         cart_text_number = findViewById(R.id.cart_text_number);
+
+        header_text = findViewById(R.id.header_text);
 
         actionBarDrawerToggle = new ActionBarDrawerToggle(Homepage.this, drawerLayout, toolbar, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -149,18 +148,32 @@ public class Homepage extends AppCompatActivity {
 
                 switch (item.getItemId()) {
                     case R.id.optionHome:
+                        selectedFragment = 1;
+                        header_text.setText(getResources().getString(R.string.kk_groups));
                         HomeFragment homeFragment = new HomeFragment();
                         loadFragment(homeFragment);
                         break;
+                    case R.id.optionMyOrder:
+                        selectedFragment = 2;
+                        header_text.setText(getResources().getString(R.string.myOrders));
+                        OrderHistory orderHistory = new OrderHistory();
+                        loadFragment(orderHistory);
+                        break;
                     case R.id.optionContactUs:
+                        selectedFragment = 3;
+                        header_text.setText(getResources().getString(R.string.contact_us));
                         ContactUsFragment contactUsFragment = new ContactUsFragment();
                         loadFragment(contactUsFragment);
                         break;
                     case R.id.optionFeedBack:
+                        selectedFragment = 4;
+                        header_text.setText(getResources().getString(R.string.feedback));
                         FeedBackFragment feedBackFragment = new FeedBackFragment();
                         loadFragment(feedBackFragment);
                         break;
                     case R.id.optionAboutUs:
+                        selectedFragment = 5;
+                        header_text.setText(getResources().getString(R.string.about_us));
                         AboutUsFragment aboutUsFragment = new AboutUsFragment();
                         loadFragment(aboutUsFragment);
                         break;
@@ -203,11 +216,18 @@ public class Homepage extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-        } else {
-           // exitApp("Close", "KkGroups Alert!", "Are you sure you want to leave this page?");
-            new Popup_Class().showDialog_logout(Homepage.this, getResources().getString(R.string.leave_app_confirm), Homepage.this, "close");
+        if(selectedFragment == 1) {
+            if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                drawerLayout.closeDrawer(GravityCompat.START);
+            } else {
+                // exitApp("Close", "KkGroups Alert!", "Are you sure you want to leave this page?");
+                new Popup_Class().showDialog_logout(Homepage.this, getResources().getString(R.string.leave_app_confirm), Homepage.this, "close");
+            }
+        }else {
+            selectedFragment = 1;
+            header_text.setText(getResources().getString(R.string.kk_groups));
+            HomeFragment homeFragment = new HomeFragment();
+            loadFragment(homeFragment);
         }
     }
 

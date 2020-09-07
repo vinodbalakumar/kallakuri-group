@@ -148,14 +148,14 @@ public class CartActivity extends AppCompatActivity implements CartItemListener 
         rl_checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(CartActivity.this, ChooseAddress.class));
+                startActivity(new Intent(CartActivity.this, OrderPaymentsActivity.class));
             }
         });
 
         imageRightArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(CartActivity.this, ChooseAddress.class));
+                startActivity(new Intent(CartActivity.this, OrderPaymentsActivity.class));
             }
         });
 

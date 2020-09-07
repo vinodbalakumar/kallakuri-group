@@ -62,6 +62,9 @@ public class OrderPaymentsActivity extends AppCompatActivity /*implements Paymen
     UserTableDAO userTableDAO;
     ProductTableDAO productTableDAO;
 
+    @BindView(R.id.textDeliverTo)
+    TextView textDeliverTo;
+
     @BindView(R.id.header_text)
     TextView name_h;
 
@@ -132,6 +135,7 @@ public class OrderPaymentsActivity extends AppCompatActivity /*implements Paymen
 
             name_h.setText(getString(R.string.PaymentOptions));
 
+           textDeliverTo.setText(userTableDAO.getData().get(0).getDeliveryAddress());
 
         //init SmsVerifyCatcher
         smsVerifyCatcher = new SmsVerifyCatcher(this, new OnSmsCatchListener<String>() {

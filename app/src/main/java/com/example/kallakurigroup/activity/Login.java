@@ -153,7 +153,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
 
                 Dialogs.show_popUp(getResources().getString(R.string.enter_valid_ten_digit_mobile_number), context);
 
-            } else if (mPass.isEmpty() || mPass.length()<6) {
+            } else if (mPass.isEmpty() /*|| mPass.length()<6*/) {
 
                 Dialogs.show_popUp(getResources().getString(R.string.enter_Valid_password), context);
 
