@@ -19,20 +19,20 @@
         <item name="android:textColorHint">#8a8a8a</item>
         <item name="colorAccent">#d9d9d9</item>
         <item name="colorControlNormal">#d9d9d9</item>
-        <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/radioButtonColor</item>
     </style>
 
     <style name="TextLabel2" >
         <item name="android:textColorHint">#8a8a8a</item>
         <item name="colorAccent">#d9d9d9</item>
         <item name="colorControlNormal">#d9d9d9</item>
-        <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/radioButtonColor</item>
         <item name="android:editTextStyle">@style/App_EditTextStyle</item>
         <item name="editTextStyle">@style/App_EditTextStyle</item>
     </style>
 
     <style name="RadioButtonStyle" parent="ThemeOverlay.AppCompat.Dark">
-        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="colorAccent">@color/radioButtonColor</item>
         <item name="android:textColorSecondary">@android:color/black</item>
     </style>
 

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/border"
+    android:background="@color/background"
     android:layout_margin="70dp"
     android:orientation="vertical" >
 
@@ -52,7 +52,7 @@
         android:layout_gravity="center"
         android:padding="10dp"
         android:textSize="15sp"
-        android:textColor="@color/email_text_color"
+        android:textColor="@color/textColor_button"
         android:text="@string/ok" />
 
 </LinearLayout>

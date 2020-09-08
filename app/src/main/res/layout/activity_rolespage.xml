@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/background"
     android:layout_height="match_parent">
 
     <include
@@ -61,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/SubmitCaps"
-                android:textColor="@color/white"
+                android:textColor="@color/textColor_button"
                 android:background="@drawable/button_background"
                 android:id="@+id/submit_btn_role"
                 android:layout_gravity="center|bottom"

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_choose_address"
     android:layout_width="match_parent"
-    android:background="@color/white"
+    android:background="@color/background"
     android:layout_height="match_parent">
 
     <include
@@ -100,7 +100,7 @@
             android:layout_centerInParent="true"
             android:text="@string/ProceedtoPayment"
             android:textSize="@dimen/_15sdp"
-            android:textColor="@color/white"
+            android:textColor="@color/textColor_button"
             android:layout_width="wrap_content"
             android:textStyle="bold"
             android:layout_height="wrap_content" />

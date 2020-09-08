@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradientbackground">
+    android:background="@color/background">
 
     <include layout="@layout/header"
         android:id="@+id/titleHead"/>
@@ -28,7 +28,7 @@
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
             android:padding="@dimen/_5sdp"
-            android:background="@color/white"
+            android:background="@color/background"
             android:orientation="vertical">
 
             <TextView
@@ -167,7 +167,7 @@
                             android:visibility="visible"
                             android:paddingVertical="@dimen/_3sdp"
                             android:background="@drawable/button_background"
-                            android:textColor="@color/white"
+                            android:textColor="@color/textColor_button"
                             android:textSize="@dimen/_14sdp" />
 
                         <LinearLayout

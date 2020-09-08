@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:columnCount="1"
-    android:background="@drawable/gradientbackground"
+    android:background="@color/background"
     android:orientation="vertical"
     tools:context=".fragments.HomeFragment">
 
@@ -55,7 +55,7 @@
                 android:text="@string/categories"
                 android:textColor="@color/black"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:background="@drawable/button_line_background_purple"
+                android:background="@drawable/button_line_background_grey"
                 android:gravity="center"
                 android:textStyle="bold"
                 android:textSize="@dimen/_15sdp"

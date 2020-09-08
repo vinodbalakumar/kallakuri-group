@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:gravity="center_horizontal"
-    android:background="@color/white"
+    android:background="@color/background"
     android:layout_height="500dp"
     app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
@@ -75,6 +75,6 @@
             android:textSize="@dimen/_15sdp"
             android:text="@string/ok"
             android:layout_margin="@dimen/_9sdp"
-            android:textColor="@color/grey"/>
+            android:textColor="@color/textColor_button"/>
     </LinearLayout>
 </LinearLayout>

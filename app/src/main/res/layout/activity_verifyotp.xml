@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/background"
     android:orientation="vertical"
     android:fillViewport="true">
     <include
@@ -14,15 +14,13 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
         android:fillViewport="true">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:weightSum="1"
-        android:padding="@dimen/_20sdp"
-        android:background="@color/white">
+        android:padding="@dimen/_20sdp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -196,7 +194,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/verify_otp"
-            android:textColor="@color/white"
+            android:textColor="@color/textColor_button"
             android:background="@drawable/button_background"
             android:textSize="@dimen/_18sdp"
             android:layout_margin="@dimen/_30sdp"

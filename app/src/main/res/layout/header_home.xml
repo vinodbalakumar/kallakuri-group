@@ -5,13 +5,13 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="20dp"
-    android:background="@color/colorPrimary">
+    android:background="@color/top_head">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:text="@string/kk_groups"
-        android:textColor="@color/white"
+        android:textColor="@color/textColor_top_head"
         android:textSize="@dimen/_20sdp"
         android:gravity="left"
         android:visibility="gone"
@@ -35,7 +35,7 @@
             android:text="Username"
             android:gravity="center"
             android:textSize="@dimen/_12sdp"
-            android:textColor="@color/white"
+            android:textColor="@color/textColor_top_head"
             android:paddingHorizontal="@dimen/_10sdp"/>
 
     </LinearLayout>
@@ -51,7 +51,7 @@
             android:layout_width="@dimen/_16sdp"
             android:layout_height="@dimen/_16sdp"
             android:layout_gravity="center"
-            android:src="@drawable/ic_mobile_icon_white"/>
+            android:src="@drawable/ic_mobile_icon"/>
         <TextView
             android:id="@+id/headerPhoneNo"
             android:layout_width="match_parent"
@@ -59,7 +59,7 @@
             android:text="Phone"
             android:gravity="center"
             android:textSize="@dimen/_12sdp"
-            android:textColor="@color/white"
+            android:textColor="@color/textColor_top_head"
             android:paddingHorizontal="@dimen/_10sdp"/>
 
     </LinearLayout>

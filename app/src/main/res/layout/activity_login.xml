@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
+    android:background="@color/background"
     android:padding="@dimen/_30sdp"
     android:fitsSystemWindows="true">
 
@@ -144,7 +144,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/login"
-                    android:textColor="@color/white"
+                    android:textColor="@color/textColor_button"
                     android:background="@drawable/button_background"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_gravity="center_horizontal"

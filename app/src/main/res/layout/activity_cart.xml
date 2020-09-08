@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradientbackground"
+    android:background="@color/background"
     android:orientation="vertical">
 
     <include layout="@layout/header"
@@ -184,7 +184,7 @@
             android:layout_height="@dimen/_48sdp">
             <TextView
                 android:text="@string/Checkout"
-                android:textColor="@color/white"
+                android:textColor="@color/textColor_button"
                 android:textSize="@dimen/_15sdp"
                 android:textStyle="bold"
                 android:layout_centerVertical="true"
@@ -199,7 +199,7 @@
                 <TextView
                     android:id="@+id/amount_final"
                     android:text=""
-                    android:textColor="@color/white"
+                    android:textColor="@color/textColor_button"
                     android:textStyle="bold"
                     android:textSize="@dimen/_15sdp"
                     android:layout_centerVertical="true"
