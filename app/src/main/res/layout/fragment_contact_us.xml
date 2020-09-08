@@ -23,13 +23,21 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:textColor="@color/textColor_text"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:text="Any Queries Please contact us on"/>
+                android:text="Any queries or issues"/>
 
-            <View
+           <!-- <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_1sdp"
                 android:layout_marginVertical="@dimen/_10sdp"
-                android:background="@color/textBack"/>
+                android:background="@color/textBack"/>-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:paddingVertical="@dimen/_5sdp"
+                android:background="@drawable/button_line_background_grey"
+                android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -39,7 +47,7 @@
                 android:gravity="center_vertical"
                 android:drawableLeft="@drawable/ic_email_icon"
                 android:layout_marginLeft="@dimen/_3sdp"
-                android:text="Mail us"/>
+                android:text="Mail on"/>
 
             <TextView
                 android:id="@+id/textEmail"
@@ -60,7 +68,7 @@
                 android:drawablePadding="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:text="Call Us"/>
+                android:text="Call on"/>
 
             <TextView
                 android:id="@+id/textPhoneNum"
@@ -72,12 +80,12 @@
                 android:layout_marginLeft="@dimen/_30sdp"
                 android:text="9999999999"/>
 
-
-            <View
+            </LinearLayout>
+         <!--   <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_1sdp"
                 android:layout_marginVertical="@dimen/_10sdp"
-                android:background="@color/textBack"/>
+                android:background="@color/textBack"/>-->
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
