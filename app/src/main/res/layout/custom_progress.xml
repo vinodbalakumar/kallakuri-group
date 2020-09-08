@@ -8,16 +8,16 @@
 
     <ImageView
         android:id="@+id/img_logo"
-        android:layout_width="@dimen/_40sdp"
-        android:layout_height="@dimen/_40sdp"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:src="@drawable/progresslogo"/>
 
     <ImageView
         android:id="@+id/img_cricle"
-        android:layout_width="@dimen/_70sdp"
-        android:layout_height="@dimen/_70sdp"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:src="@drawable/progress_cicle" />
