@@ -58,7 +58,7 @@
                 android:layout_height="@dimen/_22sdp"
                 android:layout_centerInParent="true"
                 android:clickable="true"
-                android:src="@drawable/cart_whtie" />
+                android:src="@drawable/cart_icon" />
 
             <TextView
                 android:id="@+id/cart_text_number"
@@ -70,7 +70,7 @@
                 android:text="0"
                 android:gravity="center"
                 android:textAlignment="center"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="10dp"
                 android:visibility="gone" />
 

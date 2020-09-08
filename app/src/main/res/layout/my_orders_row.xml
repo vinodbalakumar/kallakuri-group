@@ -51,7 +51,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@{product.name}"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor_text"
                         android:textSize="@dimen/_14sdp" />
 
                     <LinearLayout
@@ -66,7 +66,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center|end"
                             android:text="@{product.quantity}"                                android:padding="@dimen/_2sdp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/textColor_text"
                             android:textSize="@dimen/_10sdp" />
 
                         <TextView
@@ -76,7 +76,7 @@
                             android:gravity="center|end"
                             android:text="@{product.type}"
                             android:padding="@dimen/_2sdp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/textColor_text"
                             android:textSize="@dimen/_10sdp" />
 
                     </LinearLayout>
@@ -94,7 +94,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Ordered Price: ₹"
-                            android:textColor="@color/black"
+                            android:textColor="@color/textColor_text"
                             android:textSize="@dimen/_12sdp"/>
                         <TextView
                             android:id="@+id/ProductOfferPrice"
@@ -102,7 +102,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@{product.finalPrice}"
-                            android:textColor="@color/black"
+                            android:textColor="@color/textColor_text"
                             android:textSize="@dimen/_12sdp"/>
 
                     </LinearLayout>
@@ -119,7 +119,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Ordered Quantity: "
-                            android:textColor="@color/black"
+                            android:textColor="@color/textColor_text"
                             android:textSize="@dimen/_12sdp"/>
                         <TextView
                             android:id="@+id/ProductOrderedQty"
@@ -127,7 +127,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@{product.orderedQunatity}"
-                            android:textColor="@color/black"
+                            android:textColor="@color/textColor_text"
                             android:textSize="@dimen/_12sdp"/>
 
                     </LinearLayout>
@@ -143,7 +143,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Ordered On: "
-                            android:textColor="@color/black"
+                            android:textColor="@color/textColor_text"
                             android:textSize="@dimen/_12sdp"/>
                         <TextView
                             android:id="@+id/ProductOrderedDate"
@@ -151,7 +151,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@{product.orderedDateTime}"
-                            android:textColor="@color/black"
+                            android:textColor="@color/textColor_text"
                             android:textSize="@dimen/_12sdp"/>
 
                     </LinearLayout>
@@ -162,7 +162,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="@{product.deliveryStatus}"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor_text"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:textSize="@dimen/_14sdp"/>
 

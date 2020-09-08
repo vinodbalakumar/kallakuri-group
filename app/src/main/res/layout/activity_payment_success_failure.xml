@@ -17,7 +17,7 @@
 
     <ImageView
         android:id="@+id/failed"
-        android:src="@drawable/cross_white"
+        android:src="@drawable/cross_icon"
         android:visibility="gone"
         android:layout_width="@dimen/_100sdp"
         android:layout_height="@dimen/_100sdp" />
@@ -26,7 +26,7 @@
         android:id="@+id/status_text"
         android:lineSpacingExtra="@dimen/_3sdp"
         android:textSize="@dimen/_13sdp"
-        android:textColor="@color/black"
+        android:textColor="@color/textColor_text"
         android:gravity="center_horizontal"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_below="@+id/status_image"
@@ -38,7 +38,7 @@
         android:id="@+id/orderId"
         android:lineSpacingExtra="@dimen/_3sdp"
         android:textSize="@dimen/_13sdp"
-        android:textColor="@color/black"
+        android:textColor="@color/textColor_text"
         android:gravity="center_horizontal"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_below="@+id/status_image"
@@ -50,7 +50,7 @@
     <ImageView
         android:layout_marginTop="@dimen/_7sdp"
         android:id="@+id/imgggg"
-        android:src="@drawable/ic_info_white"
+        android:src="@drawable/ic_info"
         android:padding="@dimen/_3sdp"
         android:layout_marginBottom="@dimen/_30sdp"
         android:layout_centerHorizontal="true"
@@ -65,7 +65,7 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:text="@string/GOHOME"
-        android:textColor="@color/green"
+        android:textColor="@color/textColor_text"
         android:textSize="@dimen/_17sdp"
         android:layout_marginTop="@dimen/_50sdp"
         android:layout_alignParentBottom="true"

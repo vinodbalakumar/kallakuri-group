@@ -155,18 +155,18 @@ public class ProductsDetailsActivity extends AppCompatActivity {
         shp_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(textCartCount.getText().toString()!=null && !textCartCount.getText().toString().equalsIgnoreCase("0")) {
+               // if(textCartCount.getText().toString()!=null && !textCartCount.getText().toString().equalsIgnoreCase("0")) {
                     startActivityForResult(new Intent(ProductsDetailsActivity.this, CartActivity.class).putExtra("from","prodDet"), 200);
-                }
+               // }
             }
         });
 
         textCartCount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(textCartCount.getText().toString()!=null && !textCartCount.getText().toString().equalsIgnoreCase("0")) {
+              //  if(textCartCount.getText().toString()!=null && !textCartCount.getText().toString().equalsIgnoreCase("0")) {
                     startActivityForResult(new Intent(ProductsDetailsActivity.this, CartActivity.class).putExtra("from","prodDet"), 200);
-                }
+               // }
             }
         });
 
@@ -286,11 +286,11 @@ public class ProductsDetailsActivity extends AppCompatActivity {
                 rlBottomAmount.setVisibility(View.VISIBLE);
             }else {
                 rlBottomAmount.setVisibility(View.GONE);
-                rlBottomAmount.setVisibility(View.GONE);
             }
 
         }catch (Exception e){
             e.printStackTrace();
+            rlBottomAmount.setVisibility(View.GONE);
         }
     }
 

@@ -50,7 +50,7 @@
             android:paddingVertical="@dimen/_8sdp"
             android:text="@{brand.brandName}"
             android:background="@color/textBack"
-            android:textColor="@color/black"
+            android:textColor="@color/textColor_text"
             android:textStyle="bold"
             android:textSize="@dimen/_12sdp" />
     </LinearLayout>

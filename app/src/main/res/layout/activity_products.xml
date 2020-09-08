@@ -40,11 +40,20 @@
         android:layout_centerInParent="true"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/imageEmpty"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/empty_prod"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="No Products Found"
+            android:layout_below="@+id/imageEmpty"
             android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/_5sdp"
             android:textSize="@dimen/_15sdp"/>
     </RelativeLayout>
 
@@ -52,13 +61,14 @@
         android:id="@+id/rl_bottom_amount"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_50sdp"
+        android:visibility="gone"
         android:layout_alignParentBottom="true"
         android:background="@color/buttonBack"
         android:gravity="center">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:textColor="@color/textColor_button"
             android:textSize="@dimen/_15sdp"
             android:textStyle="bold"
             android:layout_marginLeft="@dimen/_15sdp"
@@ -74,7 +84,7 @@
                 android:id="@+id/textTotAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
+                android:textColor="@color/textColor_button"
                 android:textSize="@dimen/_15sdp"
                 android:textStyle="bold"
                 android:layout_marginLeft="@dimen/_3sdp"

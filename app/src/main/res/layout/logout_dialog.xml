@@ -40,7 +40,7 @@
                     android:layout_margin="@dimen/_5sdp"
                     android:gravity="center"
                     android:text="@string/are_you_sure"
-                    android:textColor="@color/black"
+                    android:textColor="@color/textColor_text"
                     android:textSize="18sp">
 
                 </TextView>
@@ -84,7 +84,7 @@
                     android:gravity="center"
                     android:text="@string/no"
                     android:layout_weight="1"
-                    android:textColor="@color/black"
+                    android:textColor="@color/textColor_text"
                     android:textSize="@dimen/_12sdp">
 
                 </TextView>
@@ -100,7 +100,7 @@
                     android:gravity="center"
                     android:text="@string/yes"
                     android:layout_weight="1"
-                    android:textColor="@color/black"
+                    android:textColor="@color/textColor_text"
                     android:textSize="@dimen/_12sdp">
 
                 </TextView>

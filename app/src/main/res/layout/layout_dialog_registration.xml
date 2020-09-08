@@ -20,7 +20,7 @@
             android:textSize="@dimen/_15sdp"
             android:text="Title"
             android:layout_centerInParent="true"
-            android:textColor="@color/black"/>
+            android:textColor="@color/textColor_text"/>
 
         <RelativeLayout
             android:id="@+id/rel_close"

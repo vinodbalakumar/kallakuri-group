@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_weight="1">
-                <ImageView
+            <!--    <ImageView
                     android:id="@+id/imageLogo"
                     android:layout_width="@dimen/_200sdp"
                     android:layout_height="@dimen/_50sdp"
@@ -40,7 +40,18 @@
                     android:textAlignment="center"
                     android:gravity="center"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/loginlogo"/>
+                    android:src="@drawable/loginlogo"/>-->
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_20sdp"
+                    android:visibility="visible"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:textColor="@color/textColor_text"
+                    android:text="@string/kk_groups_line"/>
 
                 <TextView
                     android:id="@+id/loginwith_text"
@@ -50,7 +61,7 @@
                     android:visibility="gone"
                     android:gravity="center"
                     android:layout_marginTop="@dimen/_20sdp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/textColor_text"
                     android:text="@string/loginwith"/>
 
             </LinearLayout>
@@ -84,7 +95,7 @@
                         android:nextFocusDown="@+id/pin_login_et"
                         android:text=""
                         android:padding="@dimen/_13sdp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor_text"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -110,7 +121,7 @@
                             android:padding="@dimen/_13sdp"
                             android:fontFamily="sans-serif"
                             android:hint="@string/pin"
-                            android:textColor="@color/black"
+                            android:textColor="@color/textColor_text"
                             android:textSize="@dimen/_12sdp"
                             android:inputType="textPassword"
                             android:maxLength="10"
@@ -190,7 +201,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/sign_up"
-                    android:textColor="@color/green"
+                    android:textColor="@color/textColor_text"
                     android:background="@drawable/button_line_background"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_gravity="center_horizontal"

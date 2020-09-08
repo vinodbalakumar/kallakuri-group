@@ -30,7 +30,7 @@
         android:gravity="center"
         android:layout_marginTop="30dp"
         android:padding="@dimen/_10sdp"
-        android:textColor="@color/black"
+        android:textColor="@color/textColor_text"
         android:id="@+id/txt_message" />
 
 </RelativeLayout>

@@ -75,6 +75,15 @@ public class CartActivity extends AppCompatActivity implements CartItemListener 
     @BindView(R.id.imageRightArrow)
     ImageView imageRightArrow;
 
+    @BindView(R.id.rl_main)
+    RelativeLayout rl_main;
+
+    @BindView(R.id.ll_noDataFound)
+    LinearLayout ll_noDataFound;
+
+    @BindView(R.id.textShop)
+    TextView textShop;
+
     ProductTableDAO productTableDAO;
 
     Context context;
@@ -106,7 +115,7 @@ public class CartActivity extends AppCompatActivity implements CartItemListener 
 
         header_text.setText(getResources().getString(R.string.cart));
 
-        //back_arrow.setImageDrawable(getResources().getDrawable(R.drawable.home_white));
+        //back_arrow.setImageDrawable(getResources().getDrawable(R.drawable.home_icon));
 
         productRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
@@ -122,9 +131,14 @@ public class CartActivity extends AppCompatActivity implements CartItemListener 
         }
 
         if(productsList!=null && productsList.size()>0){
+            rl_main.setVisibility(View.VISIBLE);
+            ll_noDataFound.setVisibility(View.GONE);
             productRecyclerView.setLayoutManager(new GridLayoutManager(this, 1));
             cartAdapter = new CartAdapter(productsList, CartActivity.this, context);
             productRecyclerView.setAdapter(cartAdapter);
+        }else {
+            rl_main.setVisibility(View.GONE);
+            ll_noDataFound.setVisibility(View.VISIBLE);
         }
 
         fromType = getIntent().getStringExtra("from");
@@ -142,6 +156,13 @@ public class CartActivity extends AppCompatActivity implements CartItemListener 
             @Override
             public void onClick(View view) {
               backToHome();
+            }
+        });
+
+        textShop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                backToHome();
             }
         });
 
@@ -199,6 +220,8 @@ public class CartActivity extends AppCompatActivity implements CartItemListener 
         if(cartList.size()>0) {
             setDataCartAmount();
         }else {
+            amount_final.setText("0.0");
+            sub_total_amount.setText("0.0");
             backToHome();
         }
     }

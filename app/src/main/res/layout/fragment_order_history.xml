@@ -31,15 +31,25 @@
         android:id="@+id/rl_noDataFound"
         android:layout_width="match_parent"
         android:visibility="gone"
+        android:layout_above="@+id/rl_bottom_amount"
         android:layout_centerInParent="true"
         android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageEmpty"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/empty_prod"/>
 
         <TextView
             android:id="@+id/textMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No Orders Found"
+            android:text="No Products Found"
+            android:layout_below="@+id/imageEmpty"
             android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/_5sdp"
             android:textSize="@dimen/_15sdp"/>
     </RelativeLayout>
 

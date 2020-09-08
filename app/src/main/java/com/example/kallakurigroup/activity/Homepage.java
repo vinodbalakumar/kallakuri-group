@@ -26,6 +26,7 @@ import com.example.kallakurigroup.fragments.AboutUsFragment;
 import com.example.kallakurigroup.fragments.ContactUsFragment;
 import com.example.kallakurigroup.fragments.FeedBackFragment;
 import com.example.kallakurigroup.fragments.HomeFragment;
+import com.example.kallakurigroup.fragments.MyAccountFragment;
 import com.example.kallakurigroup.fragments.OrderHistory;
 import com.example.kallakurigroup.models.userModels.UserTableModel;
 import com.example.kallakurigroup.utils.Popup_Class;
@@ -114,18 +115,18 @@ public class Homepage extends AppCompatActivity {
         shp_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(cart_text_number.getText().toString()!=null && !cart_text_number.getText().toString().equalsIgnoreCase("0")) {
+                //if(cart_text_number.getText().toString()!=null && !cart_text_number.getText().toString().equalsIgnoreCase("0")) {
                     startActivity(new Intent(Homepage.this, CartActivity.class).putExtra("from","home"));
-                }
+                //}
             }
         });
 
         cart_text_number.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(cart_text_number.getText().toString()!=null && !cart_text_number.getText().toString().equalsIgnoreCase("0")) {
+              //  if(cart_text_number.getText().toString()!=null && !cart_text_number.getText().toString().equalsIgnoreCase("0")) {
                     startActivity(new Intent(Homepage.this, CartActivity.class).putExtra("from","home"));
-                }
+               // }
             }
         });
 
@@ -150,29 +151,43 @@ public class Homepage extends AppCompatActivity {
                     case R.id.optionHome:
                         selectedFragment = 1;
                         header_text.setText(getResources().getString(R.string.kk_groups));
+                        enableCart();
                         HomeFragment homeFragment = new HomeFragment();
                         loadFragment(homeFragment);
                         break;
                     case R.id.optionMyOrder:
                         selectedFragment = 2;
                         header_text.setText(getResources().getString(R.string.myOrders));
+                        disableCart();
                         OrderHistory orderHistory = new OrderHistory();
                         loadFragment(orderHistory);
                         break;
-                    case R.id.optionContactUs:
+
+                    case R.id.optionMyAccount:
                         selectedFragment = 3;
+                        header_text.setText(getResources().getString(R.string.myAccount));
+                        disableCart();
+                        MyAccountFragment myAccountFragment = new MyAccountFragment();
+                        loadFragment(myAccountFragment);
+                        break;
+
+                    case R.id.optionContactUs:
+                        selectedFragment = 4;
                         header_text.setText(getResources().getString(R.string.contact_us));
+                        disableCart();
                         ContactUsFragment contactUsFragment = new ContactUsFragment();
                         loadFragment(contactUsFragment);
                         break;
                     case R.id.optionFeedBack:
-                        selectedFragment = 4;
+                        selectedFragment = 5;
                         header_text.setText(getResources().getString(R.string.feedback));
+                        disableCart();
                         FeedBackFragment feedBackFragment = new FeedBackFragment();
                         loadFragment(feedBackFragment);
                         break;
                     case R.id.optionAboutUs:
-                        selectedFragment = 5;
+                        selectedFragment = 6;
+                        disableCart();
                         header_text.setText(getResources().getString(R.string.about_us));
                         AboutUsFragment aboutUsFragment = new AboutUsFragment();
                         loadFragment(aboutUsFragment);
@@ -301,5 +316,13 @@ public class Homepage extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    void disableCart(){
+        rl_cart.setVisibility(View.GONE);
+    }
+
+    void enableCart(){
+        rl_cart.setVisibility(View.VISIBLE);
     }
 }

@@ -128,18 +128,18 @@ public class ProductsActivity extends AppCompatActivity implements ProductItemLi
         shp_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(textCartCount.getText().toString()!=null && !textCartCount.getText().toString().equalsIgnoreCase("0")) {
+               // if(textCartCount.getText().toString()!=null && !textCartCount.getText().toString().equalsIgnoreCase("0")) {
                     startActivityForResult(new Intent(ProductsActivity.this, CartActivity.class).putExtra("from","prodAct"), 100);
-                }
+               // }
             }
         });
 
         textCartCount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(textCartCount.getText().toString()!=null && !textCartCount.getText().toString().equalsIgnoreCase("0")) {
+               // if(textCartCount.getText().toString()!=null && !textCartCount.getText().toString().equalsIgnoreCase("0")) {
                     startActivityForResult(new Intent(ProductsActivity.this, CartActivity.class).putExtra("from","prodAct"), 100);
-                }
+               // }
             }
         });
 

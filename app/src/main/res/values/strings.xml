@@ -217,6 +217,9 @@
     <string name="deliveryAddress">Delivery Address</string>
     <string name="deliveryStatus">Delivery Status</string>
     <string name="orderInfo">Order Info</string>
+    <string name="kk_groups_line"><u>Kallakuri Groups</u></string>
+    <string name="myAccount">My Account</string>
+    <string name="edit">Edit</string>
 
     <string-array name="state_arrays">
         <item>State</item>

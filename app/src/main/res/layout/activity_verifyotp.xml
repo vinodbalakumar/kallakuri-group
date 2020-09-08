@@ -153,7 +153,7 @@
                 android:id="@+id/to_number"
                 android:text="+919854555544"
                 android:textSize="@dimen/_15sdp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/textColor_text"/>
 
             <ImageView
                 android:id="@+id/number_button"
@@ -185,7 +185,7 @@
             android:visibility="gone"
             android:layout_gravity="center"
             android:textSize="@dimen/_12sdp"
-            android:textColor="@color/black"/>
+            android:textColor="@color/textColor_text"/>
         </LinearLayout>
 
 
@@ -221,7 +221,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_60sdp"
             android:id="@+id/imageVeroifyCall"
-            android:src="@drawable/ic_mobile_icon_white"
+            android:src="@drawable/ic_mobile_icon"
             android:layout_marginBottom="15dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"

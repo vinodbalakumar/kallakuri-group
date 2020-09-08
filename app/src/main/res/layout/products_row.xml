@@ -52,7 +52,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@{product.productName}"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor_text"
                         android:textSize="@dimen/_14sdp" />
 
                     <LinearLayout
@@ -67,7 +67,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="₹"
-                            android:textColor="@color/black"
+                            android:textColor="@color/textColor_text"
                             android:textSize="@dimen/_12sdp"/>
                         <TextView
                             android:id="@+id/ProductOfferPrice"
@@ -75,7 +75,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@{product.productFinalPrice}"
-                            android:textColor="@color/black"
+                            android:textColor="@color/textColor_text"
                             android:textSize="@dimen/_12sdp"/>
 
                         <TextView
@@ -127,7 +127,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center|end"
                                 android:text="@{product.productQuantity}"                                android:padding="@dimen/_2sdp"
-                                android:textColor="@color/black"
+                                android:textColor="@color/textColor_text"
                                 android:textSize="@dimen/_10sdp" />
 
                             <TextView
@@ -137,7 +137,7 @@
                                 android:gravity="center|end"
                                 android:text="@{product.productType}"
                                 android:padding="@dimen/_2sdp"
-                                android:textColor="@color/black"
+                                android:textColor="@color/textColor_text"
                                 android:textSize="@dimen/_10sdp" />
 
                         </LinearLayout>
@@ -156,7 +156,7 @@
                                 android:text="+ Add"
                                 android:visibility="visible"
                                 android:paddingVertical="@dimen/_3sdp"
-                                android:background="@drawable/button_background"
+                                android:background="@color/green"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/_14sdp" />
 
@@ -215,7 +215,7 @@
                         android:gravity="center"
                         android:text="@{product.productDescription}"
                         android:layout_marginTop="@dimen/_5sdp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor_text"
                         android:singleLine="true"
                         android:maxLines="1"
                         android:textSize="@dimen/_12sdp"/>
@@ -254,7 +254,7 @@
                         android:gravity="center"
                         android:text="₹"
                         android:layout_marginLeft="@dimen/_5sdp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor_text"
                         android:textSize="@dimen/_12sdp"/>
 
                     <TextView
@@ -263,7 +263,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:text="@{product.deliveryCharge}"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor_text"
                         android:textSize="@dimen/_12sdp"/>
                 </LinearLayout>
 
@@ -289,7 +289,7 @@
                         android:gravity="center"
                         android:text="@{product.deliveryTime}"
                         android:layout_marginLeft="@dimen/_5sdp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor_text"
                         android:textSize="@dimen/_12sdp"/>
 
                 </LinearLayout>

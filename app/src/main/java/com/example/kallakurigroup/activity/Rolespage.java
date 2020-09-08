@@ -125,7 +125,7 @@ public class Rolespage extends AppCompatActivity{
 
                         RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, RadioGroup.LayoutParams.WRAP_CONTENT);
                         layoutParams.setMargins(50,10,50,10);
-                        RadioButton radioButton = new RadioButton(Rolespage.this);
+                        RadioButton radioButton = (RadioButton) getLayoutInflater().inflate(R.layout.template_radio_button, null);
                         radioButton.setId(RadioButton.generateViewId());
                         radioButton.setText(rolesMap.getKey());
                         radioButton.setLayoutParams(layoutParams);

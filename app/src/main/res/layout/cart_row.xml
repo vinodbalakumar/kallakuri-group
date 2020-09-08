@@ -52,7 +52,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@{product.productName}"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor_text"
                         android:textSize="@dimen/_14sdp" />
 
                     <LinearLayout
@@ -67,7 +67,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="₹"
-                            android:textColor="@color/black"
+                            android:textColor="@color/textColor_text"
                             android:textSize="@dimen/_12sdp"/>
                         <TextView
                             android:id="@+id/ProductOfferPrice"
@@ -75,7 +75,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@{product.productFinalPrice}"
-                            android:textColor="@color/black"
+                            android:textColor="@color/textColor_text"
                             android:textSize="@dimen/_12sdp"/>
                     </LinearLayout>
 
@@ -94,7 +94,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:text="Eligible for free shipping"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor_text"
                         android:textSize="@dimen/_12sdp"/>
 
                     <LinearLayout

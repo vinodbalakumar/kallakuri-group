@@ -29,14 +29,14 @@
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_12sdp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/textColor_text"/>
                 <TextView
                     android:id="@+id/textDeliverTo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/textColor_text"/>
             </LinearLayout>
 
             <LinearLayout
@@ -53,7 +53,7 @@
                     android:id="@+id/subTotal"
                     android:gravity="center_vertical"
                     android:text="@string/subtotal"
-                    android:textColor="@color/black"
+                    android:textColor="@color/textColor_text"
                     android:textSize="@dimen/_11sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent" />
@@ -69,7 +69,7 @@
                     android:layout_height="match_parent" />
                 <TextView
                     android:textSize="@dimen/_10sdp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/textColor_text"
                     android:text="00"
                     android:layout_alignParentRight="true"
                     android:gravity="center_vertical"
@@ -93,14 +93,14 @@
                         android:id="@+id/gst_charges_text"
                         android:gravity="center_vertical"
                         android:text="@string/gstcharges"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor_text"
                         android:textSize="@dimen/_11sdp"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent" />
                 </LinearLayout>
                 <TextView
                     android:textSize="@dimen/_10sdp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/textColor_text"
                     android:text="00"
                     android:layout_alignParentRight="true"
                     android:gravity="center_vertical"
@@ -124,14 +124,14 @@
                         android:id="@+id/del_charges_text"
                         android:gravity="center_vertical"
                         android:text="@string/delCharges"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor_text"
                         android:textSize="@dimen/_11sdp"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent" />
                 </LinearLayout>
                 <TextView
                     android:textSize="@dimen/_10sdp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/textColor_text"
                     android:text="00"
                     android:layout_alignParentRight="true"
                     android:gravity="center_vertical"
@@ -157,14 +157,14 @@
                     android:id="@+id/textTotAmount"
                     android:gravity="center_vertical"
                     android:text="@string/totAmount"
-                    android:textColor="@color/black"
+                    android:textColor="@color/textColor_text"
                     android:textSize="@dimen/_11sdp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent" />
 
                 <TextView
                     android:textSize="@dimen/_10sdp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/textColor_text"
                     android:text=""
                     android:layout_alignParentRight="true"
                     android:gravity="center_vertical"
@@ -185,7 +185,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:textColor="@color/black"
+                    android:textColor="@color/textColor_text"
                     android:layout_alignParentLeft="true"
                     android:id="@+id/net_pay_bal_text"
                     android:layout_width="wrap_content"
@@ -195,7 +195,7 @@
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:textColor="@color/black"
+                    android:textColor="@color/textColor_text"
                     android:layout_alignParentRight="true"
                     android:id="@+id/netPayableAmount"
                     android:layout_width="wrap_content"
@@ -312,7 +312,7 @@
                             android:id="@+id/pay_on_delivery_text"
                             android:layout_centerInParent="true"
                             android:text="@string/cashonDel"
-                            android:textColor="@color/black"
+                            android:textColor="@color/textColor_text"
                             android:textSize="@dimen/_11sdp"
                             android:textStyle="bold"
                             android:layout_width="wrap_content"
@@ -363,7 +363,7 @@
             android:background="@color/buttonBack"
             android:text="@string/proceedmin"
             android:layout_centerInParent="true"
-            android:textColor="@color/white"
+            android:textColor="@color/textColor_button"
             android:textSize="@dimen/_15sdp"
             android:textAllCaps="false"
             android:textStyle="bold"

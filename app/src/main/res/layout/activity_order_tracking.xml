@@ -30,7 +30,6 @@
             android:id="@+id/ll_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/background"
             android:layout_marginTop="@dimen/_10sdp"
             android:orientation="vertical">
 
@@ -45,14 +44,14 @@
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_12sdp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/textColor_text"/>
                 <TextView
                     android:id="@+id/textDeliverTo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/textColor_text"/>
             </LinearLayout>
 
             <View
@@ -69,7 +68,7 @@
                 android:textStyle="bold"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/textColor_text"/>
 
             <TextView
                 android:id="@+id/orderId"
@@ -79,7 +78,7 @@
                 android:text="Order Id: "
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/textColor_text"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -93,7 +92,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Ordered On: "
-                    android:textColor="@color/black"
+                    android:textColor="@color/textColor_text"
                     android:textSize="@dimen/_12sdp"/>
                 <TextView
                     android:id="@+id/ProductOrderedDate"
@@ -101,7 +100,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text=""
-                    android:textColor="@color/black"
+                    android:textColor="@color/textColor_text"
                     android:textSize="@dimen/_12sdp"/>
 
             </LinearLayout>
@@ -130,7 +129,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text=""
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor_text"
                         android:textSize="@dimen/_14sdp" />
 
                     <LinearLayout
@@ -146,7 +145,7 @@
                             android:gravity="center|end"
                             android:text=""
                             android:padding="@dimen/_2sdp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/textColor_text"
                             android:textSize="@dimen/_10sdp" />
 
                         <TextView
@@ -156,7 +155,7 @@
                             android:gravity="center|end"
                             android:text=""
                             android:padding="@dimen/_2sdp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/textColor_text"
                             android:textSize="@dimen/_10sdp" />
 
                     </LinearLayout>
@@ -174,7 +173,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Ordered Price: ₹"
-                            android:textColor="@color/black"
+                            android:textColor="@color/textColor_text"
                             android:textSize="@dimen/_12sdp"/>
                         <TextView
                             android:id="@+id/ProductOfferPrice"
@@ -182,7 +181,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text=""
-                            android:textColor="@color/black"
+                            android:textColor="@color/textColor_text"
                             android:textSize="@dimen/_12sdp"/>
 
                     </LinearLayout>
@@ -199,7 +198,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Ordered Quantity: "
-                            android:textColor="@color/black"
+                            android:textColor="@color/textColor_text"
                             android:textSize="@dimen/_12sdp"/>
                         <TextView
                             android:id="@+id/ProductOrderedQty"
@@ -207,7 +206,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text=""
-                            android:textColor="@color/black"
+                            android:textColor="@color/textColor_text"
                             android:textSize="@dimen/_12sdp"/>
 
                     </LinearLayout>
@@ -218,7 +217,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text=""
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor_text"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:textSize="@dimen/_14sdp"/>
 
@@ -244,7 +243,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_12sdp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/textColor_text"/>
 
                 <CheckBox
                     android:id="@+id/check1"
@@ -253,6 +252,8 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:checked="true"
                     android:clickable="false"
+                    android:textColor="@color/textColor_text"
+                    android:theme="@style/CheckboxStyle"
                     android:text="Ordered on"/>
 
                 <View
@@ -263,10 +264,13 @@
                     android:background="@color/green"/>
 
                 <CheckBox
+                    android:id="@+id/check2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="false"
                     android:clickable="false"
+                    android:textColor="@color/textColor_text"
+                    android:theme="@style/CheckboxStyle"
                     android:text="Shipped on"/>
                 <View
                     android:id="@+id/view2"
@@ -276,10 +280,13 @@
                     android:background="@color/grey"/>
 
                 <CheckBox
+                    android:id="@+id/check3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="false"
                     android:clickable="false"
+                    android:textColor="@color/textColor_text"
+                    android:theme="@style/CheckboxStyle"
                     android:text="Out for delivery"/>
 
                 <View
@@ -290,10 +297,13 @@
                     android:background="@color/grey"/>
 
                 <CheckBox
+                    android:id="@+id/check4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="false"
                     android:clickable="false"
+                    android:textColor="@color/textColor_text"
+                    android:theme="@style/CheckboxStyle"
                     android:text="Delivered on"/>
             </LinearLayout>
 

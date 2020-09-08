@@ -40,7 +40,8 @@ public class Network_info /*implements ConnectionClassManager.ConnectionClassSta
 
     public static boolean valid(String phoneno) {
 
-        Pattern pattern = Pattern.compile("(0/91)?[7-9][0-9]{9}");
+        //Pattern pattern = Pattern.compile("(0/91)?[7-9][0-9]{9}");
+        Pattern pattern = Pattern.compile("(0/91)?[6-9][0-9]{9}");
         Matcher matcher = pattern.matcher(phoneno);
 
         return (matcher.find() && matcher.group().equals(phoneno));

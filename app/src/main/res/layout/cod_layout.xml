@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/_15sdp"
-            android:textColor="@color/black"
+            android:textColor="@color/textColor_text"
             android:layout_marginTop="@dimen/_5sdp"
             android:text="Amount"/>
 
@@ -92,6 +92,7 @@
                 android:textSize="@dimen/_14sdp"
                 android:paddingLeft="@dimen/_10sdp"
                 android:id="@+id/editOtp"
+                android:textColor="@color/textColor_text"
                 android:background="@drawable/button_line_background"
                 android:layout_marginLeft="@dimen/_20sdp"
                 android:layout_marginRight="@dimen/_20sdp"

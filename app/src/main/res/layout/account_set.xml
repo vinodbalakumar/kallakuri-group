@@ -264,7 +264,7 @@
                         android:visibility="visible"
                         android:textSize="@dimen/_10sdp"
                         android:theme="@style/RadioButtonStyle"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor_text"
                         android:layout_weight="0.5" />
 
                     <RadioButton
@@ -276,7 +276,7 @@
                         android:id="@+id/toggleButton2"
                         android:checked="false"
                         android:theme="@style/RadioButtonStyle"
-                        android:textColor="@color/black"
+                        android:textColor="@color/textColor_text"
                         android:layout_marginRight="5dp"
                         android:layout_marginLeft="5dp"
                         android:layout_weight="0.5" />

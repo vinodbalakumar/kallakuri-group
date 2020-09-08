@@ -39,7 +39,7 @@
                 android:layout_marginBottom="@dimen/_50sdp"
                 android:gravity="center"
                 android:text="@string/select_role"
-                android:textColor="@color/black"
+                android:textColor="@color/textColor_text"
                 android:textSize="@dimen/_16sdp" />
 
             <androidx.core.widget.NestedScrollView
