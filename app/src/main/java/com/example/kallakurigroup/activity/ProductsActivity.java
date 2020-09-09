@@ -239,6 +239,7 @@ public class ProductsActivity extends AppCompatActivity implements ProductItemLi
         }catch (Exception e){
             e.printStackTrace();
             rl_bottom_amount.setVisibility(View.GONE);
+            textTotAmount.setText("0");
         }
     }
 

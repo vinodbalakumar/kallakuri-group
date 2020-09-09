@@ -16,18 +16,27 @@
                 android:orientation="vertical">
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_100sdp"
+                    android:layout_height="@dimen/_130sdp"
                     android:layout_centerHorizontal="true" >
 
-                    <ImageView
-                        android:id="@+id/user_image"
-                        android:layout_width="@dimen/_70sdp"
-                        android:layout_height="@dimen/_70sdp"
-                        android:src="@drawable/profile_icon"
-                        android:textColor="@color/textColor_text"
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/myCardView"
+                        android:layout_width="@dimen/_100sdp"
+                        android:layout_height="@dimen/_100sdp"
+                        android:layout_gravity="center_horizontal"
+                        app:cardCornerRadius="@dimen/_50sdp"
                         android:layout_centerInParent="true"
                         android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true" />
+                        android:layout_centerHorizontal="true">
+                        <ImageView
+                            android:id="@+id/user_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/profile_icon"
+                            android:scaleType="centerCrop" />
+
+                    </androidx.cardview.widget.CardView>
+
 
                     <TextView
                         android:id="@+id/textName"
@@ -36,9 +45,9 @@
                         android:textSize="@dimen/_13sdp"
                         android:textStyle="bold"
                         android:layout_centerHorizontal="true"
-                        android:layout_below="@+id/user_image"
+                        android:layout_below="@+id/myCardView"
                         android:textColor="@color/textColor_text"
-                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:text="Name"/>
 
                     <LinearLayout

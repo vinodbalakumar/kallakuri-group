@@ -291,6 +291,7 @@ public class ProductsDetailsActivity extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
             rlBottomAmount.setVisibility(View.GONE);
+            textTotAmount.setText("0");
         }
     }
 

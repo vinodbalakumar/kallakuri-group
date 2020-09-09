@@ -15,77 +15,115 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/myCardView"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_100sdp"
+                android:layout_gravity="center_horizontal"
+                app:cardCornerRadius="@dimen/_50sdp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_centerVertical="true">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/aboutuslogo"/>
+            </androidx.cardview.widget.CardView>
+
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/_14sdp"
                 android:textStyle="bold"
-                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:textColor="@color/textColor_text"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:text="Any queries or issues"/>
 
-           <!-- <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"
-                android:layout_marginVertical="@dimen/_10sdp"
-                android:background="@color/textBack"/>-->
+            <!-- <View
+                 android:layout_width="match_parent"
+                 android:layout_height="@dimen/_1sdp"
+                 android:layout_marginVertical="@dimen/_10sdp"
+                 android:background="@color/textBack"/>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_10sdp"
                 android:paddingVertical="@dimen/_5sdp"
-                android:background="@drawable/button_line_background_grey"
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:layout_marginHorizontal="@dimen/_20sdp"
                 android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/_12sdp"
-                android:textColor="@color/grey"
-                android:gravity="center_vertical"
-                android:drawableLeft="@drawable/ic_email_icon"
-                android:layout_marginLeft="@dimen/_3sdp"
-                android:text="Mail on"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/grey"
+                    android:gravity="center_vertical"
+                    android:drawableLeft="@drawable/ic_email_icon"
+                    android:layout_marginLeft="@dimen/_3sdp"
+                    android:text="Send us a message"/>
 
-            <TextView
-                android:id="@+id/textEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/_13sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:textColor="@color/textColor_text"
-                android:layout_marginLeft="@dimen/_30sdp"
-                android:text="kallakuri@gamail.com"/>
+                <TextView
+                    android:id="@+id/textEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_13sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textColor="@color/textColor_text"
+                    android:layout_marginLeft="@dimen/_30sdp"
+                    android:text="kallakuri@gamail.com"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/_12sdp"
-                android:textColor="@color/grey"
-                android:drawableLeft="@drawable/ic_mobile_icon"
-                android:drawablePadding="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:text="Call on"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/grey"
+                    android:drawableLeft="@drawable/ic_mobile_icon"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:text="Give us a call"/>
 
-            <TextView
-                android:id="@+id/textPhoneNum"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/_13sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:textColor="@color/textColor_text"
-                android:layout_marginLeft="@dimen/_30sdp"
-                android:text="9999999999"/>
+                <TextView
+                    android:id="@+id/textPhoneNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_13sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textColor="@color/textColor_text"
+                    android:layout_marginLeft="@dimen/_30sdp"
+                    android:text="9542233301"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/grey"
+                    android:drawableLeft="@drawable/ic_location_icon"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:text="Visit our location"/>
+
+                <TextView
+                    android:id="@+id/textAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_13sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textColor="@color/textColor_text"
+                    android:layout_marginLeft="@dimen/_30sdp"
+                    android:text="Kallakuri Groups, Hyderabad"/>
 
             </LinearLayout>
-         <!--   <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"
-                android:layout_marginVertical="@dimen/_10sdp"
-                android:background="@color/textBack"/>-->
+            <!--   <View
+                   android:layout_width="match_parent"
+                   android:layout_height="@dimen/_1sdp"
+                   android:layout_marginVertical="@dimen/_10sdp"
+                   android:background="@color/textBack"/>-->
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
