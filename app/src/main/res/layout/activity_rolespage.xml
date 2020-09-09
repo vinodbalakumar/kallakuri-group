@@ -69,7 +69,8 @@
                 android:gravity="center"
                 android:layout_below="@+id/pmc_ll"
                 android:layout_centerHorizontal="true"
-                android:textSize="@dimen/_18sdp"
+                style="?android:attr/borderlessButtonStyle"
+                android:textSize="@dimen/_15sdp"
                 android:padding="@dimen/_10sdp"
                 android:layout_margin="@dimen/_10sdp" />
 

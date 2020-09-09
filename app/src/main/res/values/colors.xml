@@ -26,6 +26,7 @@
     <color name="red">#FF0000</color>
     <color name="empty">#808080</color>
   <color name="icon_color">#898989</color>
+  <color name="price_back">#feea29</color>
     <!--<color name="buttonBack">#4aa322</color>-->
 
     <color name="colorPrimary">#dee3e0</color>

@@ -220,6 +220,8 @@
     <string name="kk_groups_line"><u>Kallakuri Groups</u></string>
     <string name="myAccount">My Account</string>
     <string name="edit">Edit</string>
+    <string name="refresh">Refresh</string>
+    <string name="fetchCurrentLoc">Get current location address</string>
 
     <string-array name="state_arrays">
         <item>State</item>

@@ -199,6 +199,8 @@ public class CartActivity extends AppCompatActivity implements CartItemListener 
 
         if(type.equalsIgnoreCase("plus")){
             totalAmount = totalAmount+prodPrice;
+        }else if(type.equalsIgnoreCase("delete")){
+            totalAmount = totalAmount-prodPrice;
         }else {
             totalAmount = totalAmount-prodPrice;
         }

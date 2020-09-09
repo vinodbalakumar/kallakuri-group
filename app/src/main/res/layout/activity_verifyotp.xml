@@ -196,7 +196,8 @@
             android:text="@string/verify_otp"
             android:textColor="@color/textColor_button"
             android:background="@drawable/button_background"
-            android:textSize="@dimen/_18sdp"
+            android:textSize="@dimen/_15sdp"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_margin="@dimen/_30sdp"
             android:padding="@dimen/_10sdp"
             android:gravity="center|center_horizontal" />
@@ -212,6 +213,7 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:gravity="center_horizontal"
+            android:visibility="gone"
             android:layout_marginLeft="10dp"
             android:textColor="@color/text_color_grey"
             android:layout_marginRight="10dp"/>

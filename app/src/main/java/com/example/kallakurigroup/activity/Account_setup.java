@@ -63,6 +63,7 @@ public class Account_setup extends Activity {
     SharedPreferences.Editor editor;
     String PREFERENCE = "KALLAKURI";
     Button submit;
+    TextView textRefreshAddress;
     RelativeLayout left_lay;
     EditText fname_et;
     EditText password_et;
@@ -127,6 +128,7 @@ public class Account_setup extends Activity {
 
         String date = day+"/"+(month + 1)+"/"+year;
         user_DOB = date;
+        textRefreshAddress = (TextView) findViewById(R.id.textRefreshAddress);
         submit = (Button) this.findViewById(R.id.submit_btn_accntsetup);
         left_lay = (RelativeLayout) findViewById(R.id.left_lay);
         fname_et = (EditText) findViewById(R.id.account_full_name);
@@ -145,6 +147,13 @@ public class Account_setup extends Activity {
         role_et = (EditText) findViewById(R.id.roleName);
         role_et.setText(roleNameClicked);
         gender = toggle_male.getText().toString();
+
+        textRefreshAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                locationFetching();
+            }
+        });
 
         header_text.setText(getString(R.string.businessDetails));
         final String[] items = getResources().getStringArray(R.array.state_arrays);

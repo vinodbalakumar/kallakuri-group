@@ -119,6 +119,7 @@
             android:layout_below="@id/text1"
             android:layout_centerHorizontal="true"
             android:gravity="center"
+            android:visibility="gone"
             android:layout_marginTop="@dimen/_5sdp"
             android:text=""
             android:textSize="@dimen/_11sdp" />
@@ -132,6 +133,7 @@
             android:background="@drawable/button_background"
             android:textSize="@dimen/_15sdp"
             android:layout_margin="@dimen/_30sdp"
+            style="?android:attr/borderlessButtonStyle"
             android:padding="@dimen/_5sdp"
             android:gravity="center|center_horizontal" />
     </LinearLayout>

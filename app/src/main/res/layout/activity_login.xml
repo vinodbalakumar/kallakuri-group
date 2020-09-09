@@ -210,7 +210,7 @@
                     android:visibility="visible"
                     android:padding="@dimen/_10sdp"
                     style="?android:attr/borderlessButtonStyle"
-                    android:textSize="@dimen/_14sdp"/>
+                    android:textSize="@dimen/_15sdp"/>
 
             </LinearLayout>
 
