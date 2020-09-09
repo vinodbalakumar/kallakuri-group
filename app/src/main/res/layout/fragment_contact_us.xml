@@ -15,7 +15,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <androidx.cardview.widget.CardView
+            <!--<androidx.cardview.widget.CardView
                 android:id="@+id/myCardView"
                 android:layout_width="@dimen/_100sdp"
                 android:layout_height="@dimen/_100sdp"
@@ -29,8 +29,18 @@
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
                     android:src="@drawable/aboutuslogo"/>
-            </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>-->
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_150sdp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/aboutuslogo"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:background="@color/textBack"/>
 
             <TextView
                 android:layout_width="wrap_content"
