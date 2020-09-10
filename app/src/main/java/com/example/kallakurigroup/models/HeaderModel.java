@@ -9,7 +9,7 @@ public class HeaderModel {
     private String status;
 
     @SerializedName("code")
-    private String code;
+    private int code;
 
     @SerializedName("message")
     private String message;
@@ -18,7 +18,7 @@ public class HeaderModel {
         return message;
     }
 
-    public String getCode() {
+    public int getCode() {
         return code;
     }
 

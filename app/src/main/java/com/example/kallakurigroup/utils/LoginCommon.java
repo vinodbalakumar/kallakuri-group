@@ -86,29 +86,21 @@ public class LoginCommon {
 
                     Dialogs.Cancel();
 
-                    if (ClassicSingleton.enable_logs)
-                    Log.e("Login_Response", response.toString());
-
                     if (response.code() == 200) {
-                        LoginResponceModel loginProfileModel = response.body();
 
-                        LoginProfileModel model = loginProfileModel.getData().getLoginProfileModel();
+                       if(response.body().getHeaderModel().getCode() == 200){
+                           LoginProfileModel loginResponse = response.body().getData().getLoginProfileModel();
+                           UserTableModel userTableModel = new UserTableModel(loginResponse.getId(), loginResponse.getImeiNo(), loginResponse.getPhoneNo(), loginResponse.getRole(), loginResponse.getRole(), loginResponse.getName(), loginResponse.getEmail(), loginResponse.getPassword(), loginResponse.getVillage(), loginResponse.getTown(), loginResponse.getCity(), loginResponse.getDistrict(), loginResponse.getState(), loginResponse.getPincode(), loginResponse.getDeliveryAddress(),  loginResponse.getGeoLocation());
+                           dao.deleteAll();
+                           dao.addData(userTableModel);
 
-                        if (model==null || !model.getPassword().equals(mPass)) {
-                            Dialogs.show_popUp(context.getResources().getString(R.string.invalidlogin) , context);
-                        }else {
-
-                            LoginProfileModel loginResponse = response.body().getData().getLoginProfileModel();
-                            UserTableModel userTableModel = new UserTableModel(loginResponse.getId(), loginResponse.getImeiNo(), loginResponse.getPhoneNo(), loginResponse.getRole(), loginResponse.getRole(), loginResponse.getName(), loginResponse.getEmail(), loginResponse.getPassword(), loginResponse.getVillage(), loginResponse.getTown(), loginResponse.getCity(), loginResponse.getDistrict(), loginResponse.getState(), loginResponse.getPincode(), loginResponse.getDeliveryAddress(),  loginResponse.getGeoLocation());
-                            dao.deleteAll();
-                            dao.addData(userTableModel);
-
-                            context.startActivity(new Intent(context, Homepage.class));
-
-                        }
+                           context.startActivity(new Intent(context, Homepage.class));
+                       }else {
+                           Dialogs.show_popUp(response.body().getHeaderModel().getMessage(), context);
+                       }
 
                     } else{
-                        Dialogs.show_popUp(context.getResources().getString(R.string.networkalert) + "-" + response.code(), context);
+                        Dialogs.show_popUp(response.message(), context);
                     }
 
                 }

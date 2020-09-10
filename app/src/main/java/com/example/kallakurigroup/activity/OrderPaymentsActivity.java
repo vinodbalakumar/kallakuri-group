@@ -263,29 +263,32 @@ public class OrderPaymentsActivity extends AppCompatActivity /*implements Paymen
 
                 if (response.code() == 200) {
 
-                    OTPResponceModel responceModel = response.body();
+                    if(response.body().getHeader().getCode() ==  200){
+                        OTPResponceModel responceModel = response.body();
 
-                    String responePhoneNo = responceModel.getHeader().getPhoneNo();
-                    String otpCode = responceModel.getHeader().getOtpCode();
-                    mOtp = otpCode;
+                        String responePhoneNo = responceModel.getHeader().getPhoneNo();
+                        String otpCode = responceModel.getHeader().getOtpCode();
+                        mOtp = otpCode;
 
-                    String phoneNo = responceModel.getHeader().getPhoneNo();
-                    if(phoneNo == null) {
-                        Dialogs.show_popUp(responceModel.getHeader().getMessage(), context);
+                        String phoneNo = responceModel.getHeader().getPhoneNo();
+                        if(phoneNo == null) {
+                            Dialogs.show_popUp(responceModel.getHeader().getMessage(), context);
+                        }else {
+                            ll_verify_otp.setVisibility(VISIBLE);
+                            rl_proceed.setVisibility(View.GONE);
+                            rl_proceed.setBackgroundColor(Color.GRAY);
+                            rl_proceed.setClickable(false);
+                            rl_proceed.setEnabled(false);
+                            Toast.makeText(context, getResources().getString(R.string.otp_request_Sent), Toast.LENGTH_SHORT).hashCode();
+                            textNote.setText(responePhoneNo+": Your One Time Password is KK - "+otpCode+" for registering an new Account with KK-GROUPS");
+
+                        }
                     }else {
-                        ll_verify_otp.setVisibility(VISIBLE);
-                        rl_proceed.setVisibility(View.GONE);
-                        rl_proceed.setBackgroundColor(Color.GRAY);
-                        rl_proceed.setClickable(false);
-                        rl_proceed.setEnabled(false);
-                        Toast.makeText(context, getResources().getString(R.string.otp_request_Sent), Toast.LENGTH_SHORT).hashCode();
-                        textNote.setText(responePhoneNo+": Your One Time Password is KK - "+otpCode+" for registering an new Account with KK-GROUPS");
-
+                        Dialogs.show_popUp(response.body().getHeader().getMessage(), context);
                     }
 
                 } else {
-                    OTPResponceModel responceModel = response.body();
-                    Dialogs.show_popUp(responceModel.getHeader().getMessage(), context);
+                    Dialogs.show_popUp(response.message(), context);
                 }
             }
 

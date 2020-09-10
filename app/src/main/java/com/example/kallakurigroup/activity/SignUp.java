@@ -244,37 +244,33 @@ public class SignUp extends AppCompatActivity {
 
                 Dialogs.Cancel();
 
-                if (!response.isSuccessful()) {
-
-                    Dialogs.show_popUp(getResources().getString(R.string.try_again), context);
-
-                    return;
-                }
-
                 if (response.code() == 200) {
 
-                    OTPResponceModel responceModel = response.body();
+                    if(response.body().getHeader().getCode() == 200) {
 
-                    String responePhoneNo = responceModel.getHeader().getPhoneNo();
-                    String otpCode = responceModel.getHeader().getOtpCode();
+                        OTPResponceModel responceModel = response.body();
+                        String otpCode = responceModel.getHeader().getOtpCode();
+                        String phoneNo = responceModel.getHeader().getPhoneNo();
 
-                    String phoneNo = responceModel.getHeader().getPhoneNo();
-                    if(phoneNo == null) {
-                        Dialogs.show_popUp(responceModel.getHeader().getMessage(), context);
+                        if (phoneNo == null) {
+                            Dialogs.show_popUp(responceModel.getHeader().getMessage(), context);
+                        } else {
+
+                            Toast.makeText(context, getResources().getString(R.string.otp_request_Sent), Toast.LENGTH_SHORT).hashCode();
+
+                            Intent intent = new Intent(SignUp.this, Verify_otp_Activity.class);
+                            intent.putExtra("mobile_num", mobileNumber);
+                            intent.putExtra("otp", otpCode);
+                            intent.putExtra("from", "signup");
+                            startActivity(intent);
+                        }
+
                     }else {
-
-                        Toast.makeText(context, getResources().getString(R.string.otp_request_Sent), Toast.LENGTH_SHORT).hashCode();
-
-                        Intent intent = new Intent(SignUp.this, Verify_otp_Activity.class);
-                        intent.putExtra("mobile_num", mobileNumber);
-                        intent.putExtra("otp", otpCode);
-                        intent.putExtra("from", "signup");
-                        startActivity(intent);
+                        Dialogs.show_popUp(response.body().getHeader().getMessage(), context);
                     }
 
                 } else {
-                    OTPResponceModel responceModel = response.body();
-                    Dialogs.show_popUp(responceModel.getHeader().getMessage(), context);
+                    Dialogs.show_popUp(response.message(), context);
                 }
             }
 

@@ -7,7 +7,7 @@ import java.util.Map;
 public class ResetPinResponse {
 
     @SerializedName("code")
-    private String code;
+    private int code;
 
     @SerializedName("message")
     private String message;
@@ -18,11 +18,11 @@ public class ResetPinResponse {
     @SerializedName("status")
     private String status;
 
-    public String getCode() {
+    public int getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(int code) {
         this.code = code;
     }
 

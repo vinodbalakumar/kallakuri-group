@@ -105,36 +105,36 @@ public class Rolespage extends AppCompatActivity{
 
                 Dialogs.Cancel();
 
-                if (!response.isSuccessful()) {
-                    Dialogs.show_popUp(getResources().getString(R.string.try_again), context);
-                    return;
-                }
-
                 if (response.code() == 200) {
 
                     RolesResponceModel model = response.body();
 
-                    roleValues = new ArrayList<>();
-                    roleNames = new ArrayList<>();
+                    if(model.getHeader().getCode() == 200){
+                        roleValues = new ArrayList<>();
+                        roleNames = new ArrayList<>();
 
-                    for(Map.Entry<String, Integer> rolesMap : model.getRolesData().getRoles().entrySet()) {
+                        for(Map.Entry<String, Integer> rolesMap : model.getRolesData().getRoles().entrySet()) {
 
-                        roleValues.add(rolesMap.getValue());
+                            roleValues.add(rolesMap.getValue());
 
-                        roleNames.add(rolesMap.getKey());
+                            roleNames.add(rolesMap.getKey());
 
-                        RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, RadioGroup.LayoutParams.WRAP_CONTENT);
-                        layoutParams.setMargins(50,10,50,10);
-                        RadioButton radioButton = (RadioButton) getLayoutInflater().inflate(R.layout.template_radio_button, null);
-                        radioButton.setId(RadioButton.generateViewId());
-                        radioButton.setText(rolesMap.getKey());
-                        radioButton.setLayoutParams(layoutParams);
-                        radioGroup.addView(radioButton);
+                            RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, RadioGroup.LayoutParams.WRAP_CONTENT);
+                            layoutParams.setMargins(50,10,50,10);
+                            RadioButton radioButton = (RadioButton) getLayoutInflater().inflate(R.layout.template_radio_button, null);
+                            radioButton.setId(RadioButton.generateViewId());
+                            radioButton.setText(rolesMap.getKey());
+                            radioButton.setLayoutParams(layoutParams);
+                            radioGroup.addView(radioButton);
+                        }
+
+                    }else {
+                        Dialogs.show_popUp(model.getHeader().getSuccess(), context);
                     }
 
+
                 } else {
-                    RolesResponceModel model = response.body();
-                    Dialogs.show_popUp(model.getHeader().getSuccess(), context);
+                    Dialogs.show_popUp(response.message(), context);
                 }
             }
 

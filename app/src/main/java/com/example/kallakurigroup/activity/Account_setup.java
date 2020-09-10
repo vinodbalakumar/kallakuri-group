@@ -586,22 +586,20 @@ public class Account_setup extends Activity {
 
                         Dialogs.Cancel();
 
-                        if (!response.isSuccessful()) {
-                            Dialogs.show_popUp(getResources().getString(R.string.try_again), context);
-                            return;
-                        }
-
                         if (response.code() == 200) {
-                            Toast.makeText(context, getResources().getString(R.string.registration_successful), Toast.LENGTH_SHORT).show();
 
-                            /*UserTableModel userTableModel = new UserTableModel(response.body().getData().getLoginProfileModel().getId(), imeiNum, mMobileNum, roleNameClicked, roleNumClicked, name, email, password, village, village, city, district, state, pincode, currentLocationAddress,  geoLocation);
-                            userTableDAO.addData(userTableModel);*/
+                            if(response.body().getHeaderModel().getCode() == 200){
+                                Toast.makeText(context, getResources().getString(R.string.registration_successful), Toast.LENGTH_SHORT).show();
 
-                            Intent i1 = new Intent(Account_setup.this, Login.class);
-                            i1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(i1);
+                                Intent i1 = new Intent(Account_setup.this, Login.class);
+                                i1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(i1);
+                            }else {
+                                Dialogs.show_popUp(response.body().getHeaderModel().getMessage(), context);
+                            }
+
                         } else {
-                            Dialogs.show_popUp(getResources().getString(R.string.try_again), context);
+                            Dialogs.show_popUp(response.message(), context);
                         }
 
                     }

@@ -125,7 +125,6 @@ public class Reset_password_Activity extends AppCompatActivity implements View.O
 
         final JSONObject data  = new JSONObject();
 
-
         JsonParser jsonParser = new JsonParser();
 
         JsonObject jsonObject = null;
@@ -155,31 +154,28 @@ public class Reset_password_Activity extends AppCompatActivity implements View.O
 
                 Dialogs.Cancel();
 
-                if (!response.isSuccessful()) {
-
-                    Dialogs.show_popUp(getResources().getString(R.string.try_again), context);
-
-                    return;
-                }
-
                 if (response.code() == 200) {
 
-                    ResetPinResponse responceModel = response.body();
+                    if(response.body().getCode() == 200){
+                        ResetPinResponse responceModel = response.body();
 
-                    if(!responceModel.getMessage().equalsIgnoreCase("success")) {
-                        Dialogs.show_popUp(responceModel.getMessage(), context);
+                        if(!responceModel.getMessage().equalsIgnoreCase("success")) {
+                            Dialogs.show_popUp(responceModel.getMessage(), context);
+                        }else {
+
+                            Toast.makeText(context, getResources().getString(R.string.password_changed), Toast.LENGTH_SHORT).show();
+
+                            Intent i1 = new Intent(Reset_password_Activity.this, Login.class);
+                            i1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(i1);
+                        }
                     }else {
+                        Dialogs.show_popUp(response.body().getMessage(), context);
 
-                        Toast.makeText(context, getResources().getString(R.string.password_changed), Toast.LENGTH_SHORT).show();
-
-                        Intent i1 = new Intent(Reset_password_Activity.this, Login.class);
-                        i1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(i1);
                     }
 
                 } else {
-                    ResetPinResponse resetResponse = response.body();
-                    Dialogs.show_popUp(resetResponse.getMessage(), context);
+                    Dialogs.show_popUp(response.message(), context);
                 }
             }
 
