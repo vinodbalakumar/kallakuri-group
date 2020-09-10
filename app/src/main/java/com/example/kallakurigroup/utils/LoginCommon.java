@@ -89,12 +89,7 @@ public class LoginCommon {
                     if (ClassicSingleton.enable_logs)
                     Log.e("Login_Response", response.toString());
 
-                    if (response.code() != 200) {
-
-                        Dialogs.show_popUp(context.getResources().getString(R.string.networkalert) + "-" + response.code(), context);
-
-                    } else {
-
+                    if (response.code() == 200) {
                         LoginResponceModel loginProfileModel = response.body();
 
                         LoginProfileModel model = loginProfileModel.getData().getLoginProfileModel();
@@ -112,6 +107,8 @@ public class LoginCommon {
 
                         }
 
+                    } else{
+                        Dialogs.show_popUp(context.getResources().getString(R.string.networkalert) + "-" + response.code(), context);
                     }
 
                 }
