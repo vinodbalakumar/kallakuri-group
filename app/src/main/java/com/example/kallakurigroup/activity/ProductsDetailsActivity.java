@@ -267,9 +267,18 @@ public class ProductsDetailsActivity extends AppCompatActivity {
     }
 
     void setDataCartAmount(){
+        try{
+        if(sharedpreferences.contains("total_amount") && sharedpreferences.getFloat("total_amount", 0)!=0){
+            textTotAmount.setText(String.valueOf(sharedpreferences.getFloat("total_amount", 0)));
+            rlBottomAmount.setVisibility(View.VISIBLE);
+        }else {
+            textTotAmount.setText("0");
+            rlBottomAmount.setVisibility(View.GONE);
+        }
+
         Gson gson = new Gson();
         String json = sharedpreferences.getString("cart_count", null);
-        try{
+
             Type type = new TypeToken<ArrayList<String>>() {}.getType();
             cartList = gson.fromJson(json, type);
 
@@ -279,13 +288,6 @@ public class ProductsDetailsActivity extends AppCompatActivity {
             }else {
                 cartList = new ArrayList<>();
                 textCartCount.setVisibility(View.GONE);
-            }
-
-            if(sharedpreferences.contains("total_amount") && sharedpreferences.getFloat("total_amount", 0)!=0){
-                textTotAmount.setText(String.valueOf(sharedpreferences.getFloat("total_amount", 0)));
-                rlBottomAmount.setVisibility(View.VISIBLE);
-            }else {
-                rlBottomAmount.setVisibility(View.GONE);
             }
 
         }catch (Exception e){
@@ -312,7 +314,10 @@ public class ProductsDetailsActivity extends AppCompatActivity {
         value1.put("selectedPrice", String.valueOf(selectedPrice));
         productTableDAO.updateRow("ProductDetails", value1, "Product_Id", productId);
 
-        float totalAmount = Float.parseFloat(textTotAmount.getText().toString());
+        float totalAmount = 0;
+        if(sharedpreferences.contains("total_amount") && sharedpreferences.getFloat("total_amount", 0)!=0){
+            totalAmount = sharedpreferences.getFloat("total_amount", 0);
+        }
 
         if(type.equalsIgnoreCase("plus")){
             totalAmount = totalAmount+price;

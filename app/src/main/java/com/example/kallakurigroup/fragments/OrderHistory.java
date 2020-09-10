@@ -3,6 +3,7 @@ package com.example.kallakurigroup.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.icu.util.Freezable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -135,17 +136,31 @@ public class OrderHistory extends Fragment implements OrdersItemListener {
 
                 Dialogs.Cancel();
 
-                if (response.code() == 200) {
+                try {
+                    if (response.code() == 200) {
 
-                    orderDetailsList = response.body().getData().getOrdersModel();
-                    myOrdersAdapter = new MyOrdersAdapter(orderDetailsList, OrderHistory.this, context);
-                    productRecyclerView.setAdapter(myOrdersAdapter);
+                        orderDetailsList = response.body().getData().getOrdersModel();
+                        if(orderDetailsList.size()>0){
+                            recyclerCard.setVisibility(View.VISIBLE);
+                            rlNoDataFound.setVisibility(View.GONE);
+                            myOrdersAdapter = new MyOrdersAdapter(orderDetailsList, OrderHistory.this, context);
+                            productRecyclerView.setAdapter(myOrdersAdapter);
+                        }else {
+                            textMessage.setText(response.body().getHeaderModel().getMessage());
+                            recyclerCard.setVisibility(View.GONE);
+                            rlNoDataFound.setVisibility(View.VISIBLE);
+                        }
 
-                } else {
+                    } else {
+                        recyclerCard.setVisibility(View.GONE);
+                        rlNoDataFound.setVisibility(View.VISIBLE);
+                        textMessage.setText(response.body().getHeaderModel().getMessage());
+                        //  Dialogs.show_popUp(getResources().getString(R.string.networkalert) + "-" +  response.code(), getContext());
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
                     recyclerCard.setVisibility(View.GONE);
                     rlNoDataFound.setVisibility(View.VISIBLE);
-                    textMessage.setText(response.body().getHeaderModel().getMessage());
-                  //  Dialogs.show_popUp(getResources().getString(R.string.networkalert) + "-" +  response.code(), getContext());
                 }
 
             }

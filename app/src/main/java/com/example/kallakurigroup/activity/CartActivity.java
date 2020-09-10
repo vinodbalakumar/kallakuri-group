@@ -195,7 +195,10 @@ public class CartActivity extends AppCompatActivity implements CartItemListener 
         value1.put("selectedPrice", String.valueOf(selectedPrice));
         productTableDAO.updateRow("ProductDetails", value1, "Product_Id", productsList.get(position).getId());
 
-        float totalAmount = Float.parseFloat(amount_final.getText().toString());
+        float totalAmount = 0;
+        if (sharedpreferences.contains("total_amount") && sharedpreferences.getFloat("total_amount", 0) != 0) {
+            totalAmount = sharedpreferences.getFloat("total_amount", 0);
+        }
 
         if(type.equalsIgnoreCase("plus")){
             totalAmount = totalAmount+prodPrice;
@@ -241,9 +244,18 @@ public class CartActivity extends AppCompatActivity implements CartItemListener 
     }
 
     void setDataCartAmount(){
+        try {
+            if (sharedpreferences.contains("total_amount") && sharedpreferences.getFloat("total_amount", 0) != 0) {
+                amount_final.setText(String.valueOf(sharedpreferences.getFloat("total_amount", 0)));
+                sub_total_amount.setText(String.valueOf(sharedpreferences.getFloat("total_amount", 0)));
+            }else {
+                amount_final.setText("0");
+                sub_total_amount.setText("0");
+            }
+
             Gson gson = new Gson();
             String json = sharedpreferences.getString("cart_count", null);
-        try {
+
             Type type = new TypeToken<ArrayList<String>>() {
             }.getType();
             cartList = gson.fromJson(json, type);
@@ -256,10 +268,6 @@ public class CartActivity extends AppCompatActivity implements CartItemListener 
                 textCartCount.setVisibility(View.GONE);
             }
 
-            if (sharedpreferences.contains("total_amount") && sharedpreferences.getFloat("total_amount", 0) != 0) {
-                amount_final.setText(String.valueOf(sharedpreferences.getFloat("total_amount", 0)));
-                sub_total_amount.setText(String.valueOf(sharedpreferences.getFloat("total_amount", 0)));
-            }
         }catch (Exception e){
             e.printStackTrace();
         }

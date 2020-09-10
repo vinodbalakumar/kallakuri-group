@@ -176,7 +176,10 @@ public class ProductsActivity extends AppCompatActivity implements ProductItemLi
         value1.put("selectedPrice", String.valueOf(selectedPrice));
         productTableDAO.updateRow("ProductDetails", value1, "Product_Id", productsList.get(position).getId());
 
-        float totalAmount = Float.parseFloat(textTotAmount.getText().toString());
+        float totalAmount = 0;
+        if(sharedpreferences.contains("total_amount") && sharedpreferences.getFloat("total_amount", 0)!=0){
+            totalAmount = sharedpreferences.getFloat("total_amount", 0);
+        }
 
         if(type.equalsIgnoreCase("plus")){
             totalAmount = totalAmount+prodPrice;
@@ -216,9 +219,19 @@ public class ProductsActivity extends AppCompatActivity implements ProductItemLi
 
     void setDataCartAmount(){
 
+        try{
+
+        if(sharedpreferences.contains("total_amount") && sharedpreferences.getFloat("total_amount", 0)!=0){
+            textTotAmount.setText(String.valueOf(sharedpreferences.getFloat("total_amount", 0)));
+            rl_bottom_amount.setVisibility(View.VISIBLE);
+        }else {
+            textTotAmount.setText("0");
+            rl_bottom_amount.setVisibility(View.GONE);
+        }
+
         Gson gson = new Gson();
         String json = sharedpreferences.getString("cart_count", null);
-        try{
+
             Type type = new TypeToken<ArrayList<String>>() {}.getType();
             cartList = gson.fromJson(json, type);
 
@@ -230,12 +243,6 @@ public class ProductsActivity extends AppCompatActivity implements ProductItemLi
                 textCartCount.setVisibility(View.GONE);
             }
 
-            if(sharedpreferences.contains("total_amount") && sharedpreferences.getFloat("total_amount", 0)!=0){
-                textTotAmount.setText(String.valueOf(sharedpreferences.getFloat("total_amount", 0)));
-                rl_bottom_amount.setVisibility(View.VISIBLE);
-            }else {
-                rl_bottom_amount.setVisibility(View.GONE);
-            }
         }catch (Exception e){
             e.printStackTrace();
             rl_bottom_amount.setVisibility(View.GONE);
