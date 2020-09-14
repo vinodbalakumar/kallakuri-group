@@ -19,6 +19,7 @@ import com.example.kallakurigroup.retrofit.ApiClient;
 import com.example.kallakurigroup.retrofit.ApiInterface;
 import com.example.kallakurigroup.utils.Dialogs;
 import com.example.kallakurigroup.utils.Network_info;
+import com.example.kallakurigroup.utils.Popup_Class;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -171,11 +172,12 @@ public class Reset_password_Activity extends AppCompatActivity implements View.O
                         }
                     }else {
                         Dialogs.show_popUp(response.body().getMessage(), context);
-
+                        new Popup_Class().sendError("forgot-password", response.body().getMessage(), 0, mMobileNum);
                     }
 
                 } else {
                     Dialogs.show_popUp(response.message(), context);
+                    new Popup_Class().sendError("forgot-password", response.message(), 0, mMobileNum);
                 }
             }
 
@@ -183,7 +185,7 @@ public class Reset_password_Activity extends AppCompatActivity implements View.O
             public void onFailure(Call<ResetPinResponse> call, Throwable t) {
                 Dialogs.Cancel();
                 Dialogs.show_popUp(getResources().getString(R.string.error) + ": " + t.getMessage(), context);
-
+                new Popup_Class().sendError("forgot-password", t.getMessage(), 0, mMobileNum);
             }
         });
     }

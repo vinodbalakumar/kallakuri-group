@@ -30,6 +30,8 @@ import com.example.kallakurigroup.models.userModels.UserTableModel;
 import com.example.kallakurigroup.retrofit.ApiClient;
 import com.example.kallakurigroup.retrofit.ApiInterface;
 import com.example.kallakurigroup.utils.Dialogs;
+import com.example.kallakurigroup.utils.Network_info;
+import com.example.kallakurigroup.utils.Popup_Class;
 import com.example.kallakurigroup.utils.PropertiesFile;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -93,7 +95,15 @@ public class OrderHistory extends Fragment implements OrdersItemListener {
 
         productRecyclerView.setLayoutManager(new GridLayoutManager(context, 1));
 
-        getOrders();
+        if (Network_info.isNetworkAvailable(getContext())) {
+
+            getOrders();
+
+        } else {
+
+            Dialogs.show_popUp(getResources().getString(R.string.no_internet_connection), getContext());
+
+        }
 
         //loadAnimation(llBrands);
         loadAnimation(productRecyclerView);
@@ -139,28 +149,35 @@ public class OrderHistory extends Fragment implements OrdersItemListener {
                 try {
                     if (response.code() == 200) {
 
-                        orderDetailsList = response.body().getData().getOrdersModel();
-                        if(orderDetailsList.size()>0){
-                            recyclerCard.setVisibility(View.VISIBLE);
-                            rlNoDataFound.setVisibility(View.GONE);
-                            myOrdersAdapter = new MyOrdersAdapter(orderDetailsList, OrderHistory.this, context);
-                            productRecyclerView.setAdapter(myOrdersAdapter);
+                        if(response.body().getHeaderModel().getCode() == 200){
+                            orderDetailsList = response.body().getData().getOrdersModel();
+                            if(orderDetailsList.size()>0){
+                                recyclerCard.setVisibility(View.VISIBLE);
+                                rlNoDataFound.setVisibility(View.GONE);
+                                myOrdersAdapter = new MyOrdersAdapter(orderDetailsList, OrderHistory.this, context);
+                                productRecyclerView.setAdapter(myOrdersAdapter);
+                            }else {
+                                textMessage.setText(response.body().getHeaderModel().getMessage());
+                                recyclerCard.setVisibility(View.GONE);
+                                rlNoDataFound.setVisibility(View.VISIBLE);
+                            }
                         }else {
-                            textMessage.setText(response.body().getHeaderModel().getMessage());
                             recyclerCard.setVisibility(View.GONE);
                             rlNoDataFound.setVisibility(View.VISIBLE);
+                            textMessage.setText(response.body().getHeaderModel().getMessage());
+                            new Popup_Class().sendError("myOrders", response.body().getHeaderModel().getMessage(), userTableModel.getId(), userTableModel.getPhoneNo());
                         }
 
                     } else {
                         recyclerCard.setVisibility(View.GONE);
                         rlNoDataFound.setVisibility(View.VISIBLE);
-                        textMessage.setText(response.body().getHeaderModel().getMessage());
-                        //  Dialogs.show_popUp(getResources().getString(R.string.networkalert) + "-" +  response.code(), getContext());
+                        new Popup_Class().sendError("myOrders", response.message(), userTableModel.getId(), userTableModel.getPhoneNo());
                     }
                 }catch (Exception e){
                     e.printStackTrace();
                     recyclerCard.setVisibility(View.GONE);
                     rlNoDataFound.setVisibility(View.VISIBLE);
+                    new Popup_Class().sendError("myOrders", e.getMessage(), userTableModel.getId(), userTableModel.getPhoneNo());
                 }
 
             }

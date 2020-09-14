@@ -97,10 +97,12 @@ public class LoginCommon {
                            context.startActivity(new Intent(context, Homepage.class));
                        }else {
                            Dialogs.show_popUp(response.body().getHeaderModel().getMessage(), context);
+                           new Popup_Class().sendError("sign-in", response.body().getHeaderModel().getMessage(), 0, mPhoneNumber);
                        }
 
                     } else{
                         Dialogs.show_popUp(response.message(), context);
+                        new Popup_Class().sendError("sign-in", response.message(), 0, mPhoneNumber);
                     }
 
                 }
@@ -109,6 +111,7 @@ public class LoginCommon {
                 public void onFailure(Call<LoginResponceModel> call, Throwable t){
                     Dialogs.Cancel();
                     Dialogs.show_popUp(context.getResources().getString(R.string.unabletologin) + " " + t.getMessage(), context);
+                    new Popup_Class().sendError("sign-in", t.getMessage(), 0, mPhoneNumber);
 
                 }
             });

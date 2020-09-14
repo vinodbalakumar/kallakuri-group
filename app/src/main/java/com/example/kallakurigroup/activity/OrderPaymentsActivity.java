@@ -31,6 +31,7 @@ import com.example.kallakurigroup.retrofit.ApiClient;
 import com.example.kallakurigroup.retrofit.ApiInterface;
 import com.example.kallakurigroup.utils.Dialogs;
 import com.example.kallakurigroup.utils.Network_info;
+import com.example.kallakurigroup.utils.Popup_Class;
 import com.example.kallakurigroup.utils.PropertiesFile;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -160,7 +161,15 @@ public class OrderPaymentsActivity extends AppCompatActivity /*implements Paymen
                 @Override
                 public void onClick(View view) {
                     if(paymentId ==4){
-                        sendOTP(mobileNum);
+                        if (Network_info.isNetworkAvailable(context)) {
+
+                            sendOTP(mobileNum);
+
+                        } else {
+
+                            Dialogs.show_popUp(getResources().getString(R.string.no_internet_connection), context);
+
+                        }
                     }
                 }
             });
@@ -177,7 +186,15 @@ public class OrderPaymentsActivity extends AppCompatActivity /*implements Paymen
         textResendOtp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendOTP(mobileNum);
+                if (Network_info.isNetworkAvailable(context)) {
+
+                    sendOTP(mobileNum);
+
+                } else {
+
+                    Dialogs.show_popUp(getResources().getString(R.string.no_internet_connection), context);
+
+                }
             }
         });
 
@@ -285,10 +302,13 @@ public class OrderPaymentsActivity extends AppCompatActivity /*implements Paymen
                         }
                     }else {
                         Dialogs.show_popUp(response.body().getHeader().getMessage(), context);
+                        new Popup_Class().sendError("Send Otp Payment", response.body().getHeader().getMessage(), userTableDAO.getData().get(0).getId(), userTableDAO.getData().get(0).getPhoneNo());
                     }
 
                 } else {
                     Dialogs.show_popUp(response.message(), context);
+                    new Popup_Class().sendError("Send Otp Payment", response.message(), userTableDAO.getData().get(0).getId(), userTableDAO.getData().get(0).getPhoneNo());
+
                 }
             }
 
@@ -296,7 +316,7 @@ public class OrderPaymentsActivity extends AppCompatActivity /*implements Paymen
             public void onFailure(Call<OTPResponceModel> call, Throwable t) {
                 Dialogs.Cancel();
                 Dialogs.show_popUp(getResources().getString(R.string.error) + ": " + t.getMessage(), context);
-
+                new Popup_Class().sendError("Send Otp Payment",  t.getMessage(), userTableDAO.getData().get(0).getId(), userTableDAO.getData().get(0).getPhoneNo());
             }
         });
     }
@@ -318,7 +338,14 @@ public class OrderPaymentsActivity extends AppCompatActivity /*implements Paymen
 
         if(mOtp.equals(otp)){
            // startActivity(new Intent(OrderPaymentsActivity.this, PaymentSuccessFailure.class));
-            placeOrder();
+            if (Network_info.isNetworkAvailable(context)) {
+
+                placeOrder();
+            } else {
+
+                Dialogs.show_popUp(getResources().getString(R.string.no_internet_connection), context);
+
+            }
         } else {
             Toast.makeText(OrderPaymentsActivity.this, getResources().getString(R.string.otp_not_match), Toast.LENGTH_SHORT).show();
         }
@@ -447,6 +474,8 @@ public class OrderPaymentsActivity extends AppCompatActivity /*implements Paymen
 
                                 editor.putFloat("total_amount", 0).apply();
                                 editor.commit();
+                            }else {
+                                new Popup_Class().sendError("placeOrder",  response.body().getMessage(), userTableDAO.getData().get(0).getId(), userTableDAO.getData().get(0).getPhoneNo());
                             }
 
                             startActivity(new Intent(OrderPaymentsActivity.this, PaymentSuccessFailure.class).putExtra("status", response.body().getStatus()).putExtra("message", response.body().getMessage()).putExtra("orderId", response.body().getOrderCode()));
@@ -454,7 +483,8 @@ public class OrderPaymentsActivity extends AppCompatActivity /*implements Paymen
                         }
                     }
                 } else {
-                    Dialogs.show_popUp(getResources().getString(R.string.try_again), context);
+                    Dialogs.show_popUp(response.message(), context);
+                    new Popup_Class().sendError("placeOrder",  response.message(), userTableDAO.getData().get(0).getId(), userTableDAO.getData().get(0).getPhoneNo());
                 }
 
             }
@@ -463,6 +493,7 @@ public class OrderPaymentsActivity extends AppCompatActivity /*implements Paymen
             public void onFailure(Call<PlaceOrderDetails> call, Throwable t) {
                 Dialogs.Cancel();
                 Dialogs.show_popUp(getResources().getString(R.string.error) + ": " + t.getMessage(), context);
+                new Popup_Class().sendError("placeOrder",  t.getMessage(), userTableDAO.getData().get(0).getId(), userTableDAO.getData().get(0).getPhoneNo());
             }
         });
 

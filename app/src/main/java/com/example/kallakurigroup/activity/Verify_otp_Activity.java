@@ -465,8 +465,11 @@ public class Verify_otp_Activity extends AppCompatActivity {
         JsonObject jsonObject = null;
 
         try {
-
             data.put("reqType", "String");
+            if(mFrom.equalsIgnoreCase("forgotpass")) {
+                data.put("reqType", "forgot-password");
+            }
+
             data.put("roles", roles);
             data.put("signIn", JSONObject.NULL);
             data.put("userProfile",JSONObject.NULL);
@@ -509,24 +512,31 @@ public class Verify_otp_Activity extends AppCompatActivity {
 
                 if (response.code() == 200) {
 
-                    OTPResponceModel responceModel = response.body();
+                    if(response.body().getHeader().getCode() == 200) {
 
-                    String responePhoneNo = responceModel.getHeader().getPhoneNo();
-                    String otpCode = responceModel.getHeader().getOtpCode();
+                        OTPResponceModel responceModel = response.body();
 
-                    String phoneNo = responceModel.getHeader().getPhoneNo();
-                    if(phoneNo == null) {
-                        Dialogs.show_popUp(responceModel.getHeader().getMessage(), context);
+                        String responePhoneNo = responceModel.getHeader().getPhoneNo();
+                        String otpCode = responceModel.getHeader().getOtpCode();
+
+                        String phoneNo = responceModel.getHeader().getPhoneNo();
+                        if (phoneNo == null) {
+                            Dialogs.show_popUp(responceModel.getHeader().getMessage(), context);
+                        } else {
+
+                            mOTPCode = otpCode;
+                            textNote.setText(mMobileNumber + ": Your One Time Password is KK - " + mOTPCode + " for registering an new Account with KK-GROUPS");
+
+                        }
                     }else {
-
-                        mOTPCode = otpCode;
-                        textNote.setText(mMobileNumber+": Your One Time Password is KK - "+mOTPCode+" for registering an new Account with KK-GROUPS");
-
+                        Dialogs.show_popUp(response.body().getHeader().getMessage(), context);
+                        new Popup_Class().sendError("Send Otp "+mFrom, response.body().getHeader().getMessage(), 0, mobileNumber);
                     }
 
                 } else {
                     OTPResponceModel responceModel = response.body();
                     Dialogs.show_popUp(responceModel.getHeader().getMessage(), context);
+                    new Popup_Class().sendError("Send Otp "+mFrom, response.message(), 0, mobileNumber);
                 }
             }
 
@@ -535,6 +545,7 @@ public class Verify_otp_Activity extends AppCompatActivity {
 
                 Dialogs.Cancel();
                 Dialogs.show_popUp(getResources().getString(R.string.error) + ": " + t.getMessage(), context);
+                new Popup_Class().sendError("Send Otp "+mFrom, t.getMessage(), 0, mobileNumber);
 
             }
         });

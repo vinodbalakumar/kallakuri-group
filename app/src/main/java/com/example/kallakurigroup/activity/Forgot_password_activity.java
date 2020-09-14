@@ -17,10 +17,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.kallakurigroup.R;
 import com.example.kallakurigroup.database.UserTableDAO;
 import com.example.kallakurigroup.models.otpmodels.OTPResponceModel;
+import com.example.kallakurigroup.models.userModels.UserTableModel;
 import com.example.kallakurigroup.retrofit.ApiClient;
 import com.example.kallakurigroup.retrofit.ApiInterface;
 import com.example.kallakurigroup.utils.Dialogs;
 import com.example.kallakurigroup.utils.Network_info;
+import com.example.kallakurigroup.utils.Popup_Class;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -54,6 +56,7 @@ public class Forgot_password_activity extends AppCompatActivity implements View.
     public static String mMobilenUmber;
 
     UserTableDAO userTableDao;
+
 
     Context context;
 
@@ -221,10 +224,12 @@ public class Forgot_password_activity extends AppCompatActivity implements View.
 
                     }else {
                         Dialogs.show_popUp(response.body().getHeader().getMessage(), context);
+                        new Popup_Class().sendError("Send Otp Forgot Pass", response.body().getHeader().getMessage(), 0, mobileNumber);
                     }
 
                 } else {
                     Dialogs.show_popUp(response.message(), context);
+                    new Popup_Class().sendError("Send Otp Forgot Pass", response.message(), 0, mobileNumber);
                 }
             }
 
@@ -232,6 +237,7 @@ public class Forgot_password_activity extends AppCompatActivity implements View.
             public void onFailure(Call<OTPResponceModel> call, Throwable t) {
                 Dialogs.Cancel();
                 Dialogs.show_popUp(getResources().getString(R.string.error) + ": " + t.getMessage(), context);
+                new Popup_Class().sendError("Send Otp Forgot Pass", t.getMessage(), 0, mobileNumber);
 
             }
         });

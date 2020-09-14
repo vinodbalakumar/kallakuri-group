@@ -39,6 +39,8 @@ import com.example.kallakurigroup.models.userModels.UserTableModel;
 import com.example.kallakurigroup.retrofit.ApiClient;
 import com.example.kallakurigroup.retrofit.ApiInterface;
 import com.example.kallakurigroup.utils.Dialogs;
+import com.example.kallakurigroup.utils.Network_info;
+import com.example.kallakurigroup.utils.Popup_Class;
 import com.example.kallakurigroup.utils.Validations;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -227,7 +229,15 @@ public class Account_setup extends Activity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                register();
+                if (Network_info.isNetworkAvailable(context)) {
+
+                    register();
+
+                } else {
+
+                    Dialogs.show_popUp(getResources().getString(R.string.no_internet_connection), context);
+
+                }
             }
         });
 
@@ -609,10 +619,12 @@ public class Account_setup extends Activity {
                                 startActivity(i1);
                             }else {
                                 Dialogs.show_popUp(response.body().getHeaderModel().getMessage(), context);
+                                new Popup_Class().sendError("create-profile", response.body().getHeaderModel().getMessage(), 0, mMobileNum);
                             }
 
                         } else {
                             Dialogs.show_popUp(response.message(), context);
+                            new Popup_Class().sendError("create-profile", response.message(), 0, mMobileNum);
                         }
                     }
 
@@ -620,6 +632,7 @@ public class Account_setup extends Activity {
                     public void onFailure(Call<LoginResponceModel> call, Throwable t) {
                        Dialogs.Cancel();
                        Dialogs.show_popUp(getResources().getString(R.string.error) + ": " + t.getMessage(), context);
+                        new Popup_Class().sendError("create-profile", t.getMessage(), 0, mMobileNum);
                     }
                 });
 

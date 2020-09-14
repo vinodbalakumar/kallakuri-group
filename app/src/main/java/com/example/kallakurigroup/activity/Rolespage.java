@@ -14,11 +14,14 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.kallakurigroup.R;
+import com.example.kallakurigroup.database.UserTableDAO;
 import com.example.kallakurigroup.models.rolesmodels.RolesResponceModel;
+import com.example.kallakurigroup.models.userModels.UserTableModel;
 import com.example.kallakurigroup.retrofit.ApiClient;
 import com.example.kallakurigroup.retrofit.ApiInterface;
 import com.example.kallakurigroup.utils.Dialogs;
 import com.example.kallakurigroup.utils.Network_info;
+import com.example.kallakurigroup.utils.Popup_Class;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -91,6 +94,9 @@ public class Rolespage extends AppCompatActivity{
 
     private void getRoles(){
 
+        UserTableDAO userTableDAO = new UserTableDAO(context);
+        UserTableModel userTableModel = userTableDAO.getData().get(0);
+
         Dialogs.ProgressDialog(context);
 
         ApiInterface apiService =
@@ -130,11 +136,13 @@ public class Rolespage extends AppCompatActivity{
 
                     }else {
                         Dialogs.show_popUp(model.getHeader().getSuccess(), context);
+                        new Popup_Class().sendError("Fetching Roles", model.getHeader().getSuccess(), userTableModel.getId(), userTableModel.getPhoneNo());
                     }
 
 
                 } else {
                     Dialogs.show_popUp(response.message(), context);
+                    new Popup_Class().sendError("Fetching Roles", response.message(), userTableModel.getId(), userTableModel.getPhoneNo());
                 }
             }
 
@@ -142,6 +150,7 @@ public class Rolespage extends AppCompatActivity{
             public void onFailure(Call<RolesResponceModel> call, Throwable t) {
                 Dialogs.Cancel();
                 Dialogs.show_popUp(getResources().getString(R.string.error) + ": " + t.getMessage(), context);
+                new Popup_Class().sendError("Fetching Roles", t.getMessage(), userTableModel.getId(), userTableModel.getPhoneNo());
             }
         });
     }

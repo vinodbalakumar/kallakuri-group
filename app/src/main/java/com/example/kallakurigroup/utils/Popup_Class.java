@@ -37,7 +37,12 @@ import com.example.kallakurigroup.activity.Login;
 import com.example.kallakurigroup.database.BrandsTableDAO;
 import com.example.kallakurigroup.database.ProductTableDAO;
 import com.example.kallakurigroup.database.UserTableDAO;
+import com.example.kallakurigroup.retrofit.ApiClient;
+import com.example.kallakurigroup.retrofit.ApiInterface;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.j256.ormlite.stmt.query.In;
 
 import org.json.JSONArray;
@@ -48,6 +53,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.content.Context.FINGERPRINT_SERVICE;
 import static android.content.Context.KEYGUARD_SERVICE;
@@ -324,5 +333,35 @@ public class Popup_Class {
             e.printStackTrace();
         }
 
+    }
+
+    public void sendError(String description, String errorMessage, int id, String phoneNo){
+
+       try{
+           JSONObject jsonObject1 = new JSONObject();
+           jsonObject1.put("description", description);
+           jsonObject1.put("errorMessage", errorMessage);
+           jsonObject1.put("id", id);
+           jsonObject1.put("phoneNo", phoneNo);
+
+           JsonObject jsonObject = (JsonObject) new JsonParser().parse(jsonObject1.toString());
+
+           ApiInterface apiService =
+                   ApiClient.getClient().create(ApiInterface.class);
+
+           Call<JsonElement> call = apiService.sendError(jsonObject);
+           call.enqueue(new Callback<JsonElement>() {
+               @Override
+               public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
+
+               }
+
+               @Override
+               public void onFailure(Call<JsonElement> call, Throwable t) {
+               }
+           });
+       }catch (Exception e){
+           e.printStackTrace();
+       }
     }
 }

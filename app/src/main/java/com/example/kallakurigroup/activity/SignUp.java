@@ -27,6 +27,7 @@ import com.example.kallakurigroup.retrofit.ApiClient;
 import com.example.kallakurigroup.retrofit.ApiInterface;
 import com.example.kallakurigroup.utils.Dialogs;
 import com.example.kallakurigroup.utils.Network_info;
+import com.example.kallakurigroup.utils.Popup_Class;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -267,10 +268,13 @@ public class SignUp extends AppCompatActivity {
 
                     }else {
                         Dialogs.show_popUp(response.body().getHeader().getMessage(), context);
+                        new Popup_Class().sendError("Send Otp Signup", response.body().getHeader().getMessage(), 0, mobileNumber);
+
                     }
 
                 } else {
                     Dialogs.show_popUp(response.message(), context);
+                    new Popup_Class().sendError("Send Otp Signup", response.message(), 0, mobileNumber);
                 }
             }
 
@@ -278,7 +282,7 @@ public class SignUp extends AppCompatActivity {
             public void onFailure(Call<OTPResponceModel> call, Throwable t) {
                 Dialogs.Cancel();
                 Dialogs.show_popUp(getResources().getString(R.string.error) + ": " + t.getMessage(), context);
-
+                new Popup_Class().sendError("Send Otp Signup", t.getMessage(), 0, mobileNumber);
             }
         });
     }

@@ -33,6 +33,8 @@ import com.example.kallakurigroup.models.userModels.UserTableModel;
 import com.example.kallakurigroup.retrofit.ApiClient;
 import com.example.kallakurigroup.retrofit.ApiInterface;
 import com.example.kallakurigroup.utils.Dialogs;
+import com.example.kallakurigroup.utils.Network_info;
+import com.example.kallakurigroup.utils.Popup_Class;
 import com.example.kallakurigroup.utils.PropertiesFile;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.gson.JsonObject;
@@ -111,7 +113,16 @@ public class HomeFragment extends Fragment /*implements BrandsListener*/ {
             listTopBrands = topBrandsTableDAO.getData();
             setAdapter();
         }else {
-            getBrands();
+
+            if (Network_info.isNetworkAvailable(getContext())) {
+
+                getBrands();
+
+            } else {
+
+                Dialogs.show_popUp(getResources().getString(R.string.no_internet_connection), getContext());
+
+            }
         }
 
         return v;
@@ -151,26 +162,36 @@ public class HomeFragment extends Fragment /*implements BrandsListener*/ {
 
                 if (response.code() == 200) {
 
-                    model = response.body();
+                    if(response.body().getHeader().getCode() == 200){
+                        model = response.body();
 
-                    brandsList = model.getData().getBrandsList();
-                    productsObject = model.getData().getProductPricings();
-                    listTopBrands = model.getData().getLatestProducts();
+                        brandsList = model.getData().getBrandsList();
+                        productsObject = model.getData().getProductPricings();
+                        listTopBrands = model.getData().getLatestProducts();
 
-                    storeLocalDb();
-                    setAdapter();
+                        storeLocalDb();
+                        setAdapter();
+                    }else {
+                        homePlaceHolder.setVisibility(View.GONE);
+                        Dialogs.show_popUp(response.body().getHeader().getMessage(), getContext());
+                        new Popup_Class().sendError("products", response.body().getHeader().getMessage(), userTableModel.getId(), userTableModel.getPhoneNo());
+                    }
+
 
                 } else {
                     homePlaceHolder.setVisibility(View.GONE);
-                    Dialogs.show_popUp(getResources().getString(R.string.networkalert) + "-" +  response.code(), getContext());
+                    Dialogs.show_popUp(response.message(), getContext());
+                    new Popup_Class().sendError("products", response.message(), userTableModel.getId(), userTableModel.getPhoneNo());
                 }
 
             }
 
             @Override
             public void onFailure(Call<ProductResponceModel> call, Throwable t) {
-                Dialogs.show_popUp(getResources().getString(R.string.error) + "-" + t.getMessage(), getContext());
                 Dialogs.Cancel();
+                Dialogs.show_popUp(getResources().getString(R.string.error) + "-" + t.getMessage(), getContext());
+                new Popup_Class().sendError("products", t.getMessage(), userTableModel.getId(), userTableModel.getPhoneNo());
+
             }
         });
     }

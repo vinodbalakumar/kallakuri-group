@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.kallakurigroup.R;
+import com.example.kallakurigroup.database.ProductTableDAO;
 import com.example.kallakurigroup.database.UserTableDAO;
 import com.example.kallakurigroup.fragments.AboutUsFragment;
 import com.example.kallakurigroup.fragments.CategoriesFragment;
@@ -174,11 +175,16 @@ public class Homepage extends AppCompatActivity {
                         loadFragment(homeFragment);
                         break;
                     case R.id.optionCategories:
-                        selectedFragment = 2;
-                        header_text.setText(getResources().getString(R.string.categories));
-                        disableCart();
-                        CategoriesFragment categoriesFragment = new CategoriesFragment();
-                        loadFragment(categoriesFragment);
+                        if(new ProductTableDAO(context).getData().size()>0){
+                            selectedFragment = 2;
+                            header_text.setText(getResources().getString(R.string.categories));
+                            disableCart();
+                            CategoriesFragment categoriesFragment = new CategoriesFragment();
+                            loadFragment(categoriesFragment);
+                        }else {
+                            Dialogs.show_popUp("No data exist", context);
+                        }
+
                         break;
                     case R.id.optionMyOrder:
                         selectedFragment = 3;
@@ -375,15 +381,17 @@ public class Homepage extends AppCompatActivity {
                     Dialogs.dialogRefer(title, message, getResources().getString(R.string.share), context);
 
                 } else {
-                    Dialogs.show_popUp(getResources().getString(R.string.networkalert) + "-" +  response.code(), context);
+                    Dialogs.show_popUp(response.code() + "-" +  response.message(), context);
+                    new Popup_Class().sendError("referral", response.message(), userTableModel.getId(), userTableModel.getPhoneNo());
                 }
 
             }
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
-                Dialogs.show_popUp(getResources().getString(R.string.error) + "-" + t.getMessage(), context);
                 Dialogs.Cancel();
+                Dialogs.show_popUp(getResources().getString(R.string.error) + "-" + t.getMessage(), context);
+                new Popup_Class().sendError("referral", t.getMessage(), userTableModel.getId(), userTableModel.getPhoneNo());
             }
         });
     }

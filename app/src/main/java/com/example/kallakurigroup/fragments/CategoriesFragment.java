@@ -111,95 +111,11 @@ public class CategoriesFragment extends Fragment implements BrandsListener {
             brandsList = brandsTableDAO.getData();
             listTopBrands = topBrandsTableDAO.getData();
             setAdapter();
-        }else {
-            getBrands();
         }
 
         return v;
     }
 
-    void getBrands(){
-
-        JSONObject mainObject = new JSONObject();
-
-        try {
-            JSONObject data = new JSONObject();
-            JSONObject error = new JSONObject();
-            JSONObject header = new JSONObject();
-            header.put("role", Integer.parseInt(userTableModel.getRoleNumber()));
-            mainObject.put("data", null);
-            mainObject.put("error", null);
-            mainObject.put("header", header);
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        JsonParser jsonParser = new JsonParser();
-
-        JsonObject jsonObject = (JsonObject) jsonParser.parse(mainObject.toString());
-
-
-        ApiInterface apiService =
-                ApiClient.getClient().create(ApiInterface.class);
-
-        Call<ProductResponceModel> call = apiService.getProducts(PropertiesFile.baseUrlNew+"v1/products", jsonObject);
-        call.enqueue(new Callback<ProductResponceModel>() {
-            @Override
-            public void onResponse(Call<ProductResponceModel> call, Response<ProductResponceModel> response) {
-
-                Dialogs.Cancel();
-
-                if (response.code() == 200) {
-
-                    model = response.body();
-
-                    brandsList = model.getData().getBrandsList();
-                    productsObject = model.getData().getProductPricings();
-                    listTopBrands = model.getData().getLatestProducts();
-
-                    storeLocalDb();
-                    setAdapter();
-
-                } else {
-                    homePlaceHolder.setVisibility(View.GONE);
-                    Dialogs.show_popUp(getResources().getString(R.string.networkalert) + "-" +  response.code(), getContext());
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<ProductResponceModel> call, Throwable t) {
-                Dialogs.show_popUp(getResources().getString(R.string.error) + "-" + t.getMessage(), getContext());
-                Dialogs.Cancel();
-            }
-        });
-    }
-
-    private void storeLocalDb() {
-
-        brandsTableDAO.deleteAll();
-        productTableDAO.deleteAll();
-        topBrandsTableDAO.deleteAll();
-
-        for(BrandsDetails brands : brandsList )
-        {
-            brandsTableDAO.addData(brands);
-        }
-
-        for(TopBrandsDetails topBrands : listTopBrands )
-        {
-            topBrandsTableDAO.addData(topBrands);
-        }
-
-        List<ProductDetails> productsList = new ArrayList<>();
-        for (Map.Entry<String, List<ProductDetails>> productList : productsObject.entrySet()) {
-            productsList.addAll(productList.getValue());
-        }
-
-        productTableDAO.addData(productsList);
-
-    }
 
     private void setAdapter(){
         BrandsAdapter adapter = new BrandsAdapter(brandsList, CategoriesFragment.this);

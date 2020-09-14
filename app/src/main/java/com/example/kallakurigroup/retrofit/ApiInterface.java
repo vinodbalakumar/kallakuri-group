@@ -8,6 +8,7 @@ import com.example.kallakurigroup.models.productsmodels.PlaceOrderDetails;
 import com.example.kallakurigroup.models.productsmodels.ProductResponceModel;
 import com.example.kallakurigroup.models.rolesmodels.RolesResponceModel;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import retrofit2.Call;
@@ -63,5 +64,10 @@ public interface ApiInterface {
     @GET("v1/referral/{phoneNo}")
     Call<JsonObject> getReferral(
             @Path("phoneNo") String phoneNo
+    );
+
+    @POST("v1/error")
+    Call<JsonElement> sendError(
+            @Body JsonObject jsonObject
     );
 }
