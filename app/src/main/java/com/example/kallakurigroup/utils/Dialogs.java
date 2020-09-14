@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -114,18 +115,23 @@ public class Dialogs {
         });
     }
 
-    public static void show_popUp_2(String ok, String msg, Context context) {
+    public static void dialogRefer(String title, String msg, String buttonText, Context context) {
 
 
-        final BottomSheetDialog dg =  new Popup_Class().showDialog(false, context.getString(R.string.error), msg, context);
+        final BottomSheetDialog dg =  new Popup_Class().showDialog(false, title, msg, context);
         TextView k = (TextView) dg.findViewById(R.id.textOk);
+        k.setText(buttonText);
         LinearLayout ll_ok = (LinearLayout) dg.findViewById(R.id.ll_ok);
 
         k.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                dg.dismiss();
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT, msg);
+                context.startActivity(Intent.createChooser(intent, "Share"));
 
             }
         });
@@ -134,7 +140,11 @@ public class Dialogs {
             @Override
             public void onClick(View v) {
 
-                dg.dismiss();
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT, msg);
+                context.startActivity(Intent.createChooser(intent, "Share"));
 
             }
         });

@@ -81,8 +81,10 @@ public class Account_setup extends Activity {
     EditText district_et;
     Spinner state_et;
     EditText role_et;
+    EditText whatsappNum_tv;
     String gender;
     String user_DOB;
+    String user_age;
     String state_clicked, roleNameClicked = "role";
     String roleNumClicked = "0";
     String mMobileNum, imeiNum = "";
@@ -128,6 +130,7 @@ public class Account_setup extends Activity {
 
         String date = day+"/"+(month + 1)+"/"+year;
         user_DOB = date;
+        whatsappNum_tv = (EditText) findViewById(R.id.whatsappNum_tv);
         textRefreshAddress = (TextView) findViewById(R.id.textRefreshAddress);
         submit = (Button) this.findViewById(R.id.submit_btn_accntsetup);
         left_lay = (RelativeLayout) findViewById(R.id.left_lay);
@@ -284,6 +287,7 @@ public class Account_setup extends Activity {
                 dateView.setText(new StringBuilder().append(day).append("/")
                         .append(month).append("/").append(year));
                 user_DOB = dateView.getText().toString();
+                getAge(year, month, day);
             }
             else
                 Dialogs.show_popUp(getResources().getString(R.string.enter_age_less),context);
@@ -475,12 +479,17 @@ public class Account_setup extends Activity {
         String district = district_et.getText().toString().trim();
         String state = state_clicked;
         String pincode = pin_code_et.getText().toString().trim();
+        String whatsappNum = whatsappNum_tv.getText().toString();
+
 
         if (name.isEmpty()) {
             Dialogs.show_popUp(getResources().getString(R.string.enter_yourname), context);
             fname_et.requestFocus();
         } else if (password.isEmpty()) {
             Dialogs.show_popUp(getResources().getString(R.string.enter_password), context);
+            password_et.requestFocus();
+        }else if (password.length()<6) {
+            Dialogs.show_popUp(getResources().getString(R.string.password_length), context);
             password_et.requestFocus();
         } else if (confirmPass.isEmpty()) {
             Dialogs.show_popUp(getResources().getString(R.string.enter_confirm_pass), context);
@@ -550,6 +559,10 @@ public class Account_setup extends Activity {
                 userProfileBody.put("updatedAt", JSONObject.NULL);
                 userProfileBody.put("village", village);
                 userProfileBody.put("deliveryAddress", currentLocationAddress);
+                userProfileBody.put("age", user_age);
+                userProfileBody.put("dob", user_DOB);
+                userProfileBody.put("gender", gender);
+                userProfileBody.put("whatsAppNo", whatsappNum);
 
                 userProfile.put("userProfile", userProfileBody);
 
@@ -601,7 +614,6 @@ public class Account_setup extends Activity {
                         } else {
                             Dialogs.show_popUp(response.message(), context);
                         }
-
                     }
 
                     @Override
@@ -647,6 +659,7 @@ public class Account_setup extends Activity {
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
+
     private void getLocation() {
         if (ActivityCompat.checkSelfPermission(
                 Account_setup.this,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
@@ -664,6 +677,23 @@ public class Account_setup extends Activity {
                 Toast.makeText(this, "Unable to find location.", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private void getAge(int year, int month, int day){
+        Calendar dob = Calendar.getInstance();
+        Calendar today = Calendar.getInstance();
+
+        dob.set(year, month, day);
+
+        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+
+        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)){
+            age--;
+        }
+
+        Integer ageInt = new Integer(age);
+        String ageS = ageInt.toString();
+        user_age = ageS;
     }
 
     @Override

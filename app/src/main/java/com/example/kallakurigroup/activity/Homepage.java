@@ -23,21 +23,35 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.kallakurigroup.R;
 import com.example.kallakurigroup.database.UserTableDAO;
 import com.example.kallakurigroup.fragments.AboutUsFragment;
+import com.example.kallakurigroup.fragments.CategoriesFragment;
 import com.example.kallakurigroup.fragments.ContactUsFragment;
 import com.example.kallakurigroup.fragments.FeedBackFragment;
 import com.example.kallakurigroup.fragments.HomeFragment;
 import com.example.kallakurigroup.fragments.MyAccountFragment;
 import com.example.kallakurigroup.fragments.OrderHistory;
+import com.example.kallakurigroup.models.productsmodels.ProductResponceModel;
 import com.example.kallakurigroup.models.userModels.UserTableModel;
+import com.example.kallakurigroup.retrofit.ApiClient;
+import com.example.kallakurigroup.retrofit.ApiInterface;
+import com.example.kallakurigroup.utils.Dialogs;
 import com.example.kallakurigroup.utils.Popup_Class;
+import com.example.kallakurigroup.utils.PropertiesFile;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class Homepage extends AppCompatActivity {
@@ -65,10 +79,14 @@ public class Homepage extends AppCompatActivity {
 
     int selectedFragment;
 
+    Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
+
+        context = Homepage.this;
 
         sharedpreferences = getSharedPreferences(PREFERENCE, Context.MODE_PRIVATE);
         editor = sharedpreferences.edit();
@@ -155,8 +173,15 @@ public class Homepage extends AppCompatActivity {
                         HomeFragment homeFragment = new HomeFragment();
                         loadFragment(homeFragment);
                         break;
-                    case R.id.optionMyOrder:
+                    case R.id.optionCategories:
                         selectedFragment = 2;
+                        header_text.setText(getResources().getString(R.string.categories));
+                        disableCart();
+                        CategoriesFragment categoriesFragment = new CategoriesFragment();
+                        loadFragment(categoriesFragment);
+                        break;
+                    case R.id.optionMyOrder:
+                        selectedFragment = 3;
                         header_text.setText(getResources().getString(R.string.myOrders));
                         disableCart();
                         OrderHistory orderHistory = new OrderHistory();
@@ -164,7 +189,7 @@ public class Homepage extends AppCompatActivity {
                         break;
 
                     case R.id.optionMyAccount:
-                        selectedFragment = 3;
+                        selectedFragment = 4;
                         header_text.setText(getResources().getString(R.string.myAccount));
                         disableCart();
                         MyAccountFragment myAccountFragment = new MyAccountFragment();
@@ -172,25 +197,30 @@ public class Homepage extends AppCompatActivity {
                         break;
 
                     case R.id.optionContactUs:
-                        selectedFragment = 4;
+                        selectedFragment = 5;
                         header_text.setText(getResources().getString(R.string.contact_us));
                         disableCart();
                         ContactUsFragment contactUsFragment = new ContactUsFragment();
                         loadFragment(contactUsFragment);
                         break;
                     case R.id.optionFeedBack:
-                        selectedFragment = 5;
+                        selectedFragment = 6;
                         header_text.setText(getResources().getString(R.string.feedback));
                         disableCart();
                         FeedBackFragment feedBackFragment = new FeedBackFragment();
                         loadFragment(feedBackFragment);
                         break;
                     case R.id.optionAboutUs:
-                        selectedFragment = 6;
+                        selectedFragment = 7;
                         disableCart();
                         header_text.setText(getResources().getString(R.string.about_us));
                         AboutUsFragment aboutUsFragment = new AboutUsFragment();
                         loadFragment(aboutUsFragment);
+                        break;
+
+                    case R.id.optionRefer:
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        getReferral();
                         break;
                     case R.id.optionLogout:
                         //exitApp("Logout","KkGroups Alert!", "Are you sure you want to logout?");
@@ -325,4 +355,37 @@ public class Homepage extends AppCompatActivity {
     void enableCart(){
         rl_cart.setVisibility(View.VISIBLE);
     }
+
+    void getReferral(){
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+
+        Call<JsonObject> call = apiService.getReferral(userTableModel.getPhoneNo());
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+
+                Dialogs.Cancel();
+
+                if (response.code() == 200) {
+
+                    String title = getResources().getString(R.string.refer);
+                    String message = response.body().get("referral").getAsString();
+
+                    Dialogs.dialogRefer(title, message, getResources().getString(R.string.share), context);
+
+                } else {
+                    Dialogs.show_popUp(getResources().getString(R.string.networkalert) + "-" +  response.code(), context);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Dialogs.show_popUp(getResources().getString(R.string.error) + "-" + t.getMessage(), context);
+                Dialogs.Cancel();
+            }
+        });
+    }
+
 }

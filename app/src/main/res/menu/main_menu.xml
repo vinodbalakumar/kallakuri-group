@@ -6,6 +6,10 @@
         android:title="@string/home"/>
 
     <item
+        android:id="@+id/optionCategories"
+        android:title="@string/categories"/>
+
+    <item
         android:id="@+id/optionMyOrder"
         android:title="@string/myOrders"/>
 
@@ -26,6 +30,11 @@
         android:id="@+id/optionFeedBack"
         android:title="@string/feedback"
         android:visible="false"/>
+
+    <item
+        android:id="@+id/optionRefer"
+        android:title="@string/refer"
+        android:visible="true"/>
 
     <item
         android:id="@+id/optionLogout"

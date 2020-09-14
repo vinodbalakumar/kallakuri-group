@@ -144,7 +144,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
-                    android:maxLength="10"
+                    android:maxLength="12"
                     android:id="@+id/account_pass"
                     android:hint="@string/pin_account_set"
                     android:gravity="start"
@@ -164,14 +164,31 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
-                    android:maxLength="10"
+                    android:maxLength="12"
                     android:textSize="@dimen/_12sdp"
-                    android:nextFocusDown="@id/email_tv"
+                    android:nextFocusDown="@id/whatsappNum_tv"
                     android:id="@+id/account_confirm_pass"
                     android:hint="@string/confirm_pin_account_set"
                     android:textColorHint="@color/grey"/>
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/TextLabell"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_10sdp">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    android:maxLength="10"
+                    android:textColorHint="@color/grey"
+                    android:textSize="@dimen/_12sdp"
+                    android:nextFocusDown="@+id/email"
+                    android:id="@+id/whatsappNum_tv"
+                    android:hint="@string/whatsapp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"

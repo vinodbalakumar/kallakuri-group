@@ -11,6 +11,7 @@ import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,7 +20,6 @@ import com.bumptech.glide.Glide;
 import com.example.kallakurigroup.R;
 import com.example.kallakurigroup.activity.ProductsActivity;
 import com.example.kallakurigroup.adapters.BrandsAdapter;
-import com.example.kallakurigroup.adapters.HomeAdapter;
 import com.example.kallakurigroup.database.BrandsTableDAO;
 import com.example.kallakurigroup.database.ProductTableDAO;
 import com.example.kallakurigroup.database.TopBrandsTableDAO;
@@ -58,7 +58,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment /*implements BrandsListener*/ {
+public class CategoriesFragment extends Fragment implements BrandsListener {
 
     private List<BrandsDetails> brandsList = new ArrayList<>();
     private ProductResponceModel model;
@@ -68,8 +68,8 @@ public class HomeFragment extends Fragment /*implements BrandsListener*/ {
     @BindView(R.id.homePlaceHolder)
     ShimmerFrameLayout homePlaceHolder;
 
-    @BindView(R.id.ll_brands)
-    LinearLayout llBrands;
+   /* @BindView(R.id.brandsRowCardView)
+    CardView brandsRowCardView;*/
 
     @BindView(R.id.homeRecyclerView)
     RecyclerView homeRecyclerView;
@@ -81,7 +81,7 @@ public class HomeFragment extends Fragment /*implements BrandsListener*/ {
     ProductTableDAO productTableDAO;
     TopBrandsTableDAO topBrandsTableDAO;
 
-    public HomeFragment() {
+    public CategoriesFragment() {
         // Required empty public constructor
     }
 
@@ -90,7 +90,7 @@ public class HomeFragment extends Fragment /*implements BrandsListener*/ {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_home, container, false);
+        View v = inflater.inflate(R.layout.fragment_categories, container, false);
 
         ButterKnife.bind(this, v);
 
@@ -104,10 +104,11 @@ public class HomeFragment extends Fragment /*implements BrandsListener*/ {
 
         homePlaceHolder.startShimmer();
 
-        homeRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1));
+        homeRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         //homeRecyclerView.addItemDecoration(new GridSpacingItemDecoration(5));
 
         if(productTableDAO.getData().size()>0){
+            brandsList = brandsTableDAO.getData();
             listTopBrands = topBrandsTableDAO.getData();
             setAdapter();
         }else {
@@ -201,11 +202,11 @@ public class HomeFragment extends Fragment /*implements BrandsListener*/ {
     }
 
     private void setAdapter(){
-        HomeAdapter adapter = new HomeAdapter(listTopBrands);
+        BrandsAdapter adapter = new BrandsAdapter(brandsList, CategoriesFragment.this);
         homeRecyclerView.setAdapter(adapter);
         homePlaceHolder.setVisibility(View.GONE);
-        llBrands.setVisibility(View.VISIBLE);
-        loadAnimation(llBrands);
+        homeRecyclerView.setVisibility(View.VISIBLE);
+        loadAnimation(homeRecyclerView);
         loadAnimation(homeRecyclerView);
 
         homePlaceHolder.startShimmer();
@@ -218,4 +219,15 @@ public class HomeFragment extends Fragment /*implements BrandsListener*/ {
         view.setLayoutAnimation(layoutAnimationController);
     }
 
+    @Override
+    public void brandSelected(int position, String brandName, int brandId) {
+
+        Intent intent = new Intent(getContext(), ProductsActivity.class);
+       /* Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("products", selectedProducts);
+        intent.putExtras(bundle);*/
+        intent.putExtra("brand_name", brandName);
+        intent.putExtra("brand_id", String.valueOf(brandId));
+        startActivity(intent);
+    }
 }

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="brand"
+            type="com.example.kallakurigroup.models.productsmodels.TopBrandsDetails" />
+
+    </data>
+
+    <!--  <androidx.cardview.widget.CardView
+          android:id="@+id/brandsRowCardView"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:cardElevation="@dimen/_5sdp"
+          app:cardCornerRadius="@dimen/_7sdp"
+          android:layout_margin="@dimen/_5sdp"
+          android:clickable="true"
+          android:focusable="true"
+          android:descendantFocusability="blocksDescendants"
+          android:foreground="?android:attr/selectableItemBackground">-->
+
+    <LinearLayout
+        android:id="@+id/ll_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="@dimen/_5sdp"
+        android:background="@drawable/button_line_background_grey"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/brandsRowImageView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_100sdp"
+            android:scaleType="centerCrop"
+            android:focusable="false"
+            android:layout_margin="@dimen/_2sdp"
+            android:imageUrl="@{brand.imagePath}" />
+
+        <TextView
+            android:id="@+id/brandsRowTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:paddingVertical="@dimen/_8sdp"
+            android:text="@{brand.description}"
+            android:background="@color/textBack"
+            android:textColor="@color/textColor_text"
+            android:textStyle="bold"
+            android:paddingHorizontal="@dimen/_5sdp"
+            android:textSize="@dimen/_12sdp" />
+    </LinearLayout>
+
+    <!--</androidx.cardview.widget.CardView>-->
+
+</layout>

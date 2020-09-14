@@ -19,7 +19,6 @@ import com.bumptech.glide.Glide;
 import com.example.kallakurigroup.R;
 import com.example.kallakurigroup.activity.ProductsActivity;
 import com.example.kallakurigroup.adapters.BrandsAdapter;
-import com.example.kallakurigroup.adapters.HomeAdapter;
 import com.example.kallakurigroup.database.BrandsTableDAO;
 import com.example.kallakurigroup.database.ProductTableDAO;
 import com.example.kallakurigroup.database.TopBrandsTableDAO;
@@ -58,7 +57,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment /*implements BrandsListener*/ {
+public class HomeFragmentOld extends Fragment implements BrandsListener {
 
     private List<BrandsDetails> brandsList = new ArrayList<>();
     private ProductResponceModel model;
@@ -71,6 +70,9 @@ public class HomeFragment extends Fragment /*implements BrandsListener*/ {
     @BindView(R.id.ll_brands)
     LinearLayout llBrands;
 
+    @BindView(R.id.homeCarouselView)
+    CarouselView homeCarouselView;
+
     @BindView(R.id.homeRecyclerView)
     RecyclerView homeRecyclerView;
 
@@ -81,7 +83,7 @@ public class HomeFragment extends Fragment /*implements BrandsListener*/ {
     ProductTableDAO productTableDAO;
     TopBrandsTableDAO topBrandsTableDAO;
 
-    public HomeFragment() {
+    public HomeFragmentOld() {
         // Required empty public constructor
     }
 
@@ -90,7 +92,7 @@ public class HomeFragment extends Fragment /*implements BrandsListener*/ {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_home, container, false);
+        View v = inflater.inflate(R.layout.fragment_home_old, container, false);
 
         ButterKnife.bind(this, v);
 
@@ -104,10 +106,11 @@ public class HomeFragment extends Fragment /*implements BrandsListener*/ {
 
         homePlaceHolder.startShimmer();
 
-        homeRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1));
+        homeRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         //homeRecyclerView.addItemDecoration(new GridSpacingItemDecoration(5));
 
         if(productTableDAO.getData().size()>0){
+            brandsList = brandsTableDAO.getData();
             listTopBrands = topBrandsTableDAO.getData();
             setAdapter();
         }else {
@@ -201,7 +204,7 @@ public class HomeFragment extends Fragment /*implements BrandsListener*/ {
     }
 
     private void setAdapter(){
-        HomeAdapter adapter = new HomeAdapter(listTopBrands);
+        BrandsAdapter adapter = new BrandsAdapter(brandsList, HomeFragmentOld.this);
         homeRecyclerView.setAdapter(adapter);
         homePlaceHolder.setVisibility(View.GONE);
         llBrands.setVisibility(View.VISIBLE);
@@ -209,6 +212,23 @@ public class HomeFragment extends Fragment /*implements BrandsListener*/ {
         loadAnimation(homeRecyclerView);
 
         homePlaceHolder.startShimmer();
+
+        homeCarouselView.setImageListener(new ImageListener() {
+            @Override
+            public void setImageForPosition(int position, ImageView imageView) {
+                Glide.with(Objects.requireNonNull(getActivity()).getApplicationContext())
+                        .load(listTopBrands.get(position).getImagePath())
+                        .into(imageView);
+            }
+        });
+
+        homeCarouselView.setPageCount(listTopBrands.size());
+
+        homeCarouselView.setImageClickListener(new ImageClickListener() {
+            @Override
+            public void onClick(int position) {
+            }
+        });
     }
 
     private void loadAnimation(ViewGroup view) {
@@ -218,4 +238,15 @@ public class HomeFragment extends Fragment /*implements BrandsListener*/ {
         view.setLayoutAnimation(layoutAnimationController);
     }
 
+    @Override
+    public void brandSelected(int position, String brandName, int brandId) {
+
+        Intent intent = new Intent(getContext(), ProductsActivity.class);
+       /* Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("products", selectedProducts);
+        intent.putExtras(bundle);*/
+        intent.putExtra("brand_name", brandName);
+        intent.putExtra("brand_id", String.valueOf(brandId));
+        startActivity(intent);
+    }
 }

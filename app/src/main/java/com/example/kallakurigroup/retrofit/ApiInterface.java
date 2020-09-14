@@ -15,6 +15,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Url;
 
 public interface ApiInterface {
@@ -57,5 +58,10 @@ public interface ApiInterface {
     @POST
     Call<MainModel> getOrders(@Url String url,
                               @Body JsonObject jsonObject
+    );
+
+    @GET("v1/referral/{phoneNo}")
+    Call<JsonObject> getReferral(
+            @Path("phoneNo") String phoneNo
     );
 }

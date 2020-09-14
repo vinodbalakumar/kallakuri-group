@@ -173,7 +173,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                 } else {
 
                     Dialogs.show_popUp(getResources().getString(R.string.no_internet_connection), context);
-
                 }
 
                 //  clearData();

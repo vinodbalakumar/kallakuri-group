@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/homeGridLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:columnCount="1"
+    android:background="@color/background"
+    android:orientation="vertical"
+    tools:context=".fragments.HomeFragment">
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/homePlaceHolder">
+
+        <include layout="@layout/categories_placeholder"/>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+ <!--   <androidx.cardview.widget.CardView
+        android:id="@+id/brandsRowCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="@dimen/_5sdp"
+        app:cardCornerRadius="@dimen/_7sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone"
+        android:backgroundTint="@color/card_back"
+        android:descendantFocusability="blocksDescendants"
+        android:foreground="?android:attr/selectableItemBackground">-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/homeRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:layout_margin="@dimen/_5sdp"/>
+   <!-- </androidx.cardview.widget.CardView>-->
+</RelativeLayout>

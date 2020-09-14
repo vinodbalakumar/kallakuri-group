@@ -15,6 +15,7 @@
     <string name="enter_Valid_pin">Please Enter Valid PinCode</string>
     <string name="enter_Valid_password">Please Enter Valid Password</string>
     <string name="enter_password">Please Enter Password</string>
+    <string name="password_length">Password length should be 6 to 12 characters</string>
     <string name="enter_confirm_pass">Please Enter Confirm Password</string>
     <string name="pass_does_not_matched">Password does not matched with Confirm Password</string>
     <string name="enter_yourname">Please Enter  Name</string>
@@ -222,6 +223,9 @@
     <string name="edit">Edit</string>
     <string name="refresh">Refresh</string>
     <string name="fetchCurrentLoc">Get current location address</string>
+    <string name="whatsapp">WhatsApp Number</string>
+    <string name="refer">Refer</string>
+    <string name="share">Share</string>
 
     <string-array name="state_arrays">
         <item>State</item>
