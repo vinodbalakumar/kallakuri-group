@@ -84,7 +84,10 @@ public class Reset_password_Activity extends AppCompatActivity implements View.O
                 if (password.isEmpty()) {
                     Dialogs.show_popUp(getResources().getString(R.string.enter_password), context);
                     password_et.requestFocus();
-                } else if (confirmPass.isEmpty()) {
+                } else if (password.length()<6) {
+                    Dialogs.show_popUp(getResources().getString(R.string.password_length), context);
+                    password_et.requestFocus();
+                }else if (confirmPass.isEmpty()) {
                     Dialogs.show_popUp(getResources().getString(R.string.enter_confirm_pass), context);
                     confirmPass_et.requestFocus();
                 } else if (!password.equalsIgnoreCase(confirmPass)) {
