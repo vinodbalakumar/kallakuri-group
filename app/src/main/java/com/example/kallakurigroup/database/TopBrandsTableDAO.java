@@ -9,10 +9,6 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
 import java.util.List;
 
 
-/**
- * Created by android on 3/3/17.
- */
-
 public class TopBrandsTableDAO {
     public DatabaseHelper helper;
     Context mContext;

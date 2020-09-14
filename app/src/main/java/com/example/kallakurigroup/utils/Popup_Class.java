@@ -61,10 +61,6 @@ import retrofit2.Response;
 import static android.content.Context.FINGERPRINT_SERVICE;
 import static android.content.Context.KEYGUARD_SERVICE;
 
-/**
- * Created by aw on 23-11-2016.
- */
-
 public class Popup_Class {
 
     public static final String PREFERENCE = "KALLAKURI";
@@ -364,4 +360,5 @@ public class Popup_Class {
            e.printStackTrace();
        }
     }
+
 }

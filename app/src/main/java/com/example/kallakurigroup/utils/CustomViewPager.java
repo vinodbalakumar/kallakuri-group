@@ -7,9 +7,6 @@ import android.view.MotionEvent;
 
 import androidx.viewpager.widget.ViewPager;
 
-/**
- * Created by aw on 21-03-2018.
- */
 
 public class CustomViewPager extends ViewPager {
     private Boolean disable = false;

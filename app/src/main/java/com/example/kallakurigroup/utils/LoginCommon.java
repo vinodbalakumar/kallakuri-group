@@ -25,10 +25,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * Created by android on 9/3/17.
- */
-
 public class LoginCommon {
 
     Context context;

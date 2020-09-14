@@ -15,9 +15,6 @@ import android.telephony.TelephonyManager;
 
 import androidx.core.app.ActivityCompat;
 
-/**
- * Created by android on 3/3/17.
- */
 
 public class ReadInfoFromPhone {
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;

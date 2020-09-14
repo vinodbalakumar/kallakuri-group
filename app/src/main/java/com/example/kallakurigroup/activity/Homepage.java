@@ -1,9 +1,13 @@
 package com.example.kallakurigroup.activity;
 
 import android.animation.ValueAnimator;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +36,7 @@ import com.example.kallakurigroup.fragments.MyAccountFragment;
 import com.example.kallakurigroup.fragments.OrderHistory;
 import com.example.kallakurigroup.models.productsmodels.ProductResponceModel;
 import com.example.kallakurigroup.models.userModels.UserTableModel;
+import com.example.kallakurigroup.receivers.NetworkChangeReceiver;
 import com.example.kallakurigroup.retrofit.ApiClient;
 import com.example.kallakurigroup.retrofit.ApiInterface;
 import com.example.kallakurigroup.utils.Dialogs;
@@ -81,6 +86,8 @@ public class Homepage extends AppCompatActivity {
     int selectedFragment;
 
     Context context;
+
+    private BroadcastReceiver mNetworkReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -237,6 +244,9 @@ public class Homepage extends AppCompatActivity {
                 return true;
             }
         });
+
+        mNetworkReceiver = new NetworkChangeReceiver();
+        registerNetworkBroadcastForNougat();
 
         setDataCartCount();
     }
@@ -396,4 +406,26 @@ public class Homepage extends AppCompatActivity {
         });
     }
 
+    private void registerNetworkBroadcastForNougat() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            registerReceiver(mNetworkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            registerReceiver(mNetworkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        }
+    }
+
+    protected void unregisterNetworkChanges() {
+        try {
+            unregisterReceiver(mNetworkReceiver);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unregisterNetworkChanges();
+    }
 }

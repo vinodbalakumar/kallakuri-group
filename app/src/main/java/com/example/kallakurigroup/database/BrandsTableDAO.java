@@ -14,11 +14,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-
-/**
- * Created by android on 3/3/17.
- */
-
 public class BrandsTableDAO {
     public DatabaseHelper helper;
     Context mContext;

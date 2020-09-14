@@ -34,13 +34,11 @@ import retrofit2.Response;
 
 import static com.example.kallakurigroup.utils.Popup_Class.PREFERENCE;
 
-/**
- * Created by android on 2/3/17.
- */
 
 public class Dialogs {
 
    public static Dialog _dialog;
+   public static BottomSheetDialog mBottomSheetDialogNetwork;
 
     public static void ProgressDialog(Context context){
 
@@ -122,6 +120,7 @@ public class Dialogs {
         });
     }
 
+
     public static void dialogRefer(String title, String msg, String buttonText, Context context) {
 
 
@@ -158,4 +157,19 @@ public class Dialogs {
 
     }
 
+    public static void showDialogSingleMessage(boolean type, Context context) {
+
+        if(type == true && mBottomSheetDialogNetwork!=null && mBottomSheetDialogNetwork.isShowing()){
+            mBottomSheetDialogNetwork.cancel();
+        }else if(type == false && (mBottomSheetDialogNetwork==null || !mBottomSheetDialogNetwork.isShowing())){
+            mBottomSheetDialogNetwork = new BottomSheetDialog(context);
+            LayoutInflater li = LayoutInflater.from(context);
+
+            LinearLayout lt = (LinearLayout) li.inflate(R.layout.layout_dialog_message, null);
+
+            mBottomSheetDialogNetwork.setContentView(lt);
+            mBottomSheetDialogNetwork.setCanceledOnTouchOutside(false);
+            mBottomSheetDialogNetwork.show();
+        }
+    }
 }
