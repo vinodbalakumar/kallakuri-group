@@ -268,7 +268,6 @@ public class ProductsActivity extends AppCompatActivity implements ProductItemLi
                     rlNoDataFound.setVisibility(View.VISIBLE);
                 }
             }
-
         }
     }//onActivityResult
 }

@@ -89,6 +89,8 @@ public class Homepage extends AppCompatActivity {
 
     private BroadcastReceiver mNetworkReceiver;
 
+    String from = "home";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -185,7 +187,7 @@ public class Homepage extends AppCompatActivity {
                         if(new ProductTableDAO(context).getData().size()>0){
                             selectedFragment = 2;
                             header_text.setText(getResources().getString(R.string.categories));
-                            disableCart();
+                            enableCart();
                             CategoriesFragment categoriesFragment = new CategoriesFragment();
                             loadFragment(categoriesFragment);
                         }else {
@@ -249,6 +251,25 @@ public class Homepage extends AppCompatActivity {
         registerNetworkBroadcastForNougat();
 
         setDataCartCount();
+
+        try {
+            from = getIntent().getStringExtra("from");
+
+            if (from.equalsIgnoreCase("cart")) {
+                if(new ProductTableDAO(context).getData().size()>0){
+                    selectedFragment = 2;
+                    header_text.setText(getResources().getString(R.string.categories));
+                    enableCart();
+                    CategoriesFragment categoriesFragment = new CategoriesFragment();
+                    loadFragment(categoriesFragment);
+                }else {
+                    Dialogs.show_popUp("No data exist", context);
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
    /* @Override

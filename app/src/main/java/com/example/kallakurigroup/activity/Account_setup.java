@@ -35,7 +35,6 @@ import androidx.core.content.ContextCompat;
 import com.example.kallakurigroup.R;
 import com.example.kallakurigroup.database.UserTableDAO;
 import com.example.kallakurigroup.models.loginmodel.LoginResponceModel;
-import com.example.kallakurigroup.models.userModels.UserTableModel;
 import com.example.kallakurigroup.retrofit.ApiClient;
 import com.example.kallakurigroup.retrofit.ApiInterface;
 import com.example.kallakurigroup.utils.Dialogs;

@@ -94,9 +94,6 @@ public class Rolespage extends AppCompatActivity{
 
     private void getRoles(){
 
-        UserTableDAO userTableDAO = new UserTableDAO(context);
-        UserTableModel userTableModel = userTableDAO.getData().get(0);
-
         Dialogs.ProgressDialog(context);
 
         ApiInterface apiService =
@@ -136,13 +133,13 @@ public class Rolespage extends AppCompatActivity{
 
                     }else {
                         Dialogs.show_popUp(model.getHeader().getSuccess(), context);
-                        new Popup_Class().sendError("Fetching Roles", model.getHeader().getSuccess(), userTableModel.getId(), userTableModel.getPhoneNo());
+                        new Popup_Class().sendError("Fetching Roles", model.getHeader().getSuccess(), 0, mobileNum);
                     }
 
 
                 } else {
                     Dialogs.show_popUp(response.message(), context);
-                    new Popup_Class().sendError("Fetching Roles", response.message(), userTableModel.getId(), userTableModel.getPhoneNo());
+                    new Popup_Class().sendError("Fetching Roles", response.message(), 0, mobileNum);
                 }
             }
 
@@ -150,7 +147,7 @@ public class Rolespage extends AppCompatActivity{
             public void onFailure(Call<RolesResponceModel> call, Throwable t) {
                 Dialogs.Cancel();
                 Dialogs.show_popUp(getResources().getString(R.string.error) + ": " + t.getMessage(), context);
-                new Popup_Class().sendError("Fetching Roles", t.getMessage(), userTableModel.getId(), userTableModel.getPhoneNo());
+                new Popup_Class().sendError("Fetching Roles", t.getMessage(), 0, mobileNum);
             }
         });
     }

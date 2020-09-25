@@ -155,14 +155,14 @@ public class CartActivity extends AppCompatActivity implements CartItemListener 
         ll_shop_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              backToHome();
+                backToHomeCat();
             }
         });
 
         textShop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                backToHome();
+                backToHomeCat();
             }
         });
 
@@ -227,7 +227,7 @@ public class CartActivity extends AppCompatActivity implements CartItemListener 
         }else {
             amount_final.setText("0.0");
             sub_total_amount.setText("0.0");
-            backToHome();
+            backToHomeCat();
         }
     }
 
@@ -280,12 +280,20 @@ public class CartActivity extends AppCompatActivity implements CartItemListener 
     }
 
 
-    void backToHome(){
+    void backToHomeCat(){
         Intent i = new Intent(CartActivity.this, Homepage.class);
+        i.putExtra("from", "cart");
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
         finish();
     }
+
+    /*void backToHome(){
+        Intent i = new Intent(CartActivity.this, Homepage.class);
+        i.putExtra("from", "home");
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
+    }*/
 
     void backToPage(){
         if(fromType.equalsIgnoreCase("prodAct")){
