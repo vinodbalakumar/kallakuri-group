@@ -20,9 +20,9 @@
     <application
         android:name=".utils.MyApplication"
         android:allowBackup="true"
-        android:icon="@drawable/aboutuslogo"
+        android:icon="@drawable/kallakuri"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/aboutuslogo"
+        android:roundIcon="@drawable/kallakuri"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
